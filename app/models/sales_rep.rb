@@ -54,4 +54,8 @@ class SalesRep < ApplicationRecord
       [i, self["goal#{i}"], self["comm#{i}"]]
     end
   end
+
+  def last_name
+    name.split.second
+  end
 end

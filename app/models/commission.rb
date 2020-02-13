@@ -29,6 +29,7 @@ class Commission
 
   # Returns the base commission % for the matching level.
   def base_pct
+    return 0 unless level
     _index, _goal, pct = level
     pct
   end
