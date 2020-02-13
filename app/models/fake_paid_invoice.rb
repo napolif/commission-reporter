@@ -21,7 +21,7 @@
 class FakePaidInvoice < PaidInvoice
   after_initialize :populate
 
-  def self.new_batch(size: 100, batch_num:)
+  def self.new_batch(size: 100, batch_num: PaidInvoice.next_batch_number)
     invoices = size.times.map do
       new(batch: batch_num)
     end

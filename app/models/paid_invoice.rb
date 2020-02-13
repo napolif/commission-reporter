@@ -29,10 +29,14 @@ class PaidInvoice < ApplicationRecord
 
   belongs_to :sales_rep, primary_key: 'code', foreign_key: 'sales_rep_code'
 
-  scope :newest, -> { where(batch: self.highest_batch) }
+  scope :latest, -> { where(batch: self.latest_batch_number) }
 
-  def self.highest_batch
-    PaidInvoice.order(batch: :desc).limit(1).pluck(:batch)
+  def self.latest_batch_number
+    PaidInvoice.order(batch: :desc).limit(1).pluck(:batch).first
+  end
+
+  def self.next_batch_number
+    latest_batch_number.to_i + 1
   end
 
   def amount=(val)
