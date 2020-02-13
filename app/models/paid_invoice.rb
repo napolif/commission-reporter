@@ -27,6 +27,14 @@ class PaidInvoice < ApplicationRecord
   validates :amount, presence: true
   validates :cost, presence: true
 
+  belongs_to :sales_rep, primary_key: 'code', foreign_key: 'sales_rep_code'
+
+  scope :newest, -> { where(batch: self.highest_batch) }
+
+  def self.highest_batch
+    PaidInvoice.order(batch: :desc).limit(1).pluck(:batch)
+  end
+
   def amount=(val)
     super BigDecimal(val, 8)
   end
