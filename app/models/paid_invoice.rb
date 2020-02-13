@@ -1,35 +1,49 @@
-class PaidInvoice
-  include ActiveModel::Model
-  include ActiveModel::AttributeMethods
+# == Schema Information
+#
+# Table name: paid_invoices
+#
+#  id             :bigint           not null, primary key
+#  batch          :string
+#  number         :string
+#  sales_rep_code :string
+#  invoiced_on    :date
+#  paid_on        :date
+#  amount         :decimal(8, 2)
+#  cost           :decimal(8, 2)
+#  customer_id    :string
+#  customer_name  :string
+#  cases          :integer
+#  delivered      :boolean
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#
 
-  attr_accessor :number, :salesrep_id, :invoiced_on, :paid_on, :amount, :cost, :cases, :delivered
-
-  attribute_method_suffix '_pct'
-  define_attribute_methods 'margin', 'markup'
+class PaidInvoice < ApplicationRecord
+  validates :batch, presence: true
+  validates :number, presence: true
+  validates :sales_rep_code, presence: true # TODO: upcase
+  validates :invoiced_on, presence: true
+  validates :paid_on, presence: true
+  validates :amount, presence: true
+  validates :cost, presence: true
 
   def amount=(val)
-    @amount = BigDecimal(val, 10)
+    super BigDecimal(val, 8)
   end
 
   def cost=(val)
-    @cost = BigDecimal(val, 10)
+    super BigDecimal(val, 8)
   end
 
   def profit
     amount - cost
   end
 
-  def markup
-    profit / cost
-  end
-
   def margin
     profit / amount
   end
 
-  private
-
-  def attribute_pct(attribute)
-    send(attribute) * 100
+  def margin_pct
+    100 * margin
   end
 end
