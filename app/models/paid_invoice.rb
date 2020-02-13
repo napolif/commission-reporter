@@ -60,4 +60,22 @@ class PaidInvoice < ApplicationRecord
   def margin_pct
     100 * margin
   end
+
+  def age_category
+    wait_days = (paid_on - invoiced_on).to_i
+    raise "Error: invoice #{id} paid_on before invoiced_on" if wait_days.negative?
+
+    case wait_days
+      when 0..45
+        :within_45
+      when 45..60
+        :within_60
+      when 61..90
+        :within_90
+      when 90..120
+        :within_120
+      else
+        :over_120
+     end
+  end
 end

@@ -42,4 +42,16 @@ class SalesRep < ApplicationRecord
   has_many :paid_invoices, primary_key: 'code', foreign_key: 'sales_rep_code'
 
   before_validation { code.upcase! }
+
+  PERIODS_BY_AGE = { within_45:  'period1',
+                     within_60:  'period2',
+                     within_90:  'period3',
+                     within_120: 'period4',
+                     over_120:   'period5' }
+
+  def commission_table
+    (1..10).map do |i|
+      [i, self["goal#{i}"], self["comm#{i}"]]
+    end
+  end
 end
