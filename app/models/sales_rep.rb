@@ -40,4 +40,6 @@ class SalesRep < ApplicationRecord
   validates :name, presence: true
 
   has_many :paid_invoices, primary_key: 'code', foreign_key: 'sales_rep_code'
+
+  before_validation { code.upcase! }
 end

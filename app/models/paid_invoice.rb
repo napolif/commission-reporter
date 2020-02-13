@@ -31,6 +31,8 @@ class PaidInvoice < ApplicationRecord
 
   scope :latest, -> { where(batch: self.latest_batch_number) }
 
+  before_validation { sales_rep_code.upcase! }
+
   def self.latest_batch_number
     PaidInvoice.order(batch: :desc).limit(1).pluck(:batch).first
   end
