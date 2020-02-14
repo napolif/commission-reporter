@@ -1,24 +1,59 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Commission Reporter is a Rails app for calculating Napoli Foods commission payments.
 
-Things you may want to cover:
+## Requirements
 
-* Ruby version
+* Ruby 2.6.2
+* Bundler 2.1.4
+* PostgreSQL
 
-* System dependencies
+## Installation
 
-* Configuration
+### Set up OS
 
-* Database creation
+* make an instance of latest Ubuntu Server
+* `sudo ufw allow 3000/tcp` (for development server)
 
-* Database initialization
+### Install PostgreSQL
 
-* How to run the test suite
+* `sudo apt-get install postgresql`
+* `sudo apt-get install libpq-dev`
+* `sudo su`
+* `su postgres`
+* `createuser -s --username=postgres <username>` (and exit)
 
-* Services (job queues, cache servers, search engines, etc.)
+### Install Ruby (using rbenv)
 
-* Deployment instructions
+* `mkdir` & `chown` /app
+* `sudo apt-get install rbenv`
+* install ruby-build as an rbenv plugin: https://github.com/rbenv/ruby-build#installation
+* `rbenv init` & add rbenv to shell rc file as it instructs
 
-* ...
+### Install Yarn
+
+* `curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -`
+* `echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list`
+* `sudo apt-get update`
+* `sudo apt-get install yarn`
+
+### Clone app & install dependencies
+
+* `git clone https://github.com/johncip/napoli-commission-app` (will need credentials)
+* `gem install bundler:2.1.4`
+* `bundle install`
+* `yarn install --check-files`
+* `bundle exec rake db:create`
+* `bundle exec rake db:migrate`
+
+### Running
+
+* ensure that the server's hostname is added to `config.hosts` in e.g. `config/environments/development.rb`
+* `cd /app/napoli-commission-app`
+* `bundle exec rails server`
+
+## Updating
+
+* `cd /app/napoli-commission-app`
+* `git pull`
+* bundle install
