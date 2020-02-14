@@ -44,10 +44,10 @@ Commission Reporter is a Rails app for calculating Napoli Foods commission payme
 * `bundle install`
 * `yarn install --check-files`
 * `bundle exec rake db:setup`
+* ensure that the server's hostname is added to `config.hosts` in e.g. `config/environments/development.rb`
 
 ### Running
 
-* ensure that the server's hostname is added to `config.hosts` in e.g. `config/environments/development.rb`
 * `cd /app/napoli-commission-app`
 * `bundle exec rails server`
 
@@ -55,4 +55,4 @@ Commission Reporter is a Rails app for calculating Napoli Foods commission payme
 
 * `cd /app/napoli-commission-app`
 * `git pull`
-* bundle install
+* `bundle install`
