@@ -31,3 +31,4 @@ yarn-debug.log*
 .yarn-integrity
 
 tags
+.DS_Store
