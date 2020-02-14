@@ -41,6 +41,10 @@ class PaidInvoice < ApplicationRecord
     latest_batch_number.to_i + 1
   end
 
+  def self.batch_numbers
+    PaidInvoice.select(:batch).distinct.pluck(:batch)
+  end
+
   def amount=(val)
     super BigDecimal(val, 8)
   end
