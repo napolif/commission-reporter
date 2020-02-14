@@ -29,7 +29,7 @@ ActiveAdmin.register_page "Dashboard" do
         panel 'Reports' do
           ul class: 'dashboard_ul' do
             li link_to('Comission Report - Latest', '/reports/latest')
-            PaidInvoice.batch_numbers.each do |num|
+            PaidInvoice.batch_numbers.sort.reverse.each do |num|
               li link_to("Comission Report - #{num}", "/reports/#{num}")
             end
           end
