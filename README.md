@@ -43,8 +43,7 @@ Commission Reporter is a Rails app for calculating Napoli Foods commission payme
 * `gem install bundler:2.1.4`
 * `bundle install`
 * `yarn install --check-files`
-* `bundle exec rake db:create`
-* `bundle exec rake db:migrate`
+* `bundle exec rake db:setup`
 
 ### Running
 
