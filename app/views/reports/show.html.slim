@@ -1,1 +1,40 @@
-hello
+h1 Commission Report
+p = "Generated #{Date.today}"
+hr
+
+- reps = @data.keys.sort_by(&:last_name)
+- reps.each do |rep|
+  section
+    h2 = rep.name
+    - comms = @data[rep]
+    table
+      thead
+        tr
+          td Invoice
+          td Customer ID
+          td Customer Name
+          td.ralign Amount
+          td.ralign Cost
+          td.ralign Margin
+          td Invoiced On
+          td Paid On
+          td Age
+          td.ralign Comm $
+      tbody
+        - @data[rep].each do |comm|
+          - inv = comm.paid_invoice
+          tr
+            td = inv.number
+            td = inv.customer_id
+            td = inv.customer_name
+            td.ralign = inv.amount
+            td.ralign = inv.cost
+            td.ralign = "%.2f" % inv.margin_pct
+            td = inv.invoiced_on
+            td = inv.paid_on
+            td = inv.age_category.to_s.sub('within_', '')
+            td.ralign = "%.2f" % comm.amount
+    .total
+      - total = comms.map(&:amount).reduce(:+)
+      = "Total Commission $: %.2f" % total
+    hr

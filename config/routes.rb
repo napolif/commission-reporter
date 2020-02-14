@@ -5,5 +5,5 @@ Rails.application.routes.draw do
 
   # root to: "home#index"
 
-  get 'report', action: :show, controller: 'reports'
+  get '/reports/:batch', to: 'reports#show'
 end

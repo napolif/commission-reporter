@@ -1,3 +1,41 @@
 // Place all the styles related to the Reports controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+body {
+  margin: 5em;
+  font-family: helvetica;
+  font-size: 10pt;
+
+  @media print {
+    margin: 0;
+  }
+}
+
+thead {
+  font-weight: bold;
+}
+
+tbody > tr:nth-child(odd) {
+  background-color: #eaf0fa;
+}
+
+td.ralign {
+  text-align: right;
+}
+
+hr {
+  margin: 2em 0;
+  border: 0;
+  border-top: 1px solid lightgray;
+}
+
+.total {
+  font-weight: bold;
+}
+
+@media print {
+  section {
+    page-break-inside: avoid;
+  }
+}
