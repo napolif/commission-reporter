@@ -46,7 +46,9 @@ hr
 
 section.summary
   ruby:
-    total_rows = reps.reject(&:disabled).map do |rep|
+    enabled_reps = reps.reject(&:disabled)
+    disabled_reps = reps.select(&:disabled)
+    total_rows = enabled_reps.map do |rep|
       [rep, @data[rep].map(&:amount).reduce(:+)]
     end
     totals = total_rows.transpose.second
@@ -71,14 +73,17 @@ section.summary
 
   - if @list_disabled_reps
     hr
-    h3 Hidden Reps
-    table
-      thead
-        tr
-          td Rep ID
-          td Rep Name
-      tbody
-        - reps.select(&:disabled).each do |rep|
+    h3 Disabled Sales Reps
+    - if disabled_reps.none?
+      p No sales reps have been disabled.
+    - else
+      table
+        thead
           tr
-            td = rep.code
-            td = rep.name
+            td Rep ID
+            td Rep Name
+        tbody
+          - disabled_reps.each do |rep|
+            tr
+              td = rep.code
+              td = rep.name
