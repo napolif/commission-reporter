@@ -16,6 +16,10 @@
 //
 //   .status_tag { background: #6090DB; }
 
+body {
+  font-family: lato, helvetica, sans-serif;
+}
+
 .dashboard_ul {
   font-size: 150%;
 
@@ -38,10 +42,15 @@
 
 .formatLink-html {
   @extend .formatLink;
-  background-color: blue;
+  background-color: rgb(75, 75, 235);
 }
 
 .formatLink-pdf {
   @extend .formatLink;
-  background-color: red;
+  background-color: rgb(235, 75, 75);
+}
+
+.reportName {
+  display: inline-block;
+  width: 14em;
 }

@@ -14,13 +14,13 @@ ActiveAdmin.register_page "Dashboard" do
         panel 'Reports' do
           ul class: 'dashboard_ul' do
             li do
-              span "Commission Report - Latest"
+              span "Commission Report - Latest", class: "reportName"
               span link_to("HTML", report_path("latest"), class: "formatLink-html")
               span link_to("PDF", report_path("latest", format: :pdf), class: "formatLink-pdf")
             end
             PaidInvoice.batch_numbers.sort.reverse.each do |num|
               li do
-                span "Commission Report - #{num}"
+                span "Commission Report - #{num}", class: "reportName"
                 span link_to("HTML", report_path(num), class: "formatLink-html")
                 span link_to("PDF", report_path(num, format: :pdf), class: "formatLink-pdf")
               end
