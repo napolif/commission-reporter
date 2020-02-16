@@ -22,7 +22,7 @@
 class PaidInvoice < ApplicationRecord
   validates :batch, presence: true
   validates :number, presence: true
-  validates :sales_rep_code, presence: true # TODO: upcase
+  validates :sales_rep_code, presence: true
   validates :invoiced_on, presence: true
   validates :paid_on, presence: true
   validates :amount, presence: true
