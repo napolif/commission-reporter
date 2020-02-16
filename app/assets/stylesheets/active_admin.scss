@@ -18,4 +18,30 @@
 
 .dashboard_ul {
   font-size: 150%;
+
+  li {
+    margin-top: 1em;
+  }
+}
+
+.formatLink {
+  position: relative;
+  bottom: 3px;
+  padding: 3px;
+  font-size: 75%;
+  font-weight: bold;
+  border-radius: 3px;
+  color: white !important;
+  text-decoration: none !important;
+  margin-left: 4px;
+}
+
+.formatLink-html {
+  @extend .formatLink;
+  background-color: blue;
+}
+
+.formatLink-pdf {
+  @extend .formatLink;
+  background-color: red;
 }
