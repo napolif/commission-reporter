@@ -55,7 +55,7 @@ ActiveAdmin.register SalesRep do
     (1..10).each do |i|
       inputs "Level #{i}" do
         input :"goal#{i}", label: "Minimum GP %"
-        input :"comm#{1}", label: "Commission %"
+        input :"comm#{i}", label: "Commission %"
       end
     end
 
