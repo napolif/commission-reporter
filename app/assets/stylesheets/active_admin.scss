@@ -26,18 +26,30 @@ body {
   }
 }
 
+.optionsPanel {
+  input[type="checkbox"] {
+    position: relative;
+    bottom: 1px;
+    margin-right: 2px;
+  }
+
+  label {
+    font-size: 125%;
+  }
+}
+
 .statistic {
-  font-size: 150%;
+  font-size: 125%;
   margin: 8px 0;
 }
 
 .reportList {
-  font-size: 150%;
+  font-size: 125%;
   margin-bottom: 16px;
 }
 
 .reportListItem {
-  margin-top: 1em;
+  margin-top: 8px;
 }
 
 .formatLink {

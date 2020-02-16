@@ -21,17 +21,29 @@ ActiveAdmin.register_page "Dashboard" do
           ul class: "reportList" do
             li class: "reportListItem" do
               span "Commission Report - Latest", class: "reportName"
-              span link_to("HTML", report_path("latest"), class: "formatLink-html")
-              span link_to("PDF", report_path("latest", format: :pdf), class: "formatLink-pdf")
+              span link_to("HTML", report_path("latest"),
+                           class: "formatLink-html")
+              span link_to("PDF", report_path("latest", format: :pdf),
+                           class: "formatLink-pdf js-pdfLink")
             end
             PaidInvoice.batch_numbers.sort.reverse.each do |num|
               li class: "reportListItem" do
                 span "Commission Report - #{num}", class: "reportName"
-                span link_to("HTML", report_path(num), class: "formatLink-html")
-                span link_to("PDF", report_path(num, format: :pdf), class: "formatLink-pdf")
+                span link_to("HTML", report_path(num),
+                             class: "formatLink-html")
+                span link_to("PDF", report_path(num, format: :pdf),
+                             class: "formatLink-pdf js-pdfLink")
               end
             end
           end
+        end
+
+        panel "PDF Options", class: "optionsPanel" do
+          input type: "checkbox", class: "js-onePerPage", name: "one_per_page"
+          label "Break page after each rep", for: "one_per_page"
+          br
+          input type: "checkbox", class: "js-grayscale", name: "grayscale"
+          label "Grayscale", for: "grayscale"
         end
       end
     end

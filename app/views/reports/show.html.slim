@@ -40,4 +40,5 @@ hr
     .total
       - total = comms.map(&:amount).reduce(:+)
       = "Total Commission $: %.2f" % total
-    hr
+    - unless params[:one_per_page]
+      hr
