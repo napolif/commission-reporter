@@ -1,6 +1,7 @@
 class ReportsController < ApplicationController
   def show
     @data = report_data
+    @one_per_page = true if params[:one_per_page]
   end
 
   private

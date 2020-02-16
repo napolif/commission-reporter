@@ -14,6 +14,7 @@ Commission Reporter is a Rails app for calculating Napoli Foods commission payme
 
 * make an instance of latest Ubuntu Server
 * `sudo ufw allow 3000/tcp` (for development server)
+* `sudo apt-get install wkhtmltopdf`
 
 ### Install PostgreSQL
 
@@ -37,7 +38,7 @@ Commission Reporter is a Rails app for calculating Napoli Foods commission payme
 * `sudo apt-get update`
 * `sudo apt-get install yarn`
 
-### Clone app & install dependencies
+### Clone app & install ruby/js dependencies
 
 * `git clone https://github.com/johncip/napoli-commission-app` (will need credentials)
 * `gem install bundler:2.1.4`
@@ -56,3 +57,4 @@ Commission Reporter is a Rails app for calculating Napoli Foods commission payme
 * `cd /app/napoli-commission-app`
 * `git pull`
 * `bundle install`
+* `yarn`

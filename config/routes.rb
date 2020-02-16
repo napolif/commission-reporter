@@ -1,10 +1,8 @@
 Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
-  get '/', to: redirect('/admin')
-  # root to: 'admin#index'
+  root to: "admin/dashboard#index"
 
-  get '/reports/:batch', to: 'reports#show'
+  get '/reports/:batch', to: 'reports#show', as: :report
 end

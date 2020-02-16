@@ -16,6 +16,41 @@
 //
 //   .status_tag { background: #6090DB; }
 
-.dashboard_ul {
+body {
+  font-family: lato, helvetica, sans-serif;
+}
+
+.reportList {
   font-size: 150%;
+}
+
+.reportListItem {
+  margin-top: 1em;
+}
+
+.formatLink {
+  position: relative;
+  bottom: 3px;
+  padding: 3px;
+  font-size: 75%;
+  font-weight: bold;
+  border-radius: 3px;
+  color: white !important;
+  text-decoration: none !important;
+  margin-left: 4px;
+}
+
+.formatLink-html {
+  @extend .formatLink;
+  background-color: rgb(75, 75, 235);
+}
+
+.formatLink-pdf {
+  @extend .formatLink;
+  background-color: rgb(235, 75, 75);
+}
+
+.reportName {
+  display: inline-block;
+  width: 14em;
 }

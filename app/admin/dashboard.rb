@@ -4,39 +4,30 @@ ActiveAdmin.register_page "Dashboard" do
   content title: proc { I18n.t("active_admin.dashboard") } do
     div class: "blank_slate_container", id: "dashboard_default_message" do
       span class: "blank_slate" do
-        # span I18n.t("active_admin.dashboard_welcome.welcome")
-        # small I18n.t("active_admin.dashboard_welcome.call_to_action")
         img src: '/napoli.png', height: '80px'
         img src: '/ferraro.svg', height: '80px'
       end
     end
 
-    # Here is an example of a simple dashboard with columns and panels.
-    #
-    # columns do
-    #   column do
-    #     panel "Recent Posts" do
-    #       ul do
-    #         Post.recent(5).map do |post|
-    #           li link_to(post.title, admin_post_path(post))
-    #         end
-    #       end
-    #     end
-    #   end
-
     columns do
       column do
         panel 'Reports' do
-          ul class: 'dashboard_ul' do
-            li link_to('Comission Report - Latest', '/reports/latest')
+          ul class: "reportList" do
+            li class: "reportListItem" do
+              span "Commission Report - Latest", class: "reportName"
+              span link_to("HTML", report_path("latest"), class: "formatLink-html")
+              span link_to("PDF", report_path("latest", format: :pdf), class: "formatLink-pdf")
+            end
             PaidInvoice.batch_numbers.sort.reverse.each do |num|
-              li link_to("Comission Report - #{num}", "/reports/#{num}")
+              li class: "reportListItem" do
+                span "Commission Report - #{num}", class: "reportName"
+                span link_to("HTML", report_path(num), class: "formatLink-html")
+                span link_to("PDF", report_path(num, format: :pdf), class: "formatLink-pdf")
+              end
             end
           end
-
         end
       end
     end
-
   end
 end
