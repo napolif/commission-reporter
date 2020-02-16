@@ -27,7 +27,7 @@ class PaidInvoice < ApplicationRecord
   validates :amount, presence: true
   validates :cost, presence: true
 
-  belongs_to :sales_rep, primary_key: 'code', foreign_key: 'sales_rep_code'
+  belongs_to :sales_rep, primary_key: "code", foreign_key: "sales_rep_code"
 
   scope :latest, -> { where(batch: self.latest_batch_number) }
 

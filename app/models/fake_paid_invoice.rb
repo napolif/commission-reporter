@@ -39,7 +39,7 @@ class FakePaidInvoice < PaidInvoice
     self.paid_on = Faker::Date.between(from: invoiced_on, to: Date.today)
 
     self.customer_name = Faker::Restaurant.name
-    self.customer_id = customer_name.gsub(' ', '').upcase.first(6)
+    self.customer_id = customer_name.gsub(" ", "").upcase.first(6)
 
     self.cost = Faker::Number.decimal(l_digits: 4, r_digits: 2)
     self.amount = Faker::Number.between(from: cost, to: cost * 1.25)

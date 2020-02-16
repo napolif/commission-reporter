@@ -19,13 +19,13 @@ ActiveAdmin.register SalesRep do
   end
 
   show do |rep|
-    attributes_table(title: 'Sales Rep Details') do
+    attributes_table(title: "Sales Rep Details") do
       row :code
       row :name
       row "Commission Type" do rep.comm_type end
     end
 
-    attributes_table(title: 'Aging Multipliers') do
+    attributes_table(title: "Aging Multipliers") do
       (1..5).each do |i|
         row "Period #{i} %" do rep["period#{i}"] end
       end
@@ -39,14 +39,14 @@ ActiveAdmin.register SalesRep do
     end
   end
 
-  form title: 'Edit Sales Rep' do |f|
-    inputs 'Sales Rep Details' do
+  form title: "Edit Sales Rep" do |f|
+    inputs "Sales Rep Details" do
       input :code
       input :name
       input :comm_type, label: "Commission Type"
     end
 
-    inputs 'Aging Multipliers' do
+    inputs "Aging Multipliers" do
       (1..5).each do |i|
         input :"period#{i}", label: "Period #{i} %"
       end
