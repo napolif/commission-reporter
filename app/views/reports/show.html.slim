@@ -9,7 +9,7 @@ hr
 
 - reps = @data.keys.sort_by(&:last_name)
 - reps.each do |rep|
-  section
+  section[class=("break-after" if @one_per_page)]
     h2 = rep.name
     - comms = @data[rep]
     table

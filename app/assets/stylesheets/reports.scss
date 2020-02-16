@@ -38,4 +38,8 @@ hr {
   section {
     page-break-inside: avoid;
   }
+
+  .break-after {
+    page-break-after: always;
+  }
 }
