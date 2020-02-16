@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_16_043007) do
+ActiveRecord::Schema.define(version: 2020_02_16_203757) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 2020_02_16_043007) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
-  create_table "paid_invoices", force: :cascade do |t|
+  create_table "invoices", force: :cascade do |t|
     t.string "batch"
     t.string "number"
     t.string "sales_rep_code"
@@ -55,9 +55,9 @@ ActiveRecord::Schema.define(version: 2020_02_16_043007) do
     t.boolean "delivered"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["batch", "sales_rep_code"], name: "index_paid_invoices_on_batch_and_sales_rep_code"
-    t.index ["batch"], name: "index_paid_invoices_on_batch"
-    t.index ["sales_rep_code"], name: "index_paid_invoices_on_sales_rep_code"
+    t.index ["batch", "sales_rep_code"], name: "index_invoices_on_batch_and_sales_rep_code"
+    t.index ["batch"], name: "index_invoices_on_batch"
+    t.index ["sales_rep_code"], name: "index_invoices_on_sales_rep_code"
   end
 
   create_table "sales_reps", force: :cascade do |t|

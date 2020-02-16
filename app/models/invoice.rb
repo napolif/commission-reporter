@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: paid_invoices
+# Table name: invoices
 #
 #  id             :bigint           not null, primary key
 #  batch          :string
@@ -18,8 +18,8 @@
 #  updated_at     :datetime         not null
 #
 
-# Header for an invoice that has been paid.
-class PaidInvoice < ApplicationRecord
+# Header for an invoice.
+class Invoice < ApplicationRecord
   validates :batch, presence: true
   validates :number, presence: true
   validates :sales_rep_code, presence: true
@@ -35,7 +35,7 @@ class PaidInvoice < ApplicationRecord
   before_validation { sales_rep_code.upcase! }
 
   def self.latest_batch_number
-    PaidInvoice.order(batch: :desc).limit(1).pluck(:batch).first
+    Invoice.order(batch: :desc).limit(1).pluck(:batch).first
   end
 
   def self.next_batch_number
@@ -43,7 +43,7 @@ class PaidInvoice < ApplicationRecord
   end
 
   def self.batch_numbers
-    PaidInvoice.select(:batch).distinct.pluck(:batch)
+    Invoice.select(:batch).distinct.pluck(:batch)
   end
 
   def amount=(val)

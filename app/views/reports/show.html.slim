@@ -25,7 +25,7 @@ hr
           td.ralign Comm $
       tbody
         - comms.each do |comm|
-          - inv = comm.paid_invoice
+          - inv = comm.invoice
           tr
             td = inv.number
             td = inv.customer_id
