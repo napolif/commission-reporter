@@ -1,15 +1,15 @@
 # Calculation of a commission amount for a given invoice & associated sales rep.
 class Commission
-  attr_reader :paid_invoice, :sales_rep
+  attr_reader :invoice, :sales_rep
 
-  delegate :age_category, to: :paid_invoice
-  delegate :margin_pct, to: :paid_invoice
+  delegate :age_category, to: :invoice
+  delegate :margin_pct, to: :invoice
   delegate :commission_table, to: :sales_rep
   delegate :comm_type, to: :sales_rep
 
-  def initialize(paid_invoice)
-    @paid_invoice = paid_invoice
-    @sales_rep = paid_invoice.sales_rep
+  def initialize(invoice)
+    @invoice = invoice
+    @sales_rep = invoice.sales_rep
   end
 
   # Returns the commission for the associated invoice in dollars.
@@ -17,9 +17,9 @@ class Commission
     adjusted = adjusted_pct / 100
 
     if sales_rep.comm_type == "S"
-      adjusted * paid_invoice.amount
+      adjusted * invoice.amount
     else
-      adjusted * paid_invoice.profit
+      adjusted * invoice.profit
     end
   end
 

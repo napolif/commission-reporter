@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: paid_invoices
+# Table name: invoices
 #
 #  id             :bigint           not null, primary key
 #  batch          :string
@@ -18,19 +18,19 @@
 #  updated_at     :datetime         not null
 #
 
-# Convenience class for generating a PaidInvoice with fake information.
-class FakePaidInvoice < PaidInvoice
+# Convenience class for generating a Invoice with fake information.
+class FakeInvoice < Invoice
   after_initialize :populate
 
-  def self.new_batch(size: 100, batch_num: PaidInvoice.next_batch_number)
+  def self.new_batch(size: 100, batch_num: Invoice.next_batch_number)
     size.times.map do
       new(batch: batch_num)
     end
   end
 
-  def self.create_batch(size: 100, batch_num: PaidInvoice.next_batch_number)
+  def self.create_batch(size: 100, batch_num: Invoice.next_batch_number)
     a_batch = new_batch(size: size, batch_num: batch_num)
-    PaidInvoice.import(a_batch)
+    Invoice.import(a_batch)
     a_batch
   end
 

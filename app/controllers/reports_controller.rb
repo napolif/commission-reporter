@@ -18,9 +18,9 @@ class ReportsController < ApplicationController
 
   def invoices
     if params[:batch] == "latest"
-      PaidInvoice.latest.includes(:sales_rep)
+      Invoice.latest.includes(:sales_rep)
     else
-      PaidInvoice.where(batch: params[:batch]).includes(:sales_rep)
+      Invoice.where(batch: params[:batch]).includes(:sales_rep)
     end
   end
 

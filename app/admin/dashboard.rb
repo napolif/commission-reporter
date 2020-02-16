@@ -12,8 +12,8 @@ ActiveAdmin.register_page "Dashboard" do
     columns do
       column do
         panel "Information" do
-          para "Latest batch size: " + PaidInvoice.latest.count.to_s, class: "statistic"
-          latest_date = PaidInvoice.latest.pluck(:invoiced_on).max.to_s
+          para "Latest batch size: " + Invoice.latest.count.to_s, class: "statistic"
+          latest_date = Invoice.latest.pluck(:invoiced_on).max.to_s
           para "Latest invoice from: " + latest_date, class: "statistic"
         end
 
@@ -26,7 +26,7 @@ ActiveAdmin.register_page "Dashboard" do
               span link_to("PDF", report_path("latest", format: :pdf),
                            class: "formatLink-pdf js-pdfLink")
             end
-            PaidInvoice.batch_numbers.sort.reverse.each do |num|
+            Invoice.batch_numbers.sort.reverse.each do |num|
               li class: "reportListItem" do
                 span "Commission Report - #{num}", class: "reportName"
                 span link_to("HTML", report_path(num),
