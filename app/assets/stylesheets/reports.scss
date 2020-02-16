@@ -6,10 +6,6 @@ body {
   margin: 5em;
   font-family: helvetica;
   font-size: 10pt;
-
-  @media print {
-    margin: 0;
-  }
 }
 
 thead {
@@ -41,6 +37,10 @@ hr {
 }
 
 @media print {
+  body {
+    margin: 0;
+  }
+
   section {
     page-break-inside: avoid;
   }
