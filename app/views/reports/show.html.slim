@@ -6,7 +6,7 @@ p = "Generated #{Date.today}"
 hr
 
 - reps = @data.keys.sort_by(&:last_name)
-- reps.each do |rep|
+- reps.reject(&:disabled).each do |rep|
   section[class=("break-after" if @one_per_page)]
     h2 = rep.name
     - comms = @data[rep]
@@ -24,7 +24,7 @@ hr
           td Age
           td.ralign Comm $
       tbody
-        - @data[rep].each do |comm|
+        - comms.each do |comm|
           - inv = comm.paid_invoice
           tr
             td = inv.number
@@ -42,3 +42,43 @@ hr
       = "Total Commission $: %.2f" % total
     - unless params[:one_per_page]
       hr
+
+
+section.summary
+  ruby:
+    total_rows = reps.reject(&:disabled).map do |rep|
+      [rep, @data[rep].map(&:amount).reduce(:+)]
+    end
+    totals = total_rows.transpose.second
+
+  h2 Summary
+
+  h3 Commission Totals
+  table
+    thead
+      tr
+        td Rep ID
+        td Rep Name
+        td.ralign Total Commission $
+    tbody
+      - total_rows.sort_by(&:second).reverse.each do |rep, total|
+        tr
+          td = rep.code
+          td = rep.name
+          td.ralign = "%.2f" % total
+  .total
+    = "Grand Total $: %.2f" % totals.reduce(:+)
+
+  - if @list_disabled_reps
+    hr
+    h3 Hidden Reps
+    table
+      thead
+        tr
+          td Rep ID
+          td Rep Name
+      tbody
+        - reps.select(&:disabled).each do |rep|
+          tr
+            td = rep.code
+            td = rep.name

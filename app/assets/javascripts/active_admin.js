@@ -17,6 +17,7 @@ function handlePdfCheckbox($checkbox, paramName) {
 function main() {
   handlePdfCheckbox($(".js-grayscale"), "grayscale")
   handlePdfCheckbox($(".js-onePerPage"), "one_per_page")
+  handlePdfCheckbox($(".js-listDisabledReps"), "list_disabled_reps")
 }
 
 $(document).ready(main)

@@ -44,6 +44,9 @@ ActiveAdmin.register_page "Dashboard" do
           br
           input type: "checkbox", class: "js-grayscale", name: "grayscale"
           label "Grayscale", for: "grayscale"
+          br
+          input type: "checkbox", class: "js-listDisabledReps", name: "list_disabled_reps"
+          label "List disabled reps on summary", for: "list_disabled_reps"
         end
       end
     end

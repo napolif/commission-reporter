@@ -4,6 +4,7 @@ class ReportsController < ApplicationController
   def show
     @data = report_data
     @one_per_page = true if params[:one_per_page]
+    @list_disabled_reps = true if params[:list_disabled_reps]
   end
 
   private
@@ -26,5 +27,6 @@ class ReportsController < ApplicationController
   def cast_boolean_params
     cast_boolean_param(:grayscale)
     cast_boolean_param(:one_per_page)
+    cast_boolean_param(:list_disabled_reps)
   end
 end
