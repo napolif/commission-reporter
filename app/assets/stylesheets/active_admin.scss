@@ -20,6 +20,12 @@ body {
   font-family: lato, helvetica, sans-serif;
 }
 
+.blank_slate_container {
+  img + img {
+    margin-left: 16px;
+  }
+}
+
 .reportList {
   font-size: 150%;
 }
