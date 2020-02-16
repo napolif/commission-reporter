@@ -65,4 +65,5 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   config.hosts << 'aurora'
+  config.hosts << 'aurora.napolifoodsinc.local'
 end
