@@ -1,2 +1,4 @@
-module ActiveAdmin::ViewsHelper
+module ActiveAdmin
+  module ViewsHelper
+  end
 end

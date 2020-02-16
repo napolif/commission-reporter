@@ -35,6 +35,7 @@
 #  updated_at :datetime         not null
 #
 
+# Info for a sales rep, including commission levels.
 class SalesRep < ApplicationRecord
   validates :code, presence: true, uniqueness: {case_sensitive: false}
   validates :name, presence: true
@@ -43,11 +44,11 @@ class SalesRep < ApplicationRecord
 
   before_validation { code.upcase! }
 
-  PERIODS_BY_AGE = { within_45:  "period1",
-                     within_60:  "period2",
-                     within_90:  "period3",
-                     within_120: "period4",
-                     over_120:   "period5" }
+  PERIODS_BY_AGE = {within_45: "period1",
+                    within_60: "period2",
+                    within_90: "period3",
+                    within_120: "period4",
+                    over_120: "period5"}.freeze
 
   def commission_table
     (1..10).map do |i|

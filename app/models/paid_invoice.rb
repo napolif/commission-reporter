@@ -18,6 +18,7 @@
 #  updated_at     :datetime         not null
 #
 
+# Header for an invoice that has been paid.
 class PaidInvoice < ApplicationRecord
   validates :batch, presence: true
   validates :number, presence: true
@@ -29,7 +30,7 @@ class PaidInvoice < ApplicationRecord
 
   belongs_to :sales_rep, primary_key: "code", foreign_key: "sales_rep_code"
 
-  scope :latest, -> { where(batch: self.latest_batch_number) }
+  scope :latest, -> { where(batch: latest_batch_number) }
 
   before_validation { sales_rep_code.upcase! }
 
@@ -70,16 +71,16 @@ class PaidInvoice < ApplicationRecord
     raise "Error: invoice #{id} paid_on before invoiced_on" if wait_days.negative?
 
     case wait_days
-      when 0..45
-        :within_45
-      when 45..60
-        :within_60
-      when 61..90
-        :within_90
-      when 90..120
-        :within_120
-      else
-        :over_120
-     end
+    when 0..45
+      :within_45
+    when 45..60
+      :within_60
+    when 61..90
+      :within_90
+    when 90..120
+      :within_120
+    else
+      :over_120
+    end
   end
 end

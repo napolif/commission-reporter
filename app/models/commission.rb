@@ -1,3 +1,4 @@
+# Calculation of a commission amount for a given invoice & associated sales rep.
 class Commission
   attr_reader :paid_invoice, :sales_rep
 
@@ -30,6 +31,7 @@ class Commission
   # Returns the base commission % for the matching level.
   def base_pct
     return 0 unless level
+
     _index, _goal, pct = level
     pct
   end
@@ -37,7 +39,7 @@ class Commission
   # Returns the rep's highest commission level (table row) where the minimum is
   # greater than the invoice's GP%.
   def level
-    commission_table.reverse.find do |i, goal, comm|
+    commission_table.reverse.find do |_i, goal, _comm|
       margin_pct >= goal
     end
   end
