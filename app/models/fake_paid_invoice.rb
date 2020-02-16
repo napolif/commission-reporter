@@ -28,6 +28,12 @@ class FakePaidInvoice < PaidInvoice
     end
   end
 
+  def self.create_batch(size: 100, batch_num: PaidInvoice.next_batch_number)
+    a_batch = new_batch(size: size, batch_num: batch_num)
+    PaidInvoice.import(a_batch)
+    a_batch
+  end
+
   def self.sales_rep_codes
     @sales_rep_codes ||= SalesRep.all.pluck(:code)
   end
