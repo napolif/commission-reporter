@@ -33,6 +33,7 @@
 #  comm10     :decimal(8, 2)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  disabled   :boolean          default(FALSE), not null
 #
 
 # Info for a sales rep, including commission levels.

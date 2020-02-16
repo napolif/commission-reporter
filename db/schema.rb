@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_13_164115) do
+ActiveRecord::Schema.define(version: 2020_02_16_043007) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -91,6 +91,8 @@ ActiveRecord::Schema.define(version: 2020_02_13_164115) do
     t.decimal "comm10", precision: 8, scale: 2
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "disabled", default: false, null: false
+    t.index ["disabled"], name: "index_sales_reps_on_disabled"
   end
 
 end

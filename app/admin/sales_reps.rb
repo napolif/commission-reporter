@@ -1,7 +1,7 @@
 ActiveAdmin.register SalesRep do
   menu priority: 1
 
-  permit_params :code, :name, :comm_type,
+  permit_params :code, :name, :comm_type, :disabled,
                 :period1, :period2, :period3, :period4, :period5,
                 :goal1, :goal2, :goal3, :goal4, :goal5, :goal6, :goal7, :goal8, :goal9, :goal10,
                 :comm1, :comm2, :comm3, :comm4, :comm5, :comm6, :comm7, :comm8, :comm9, :comm10
@@ -15,6 +15,7 @@ ActiveAdmin.register SalesRep do
     column :name
     column :comm_type
     column :created_at
+    column :disabled
     actions
   end
 
@@ -23,6 +24,7 @@ ActiveAdmin.register SalesRep do
       row :code
       row :name
       row("Commission Type") { rep.comm_type }
+      row :disabled
     end
 
     attributes_table(title: "Aging Multipliers") do
@@ -44,6 +46,7 @@ ActiveAdmin.register SalesRep do
       input :code
       input :name
       input :comm_type, label: "Commission Type"
+      input :disabled, type: :checkbox
     end
 
     inputs "Aging Multipliers" do
