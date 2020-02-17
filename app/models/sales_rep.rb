@@ -51,6 +51,18 @@ class SalesRep < ApplicationRecord
                     within_120: "period4",
                     over_120: "period5"}.freeze
 
+  DEFAULT_CODE = "000"
+
+  def self.default
+    find_by(code: DEFAULT_CODE)
+  end
+
+  def self.default_new(code)
+    default.dup.tap do |sr|
+      sr.code = code
+    end
+  end
+
   def commission_table
     (1..10).map do |i|
       [i, self["goal#{i}"], self["comm#{i}"]]
