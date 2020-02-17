@@ -51,7 +51,7 @@ class SalesRep < ApplicationRecord
                     within_120: "period4",
                     over_120: "period5"}.freeze
 
-  DEFAULT_CODE = "000"
+  DEFAULT_CODE = "_DEF"
 
   def self.default
     find_by(code: DEFAULT_CODE)
