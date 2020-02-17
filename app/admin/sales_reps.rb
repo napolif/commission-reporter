@@ -46,7 +46,7 @@ ActiveAdmin.register SalesRep do
     inputs "Sales Rep Details" do
       input :code
       input :name
-      input :quota_type, label: "Quota Type"
+      input :quota_type, as: :select, collection: SalesRep::QUOTA_TYPES, label: "Quota Type"
       input :disabled, type: :checkbox
     end
 
