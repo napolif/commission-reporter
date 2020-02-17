@@ -5,11 +5,11 @@ h1.reportHeading
 p = "Generated #{Date.today}"
 hr
 
-- reps = @data.keys.sort_by(&:last_name)
-- reps.reject(&:disabled).each do |rep|
+- @presenter.commissions_by_enabled_rep.each do |rep, comms|
   section[class=("break-after" if @one_per_page)]
-    h2 = rep.name
-    - comms = @data[rep]
+    h2
+      span.repCode = rep.code
+      = rep.name
     table
       thead
         tr
@@ -43,16 +43,7 @@ hr
     - unless params[:one_per_page]
       hr
 
-
 section.summary
-  ruby:
-    enabled_reps = reps.reject(&:disabled)
-    disabled_reps = reps.select(&:disabled)
-    total_rows = enabled_reps.map do |rep|
-      [rep, @data[rep].map(&:amount).reduce(:+)]
-    end
-    totals = total_rows.transpose.second
-
   h2 Summary
 
   h3 Commission Totals
@@ -63,19 +54,19 @@ section.summary
         td Rep Name
         td.ralign Total Commission $
     tbody
-      - total_rows.sort_by(&:second).reverse.each do |rep, total|
+      - @presenter.total_rows.each do |rep, total|
         tr
           td = rep.code
           td = rep.name
           td.ralign = "%.2f" % total
   .total
-    = "Grand Total $: %.2f" % totals.reduce(:+)
+    = "Grand Total $: %.2f" % @presenter.grand_total
 
   - if @list_disabled_reps
     hr
-    h3 Disabled Sales Reps
-    - if disabled_reps.none?
-      p No sales reps have been disabled.
+    h3 Hidden From Report
+    - if @presenter.disabled_reps.none?
+      p No sales reps have been hidden.
     - else
       table
         thead
@@ -83,7 +74,8 @@ section.summary
             td Rep ID
             td Rep Name
         tbody
-          - disabled_reps.each do |rep|
+          - @presenter.disabled_reps.each do |rep|
             tr
               td = rep.code
               td = rep.name
+

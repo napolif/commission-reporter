@@ -9,7 +9,7 @@ class Commission
 
   def initialize(invoice)
     @invoice = invoice
-    @sales_rep = invoice.sales_rep
+    @sales_rep = invoice.sales_rep || SalesRep.default_new(invoice.sales_rep_code)
   end
 
   # Returns the commission for the associated invoice in dollars.
