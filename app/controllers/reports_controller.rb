@@ -1,4 +1,5 @@
 class ReportsController < ApplicationController
+  before_action :authenticate_admin_user!
   before_action :cast_boolean_params
 
   def show
