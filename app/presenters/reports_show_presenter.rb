@@ -4,30 +4,32 @@ class ReportsShowPresenter
 
   attr_reader :batch_num
 
-  CSV_DELIM = ","
+  CSV_DELIM = ",".freeze
 
   def initialize(batch_num)
     @batch_num = batch_num
   end
 
   def as_csv
-    delm = ","
     head = ["Inv Num", "Cust ID", "Cust Name",
             "Invoiced On", "Paid On", "Age Category",
             "Amount", "Cost", "Margin %", "Cases", "Delivered",
             "SR Code", "SR Name", "SR Quota Type", "Comm Amt"].join(CSV_DELIM)
-    body = commissions_by_enabled_rep.values.flatten.map do |c|
-           i = c.invoice
-           s = c.sales_rep
-           delivered = if i.delivered then "yes" else "no" end
-           margin_pct = "%.2f" % i.margin_pct.to_f
-           c_amount = "%.2f" % c.amount.to_f
 
-           [i.number, i.customer_id, i.customer_name,
-            i.invoiced_on, i.paid_on, i.age_category,
-            i.amount, i.cost, margin_pct, i.cases, delivered,
-            s.code, s.name, s.quota_type, c_amount].join(CSV_DELIM)
-          end.join("\n")
+    body =
+      commissions_by_enabled_rep.values.flatten.map do |c|
+        i = c.invoice
+        s = c.sales_rep
+        delivered = if i.delivered then "yes" else "no" end
+        margin_pct = "%.2f" % i.margin_pct.to_f
+        c_amount = "%.2f" % c.amount.to_f
+
+        [i.number, i.customer_id, i.customer_name,
+         i.invoiced_on, i.paid_on, i.age_category,
+         i.amount, i.cost, margin_pct, i.cases, delivered,
+         s.code, s.name, s.quota_type, c_amount].join(CSV_DELIM)
+      end.join("\n")
+
     [head, body].join("\n")
   end
 
@@ -57,7 +59,7 @@ class ReportsShowPresenter
   private
 
   def enabled_rep_codes
-   rep_codes.reject do |code|
+    rep_codes.reject do |code|
       reps_by_code[code]&.disabled
     end
   end

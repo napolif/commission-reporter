@@ -9,8 +9,10 @@ class ReportsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.csv { send_data(@presenter.as_csv,
-                             filename: "commission-#{params[:batch]}-#{Date.today}.csv") }
+      format.csv do
+        send_data(@presenter.as_csv,
+                  filename: "commission-#{params[:batch]}-#{Date.today}.csv")
+      end
     end
   end
 

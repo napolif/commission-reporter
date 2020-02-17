@@ -51,7 +51,7 @@ class SalesRep < ApplicationRecord
                     within_120: "period4",
                     over_120: "period5"}.freeze
 
-  DEFAULT_CODE = "_DEF"
+  DEFAULT_CODE = "_DEF".freeze
 
   def self.default
     find_by(code: DEFAULT_CODE)
@@ -75,6 +75,7 @@ class SalesRep < ApplicationRecord
 
   def safe_quota_type
     return "profit" if quota_type.blank?
+
     quota_type
   end
 end

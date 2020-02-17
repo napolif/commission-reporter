@@ -8,6 +8,7 @@ AllCops:
     - 'script/**/*'
     - 'tmp/**/*'
     - 'vendor/**/*'
+    - 'lib/tasks/*'
     - 'Gemfile'
     - 'Rakefile'
   TargetRubyVersion: 2.6
@@ -58,6 +59,12 @@ Style/CollectionMethods:
 Style/EmptyMethod:
   EnforcedStyle: expanded
 
+Style/FormatString:
+  Enabled: false
+
+Style/FormatStringToken:
+  Enabled: false
+
 Style/FrozenStringLiteralComment:
   Enabled: false
 
@@ -65,6 +72,9 @@ Style/NumericLiterals:
   Enabled: false
 
 Style/NumericPredicate:
+  Enabled: false
+
+Style/OneLineConditional:
   Enabled: false
 
 Style/StringLiterals:
