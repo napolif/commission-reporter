@@ -30,7 +30,7 @@ class Invoice < ApplicationRecord
 
   belongs_to :sales_rep, primary_key: "code", foreign_key: "sales_rep_code"
 
-  scope :latest, -> { where(batch: latest_batch_number) }
+  scope :latest_batch, -> { where(batch: latest_batch_number) }
 
   before_validation { sales_rep_code.upcase! }
 

@@ -12,8 +12,8 @@ ActiveAdmin.register_page "Dashboard" do
     columns do
       column do
         panel "Information" do
-          para "Latest batch size: " + Invoice.latest.count.to_s, class: "statistic"
-          latest_date = Invoice.latest.pluck(:invoiced_on).max.to_s
+          para "Latest batch size: " + Invoice.latest_batch.count.to_s, class: "statistic"
+          latest_date = Invoice.latest_batch.pluck(:invoiced_on).max.to_s
           para "Latest invoice from: " + latest_date, class: "statistic"
         end
 
