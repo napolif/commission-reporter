@@ -5,7 +5,7 @@
 #  id         :bigint           not null, primary key
 #  code       :string
 #  name       :string
-#  comm_type  :string
+#  quota_type :string
 #  period1    :decimal(8, 2)
 #  period2    :decimal(8, 2)
 #  period3    :decimal(8, 2)
