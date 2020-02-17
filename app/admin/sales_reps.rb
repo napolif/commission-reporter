@@ -1,19 +1,19 @@
 ActiveAdmin.register SalesRep do
   menu priority: 1
 
-  permit_params :code, :name, :comm_type, :disabled,
+  permit_params :code, :name, :quota_type, :disabled,
                 :period1, :period2, :period3, :period4, :period5,
                 :goal1, :goal2, :goal3, :goal4, :goal5, :goal6, :goal7, :goal8, :goal9, :goal10,
                 :comm1, :comm2, :comm3, :comm4, :comm5, :comm6, :comm7, :comm8, :comm9, :comm10
 
-  filter :comm_type
+  filter :quota_type
 
   index do
     selectable_column
     id_column
     column :code
     column :name
-    column :comm_type
+    column :quota_type
     column :created_at
     column :disabled
     actions
@@ -23,7 +23,7 @@ ActiveAdmin.register SalesRep do
     attributes_table(title: "Sales Rep Details") do
       row :code
       row :name
-      row("Commission Type") { rep.comm_type }
+      row("Commission Type") { rep.quota_type }
       row :disabled
     end
 
@@ -45,7 +45,7 @@ ActiveAdmin.register SalesRep do
     inputs "Sales Rep Details" do
       input :code
       input :name
-      input :comm_type, label: "Commission Type"
+      input :quota_type, label: "Quota Type"
       input :disabled, type: :checkbox
     end
 

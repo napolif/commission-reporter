@@ -5,9 +5,6 @@ class Commission
   delegate :age_category, to: :invoice
   delegate :margin_pct, to: :invoice
   delegate :commission_table, to: :sales_rep
-  delegate :comm_type, to: :sales_rep
-
-  REVENUE_TYPE = "S"
 
   def initialize(invoice)
     @invoice = invoice
@@ -18,8 +15,11 @@ class Commission
   def amount
     adjusted = adjusted_pct / 100
 
-    if sales_rep.comm_type == REVENUE_TYPE
+    case sales_rep.safe_quota_type
+    when "revenue"
       adjusted * invoice.amount
+    when "profit"
+      adjusted * invoice.profit
     else
       adjusted * invoice.profit
     end
