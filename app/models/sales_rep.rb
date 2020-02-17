@@ -38,12 +38,9 @@
 
 # Info for a sales rep, including commission levels.
 class SalesRep < ApplicationRecord
-  validates :code, presence: true, uniqueness: {case_sensitive: false}
-  validates :name, presence: true
+  DEFAULT_CODE = "_DEF".freeze
 
-  has_many :invoices, primary_key: "code", foreign_key: "sales_rep_code"
-
-  before_validation { code.upcase! }
+  QUOTA_TYPES = %w[profit revenue].freeze
 
   PERIODS_BY_AGE = {within_45: "period1",
                     within_60: "period2",
@@ -51,7 +48,13 @@ class SalesRep < ApplicationRecord
                     within_120: "period4",
                     over_120: "period5"}.freeze
 
-  DEFAULT_CODE = "_DEF".freeze
+  validates :code, presence: true, uniqueness: {case_sensitive: false}
+  validates :name, presence: true
+  validates :quota_type, inclusion: {in: QUOTA_TYPES}
+
+  has_many :invoices, primary_key: "code", foreign_key: "sales_rep_code"
+
+  before_validation { code.upcase! }
 
   def self.default
     find_by(code: DEFAULT_CODE)
