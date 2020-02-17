@@ -5,7 +5,7 @@ class Commission
   delegate :age_category, to: :invoice
   delegate :margin_pct, to: :invoice
   delegate :commission_table, to: :sales_rep
-  delegate :comm_type, to: :sales_rep
+  delegate :quota_type, to: :sales_rep
 
   REVENUE_TYPE = "S"
 
@@ -18,7 +18,7 @@ class Commission
   def amount
     adjusted = adjusted_pct / 100
 
-    if sales_rep.comm_type == REVENUE_TYPE
+    if quota_type == REVENUE_TYPE
       adjusted * invoice.amount
     else
       adjusted * invoice.profit

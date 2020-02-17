@@ -6,8 +6,8 @@ AdminUser.create!(email: "admin@example.com",
                   password_confirmation: "password") if Rails.env.development?
 
 SalesRep.create!(code: "000",
-                 name: "Default Rep",
-                 comm_type: "O",
+                 name: "Unknown Rep",
+                 quota_type: "profit",
                  disabled: false,
                  period1: 100, period2: 100, period3: 100, period4: 100, period5: 100,
                  goal1: 5, goal2: 5, goal3: 5, goal4: 5, goal5: 5, goal6: 5, goal7: 5, goal8: 5, goal9: 5, goal10: 5,
