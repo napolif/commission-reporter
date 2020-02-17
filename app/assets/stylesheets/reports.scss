@@ -33,6 +33,19 @@ hr {
   border-top: 1px solid #cfcfcf;
 }
 
+.repCode {
+  position: relative;
+  bottom: 2px;
+  display: inline-block;
+  padding: 0 6px;
+  margin-right: 0.5em;
+  border-radius: 3px;
+  line-height: 1.25em;
+  color: white;
+  background-color: lightgray;
+  font-size: 75%;
+}
+
 .reportHeading {
   img {
     margin-right: 10px;
