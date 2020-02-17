@@ -11,26 +11,16 @@ class ReportsShowPresenter
   end
 
   def as_csv
-    head = ["Inv Num", "Cust ID", "Cust Name",
-            "Invoiced On", "Paid On", "Age Category",
-            "Amount", "Cost", "Margin %", "Cases", "Delivered",
-            "SR Code", "SR Name", "SR Quota Type", "Comm Amt"].join(CSV_DELIM)
+    commissions = commissions_by_enabled_rep.values.flatten
 
-    body =
-      commissions_by_enabled_rep.values.flatten.map do |c|
-        i = c.invoice
-        s = c.sales_rep
-        delivered = if i.delivered then "yes" else "no" end
-        margin_pct = "%.2f" % i.margin_pct.to_f
-        c_amount = "%.2f" % c.amount.to_f
+    header = [
+      "Inv Num", "Cust ID", "Cust Name", "Invoiced On", "Paid On",
+      "Age Category", "Amount", "Cost", "Margin %", "Cases", "Delivered",
+      "SR Code", "SR Name", "SR Quota Type", "Comm Amt"
+    ].join(CSV_DELIM)
 
-        [i.number, i.customer_id, i.customer_name,
-         i.invoiced_on, i.paid_on, i.age_category,
-         i.amount, i.cost, margin_pct, i.cases, delivered,
-         s.code, s.name, s.quota_type, c_amount].join(CSV_DELIM)
-      end.join("\n")
-
-    [head, body].join("\n")
+    rows = commissions.map { |c| csv_row(c) }.join("\n")
+    [header, rows].join("\n")
   end
 
   def commissions_by_enabled_rep
@@ -111,4 +101,20 @@ class ReportsShowPresenter
     end.includes(:sales_rep)
   end
   memoize :invoices
+
+  def csv_row(commission)
+    inv = commission.invoice
+    rep = commission.sales_rep
+
+    delivered = if inv.delivered then "yes" else "no" end
+    margin_pct = "%.2f" % inv.margin_pct.to_f
+    amount = "%.2f" % commission.amount.to_f
+
+    fields = [inv.number, inv.customer_id, inv.customer_name]
+    fields += [inv.invoiced_on, inv.paid_on, inv.age_category]
+    fields += [inv.amount, inv.cost, margin_pct, inv.cases, delivered]
+    fields += [rep.code, rep.name, rep.quota_type, amount]
+
+    fields.join(CSV_DELIM)
+  end
 end
