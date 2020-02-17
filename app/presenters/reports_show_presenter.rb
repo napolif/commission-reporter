@@ -17,13 +17,12 @@ class ReportsShowPresenter
   end
 
   def total_rows
-    enabled_rep_codes.map do |code|
-      [reps_by_code[code], totals_by_code[code]]
-    end.sort_by { |row| row.first.code }.reverse.sort_by(&:second).reverse
+    rows = totals_by_enabled_rep.to_a
+    rows.sort_by { |row| row.first.code }.sort_by(&:second).reverse
   end
 
   def grand_total
-    totals_by_code.values.reduce(:+)
+    totals_by_enabled_rep.values.reduce(:+)
   end
 
   def disabled_reps
@@ -53,12 +52,12 @@ class ReportsShowPresenter
   end
   memoize :commissions_by_code
 
-  def totals_by_code
-    commissions_by_code.transform_values do |comms|
+  def totals_by_enabled_rep
+    commissions_by_enabled_rep.transform_values do |comms|
       comms.map(&:amount).reduce(:+)
     end
   end
-  memoize :totals_by_code
+  memoize :totals_by_enabled_rep
 
   def reps_by_code
     known_reps_by_code = SalesRep.all.index_by(&:code)
