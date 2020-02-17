@@ -5,6 +5,12 @@ class ReportsController < ApplicationController
     @one_per_page = true if params[:one_per_page]
     @list_disabled_reps = true if params[:list_disabled_reps]
     @presenter = ReportsShowPresenter.new(params[:batch])
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data(@presenter.as_csv,
+                             filename: "commission-#{params[:batch]}-#{Date.today}.csv") }
+    end
   end
 
   private

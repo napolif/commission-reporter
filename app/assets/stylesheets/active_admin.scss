@@ -66,12 +66,17 @@ body {
 
 .formatLink-html {
   @extend .formatLink;
-  background-color: rgb(75, 75, 235);
+  background-color: rgb(70, 70, 220);
 }
 
 .formatLink-pdf {
   @extend .formatLink;
-  background-color: rgb(235, 75, 75);
+  background-color: rgb(220, 100, 70);
+}
+
+.formatLink-csv {
+  @extend .formatLink;
+  background-color: rgb(100, 180, 70);
 }
 
 .reportName {

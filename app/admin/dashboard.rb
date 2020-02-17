@@ -25,6 +25,8 @@ ActiveAdmin.register_page "Dashboard" do
                            class: "formatLink-html js-htmlLink")
               span link_to("PDF", report_path("latest", format: :pdf),
                            class: "formatLink-pdf js-pdfLink")
+              span link_to("CSV", report_path("latest", format: :csv),
+                           class: "formatLink-csv")
             end
           end
         end
@@ -38,6 +40,8 @@ ActiveAdmin.register_page "Dashboard" do
                              class: "formatLink-html js-htmlLink")
                 span link_to("PDF", report_path(num, format: :pdf),
                              class: "formatLink-pdf js-pdfLink")
+                span link_to("CSV", report_path(num, format: :csv),
+                             class: "formatLink-csv")
               end
             end
           end
