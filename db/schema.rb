@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_16_203757) do
+ActiveRecord::Schema.define(version: 2020_02_17_053509) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,7 +63,7 @@ ActiveRecord::Schema.define(version: 2020_02_16_203757) do
   create_table "sales_reps", force: :cascade do |t|
     t.string "code"
     t.string "name"
-    t.string "comm_type"
+    t.string "quota_type"
     t.decimal "period1", precision: 8, scale: 2
     t.decimal "period2", precision: 8, scale: 2
     t.decimal "period3", precision: 8, scale: 2
