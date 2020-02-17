@@ -7,6 +7,8 @@ class Commission
   delegate :commission_table, to: :sales_rep
   delegate :comm_type, to: :sales_rep
 
+  REVENUE_TYPE = "S"
+
   def initialize(invoice)
     @invoice = invoice
     @sales_rep = invoice.sales_rep || SalesRep.default_new(invoice.sales_rep_code)
@@ -16,7 +18,7 @@ class Commission
   def amount
     adjusted = adjusted_pct / 100
 
-    if sales_rep.comm_type == "S"
+    if sales_rep.comm_type == REVENUE_TYPE
       adjusted * invoice.amount
     else
       adjusted * invoice.profit
