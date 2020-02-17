@@ -72,4 +72,9 @@ class SalesRep < ApplicationRecord
   def last_name
     name.split.second
   end
+
+  def safe_quota_type
+    return "profit" if quota_type.blank?
+    quota_type
+  end
 end
