@@ -7,6 +7,7 @@ ActiveAdmin.register SalesRep do
                 :comm1, :comm2, :comm3, :comm4, :comm5, :comm6, :comm7, :comm8, :comm9, :comm10
 
   filter :quota_type
+  filter :disabled
 
   index do
     selectable_column
