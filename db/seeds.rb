@@ -5,7 +5,7 @@ AdminUser.create!(email: "admin@example.com",
                   password: "password",
                   password_confirmation: "password") if Rails.env.development?
 
-SalesRep.create!(code: "000",
+SalesRep.create!(code: "_DEF",
                  name: "Unknown Rep",
                  quota_type: "profit",
                  disabled: false,
