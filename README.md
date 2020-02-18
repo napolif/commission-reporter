@@ -10,51 +10,80 @@ Commission Reporter is a Rails app for calculating Napoli Foods commission payme
 
 ## Installation
 
+Much of this is adapted from https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-puma-and-nginx-on-ubuntu-14-04.
+Some of it might be out of order.
+
 ### Set up OS
 
 * make an instance of latest Ubuntu Server
-* `sudo ufw allow 3000/tcp` (for development server)
+* `sudo ufw allow 3000/tcp`
+* `sudo apt-get update`
 * `sudo apt-get install wkhtmltopdf`
+* `sudo adduser deploy`
+* `sudo usermod -aG sudo deploy`
+* (do everything as "deploy" from here on)
 
-### Install PostgreSQL
+### Install & configure postgresql
 
-* `sudo apt-get install postgresql`
-* `sudo apt-get install libpq-dev`
-* `sudo su`
-* `su postgres`
-* `createuser -s --username=postgres <username>` (and exit)
+* `sudo apt-get install postgresql postgresql-contrib libpq-dev`
+* `sudo -u postgres createuser -s napoli`
+* `sudo -u postgres psql`, then in psql: `\password napoli` (and create a p/w)
+* add `local all napoli md5` to e.g. `/etc/postgresql/11/main/pg_hba.conf`
+* `sudo service postgresql restart`
 
-### Install Ruby (using rbenv)
+### Install rbenv & ruby
 
-* `mkdir` & `chown` /app
 * `sudo apt-get install rbenv`
-* install ruby-build as an rbenv plugin: https://github.com/rbenv/ruby-build#installation
+* `git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-build`
+* `git clone https://github.com/rbenv/rbenv-vars.git $(rbenv root)/plugins/rbenv-vars`
 * `rbenv init` & add rbenv to shell rc file as it instructs
+* `rbenv install 2.6.2`
 
-### Install Yarn
+### Install yarn
 
 * `curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -`
 * `echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list`
-* `sudo apt-get update`
-* `sudo apt-get install yarn`
+* `sudo apt-get update && sudo apt-get install yarn`
 
 ### Clone app & install ruby/js dependencies
 
-* `git clone https://github.com/johncip/napoli-commission-app` (will need credentials)
+* `cd /home/deploy`
+* `git clone https://github.com/johncip/napoli-commission-app commission-app`
+  * requires github authentication
+  * TODO: set up napoli github acct
+* `cd napoli-commission-app`
 * `gem install bundler:2.1.4`
 * `bundle install`
 * `yarn install --check-files`
+
+### Set up environment vars
+
+* `cd /home/deploy/commission-app`
+* `rake secret` (copy the secret)
+* `vim .rbenv-vars` and enter:
+
+```ruby
+SECRET_KEY_BASE=$paste_the_secret
+COMMISSION_APP_DATABASE_PASSWORD=$the_db_password
+```
+
+### Initial setup
+
+* add the server's hostname to `config.hosts` in `config/environments/production.rb`
+  * this part must be committed to the codebase
+  * TODO: add the hostname dynamically
 * `bundle exec rake db:setup`
-* ensure that the server's hostname is added to `config.hosts` in e.g. `config/environments/development.rb`
 
-### Running
+## Deploying / Update / Run
 
-* `cd /app/napoli-commission-app`
-* `bundle exec rails server`
+The `deploy.sh` script in the root of the repository should work fine. Here's what it does:
 
-## Updating
-
-* `cd /app/napoli-commission-app`
+* `cd /home/deploy/commission-app`
 * `git pull`
+* `bundle config set without 'development test'`
 * `bundle install`
-* `yarn`
+* `yarn install`
+* `export RAILS_ENV=production`
+* `bundle exec rake db:migrate`
+* `bundle exec rake assets:precompile`
+* `bundle exec rails server`
