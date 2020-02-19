@@ -2,6 +2,8 @@
 
 set -e
 
+sudo systemctl stop puma.service
+
 cd /home/deploy/commission-app
 git reset --hard
 git checkout master
@@ -15,4 +17,6 @@ yarn install
 
 bundle exec rake db:migrate
 bundle exec rake assets:precompile
-bundle exec rails server
+
+sudo systemctl start puma.service
+sudo service nginx reload

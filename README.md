@@ -67,6 +67,16 @@ SECRET_KEY_BASE=$paste_the_secret
 COMMISSION_APP_DATABASE_PASSWORD=$the_db_password
 ```
 
+### Set up Puma service
+* see https://github.com/puma/puma/blob/master/docs/systemd.md
+* use the first one, set `User=deploy`
+* add `Environment=RAILS_ENV=production`
+* use "rails start" variant
+* configure puma.conf a la https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-puma-and-nginx-on-ubuntu-14-04
+
+### Configure nginx
+* see https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-puma-and-nginx-on-ubuntu-14-04
+
 ### Initial setup
 
 * add the server's hostname to `config.hosts` in `config/environments/production.rb`
@@ -76,7 +86,17 @@ COMMISSION_APP_DATABASE_PASSWORD=$the_db_password
 
 ## Deploying / Update / Run
 
-The `deploy.sh` script in the root of the repository should work fine. Here's what it does:
+* TODO: update deploy.sh
+* `sudo systemctl stop puma.service`
+* `git pull`
+* `bundle config set without 'development test'`
+* `bundle install`
+* `yarn install`
+* `bundle exec rake db:migrate`
+* `bundle exec rake assets:precompile`
+* `sudo systemctl start puma.service`
+* `sudo service nginx reload`
+
 
 * `cd /home/deploy/commission-app`
 * `git pull`
