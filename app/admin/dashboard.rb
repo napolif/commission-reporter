@@ -17,21 +17,7 @@ ActiveAdmin.register_page "Dashboard" do
           para "Latest invoice from: " + latest_date, class: "statistic"
         end
 
-        panel "Latest Report" do
-          ul class: "reportList" do
-            li class: "reportListItem" do
-              span "Commission Report - Latest", class: "reportName"
-              span link_to("HTML", report_path("latest"),
-                           class: "formatLink-html js-htmlLink")
-              span link_to("PDF", report_path("latest", format: :pdf),
-                           class: "formatLink-pdf js-pdfLink")
-              span link_to("CSV", report_path("latest", format: :csv),
-                           class: "formatLink-csv")
-            end
-          end
-        end
-
-        panel "All Reports" do
+        panel "Reports" do
           ul class: "reportList" do
             Invoice.batch_numbers.sort.reverse.each do |num|
               li class: "reportListItem" do
