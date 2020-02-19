@@ -30,7 +30,7 @@ class FakeInvoice < Invoice
 
   def self.create_batch(size: 100, batch_num: Invoice.next_batch_number)
     a_batch = new_batch(size: size, batch_num: batch_num)
-    Invoice.import(a_batch)
+    Invoice.import!(a_batch)
     a_batch
   end
 
