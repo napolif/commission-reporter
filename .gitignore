@@ -13,6 +13,13 @@
 !/log/.keep
 !/tmp/.keep
 
+/shared/sockets/*
+/shared/pids/*
+/shared/log/*
+!/shared/sockets/.keep
+!/shared/pids/.keep
+!/shared/log/.keep
+
 # Ignore uploaded files in development.
 /storage/*
 !/storage/.keep
