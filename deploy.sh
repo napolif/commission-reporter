@@ -2,12 +2,12 @@
 
 set -e
 
-sudo systemctl stop puma.service
-
 cd /home/deploy/commission-app
 git reset --hard
 git checkout master
 git pull
+
+sudo systemctl stop puma.service
 
 export RAILS_ENV=production
 bundle config set without "development test"
