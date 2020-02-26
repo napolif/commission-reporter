@@ -28,16 +28,29 @@ ActiveAdmin.register SalesRep do
       row :disabled
     end
 
-    attributes_table(title: "Aging Multipliers") do
-      (1..5).each do |i|
-        row("Period #{i} %") { rep["period#{i}"] }
+    columns do
+      column do
+        (1..5).each do |i|
+          attributes_table(title: "Level #{i}") do
+            row("Minimum GP %") { rep["goal#{i}"] }
+            row("Commission %") { rep["comm#{i}"] }
+          end
+        end
+      end
+
+      column do
+        (6..10).each do |i|
+          attributes_table(title: "Level #{i}") do
+            row("Minimum GP %") { rep["goal#{i}"] }
+            row("Commission %") { rep["comm#{i}"] }
+          end
+        end
       end
     end
 
-    (1..10).each do |i|
-      attributes_table(title: "Level #{i}") do
-        row("Minimum GP %") { rep["goal#{i}"] }
-        row("Commission %") { rep["comm#{i}"] }
+    attributes_table(title: "Aging Multipliers") do
+      (1..5).each do |i|
+        row("Period #{i} %") { rep["period#{i}"] }
       end
     end
   end
@@ -50,16 +63,29 @@ ActiveAdmin.register SalesRep do
       input :disabled, type: :checkbox
     end
 
-    inputs "Aging Multipliers" do
-      (1..5).each do |i|
-        input :"period#{i}", label: "Period #{i} %"
+    columns do
+      column do
+        (1..5).each do |i|
+          inputs "Level #{i}" do
+            input :"goal#{i}", label: "Minimum GP %"
+            input :"comm#{i}", label: "Commission %"
+          end
+        end
+      end
+
+      column do
+        (6..10).each do |i|
+          inputs "Level #{i}" do
+            input :"goal#{i}", label: "Minimum GP %"
+            input :"comm#{i}", label: "Commission %"
+          end
+        end
       end
     end
 
-    (1..10).each do |i|
-      inputs "Level #{i}" do
-        input :"goal#{i}", label: "Minimum GP %"
-        input :"comm#{i}", label: "Commission %"
+    inputs "Aging Multipliers" do
+      (1..5).each do |i|
+        input :"period#{i}", label: "Period #{i} %"
       end
     end
 
