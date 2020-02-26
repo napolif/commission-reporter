@@ -1,6 +1,6 @@
-# README
+# Commission Reporter
 
-Commission Reporter is a Rails app for calculating Napoli Foods commission payments.
+Commission Reporter is a Rails app for calculating commission payments.
 
 ## Requirements
 
@@ -86,24 +86,6 @@ COMMISSION_APP_DATABASE_PASSWORD=$the_db_password
 
 ## Deploying / Update / Run
 
-* TODO: update deploy.sh
-* `sudo systemctl stop puma.service`
-* `git pull`
-* `bundle config set without 'development test'`
-* `bundle install`
-* `yarn install`
-* `bundle exec rake db:migrate`
-* `bundle exec rake assets:precompile`
-* `sudo systemctl start puma.service`
-* `sudo service nginx reload`
+* run `/home/deploy/commission-app/deploy.sh`
 
-
-* `cd /home/deploy/commission-app`
-* `git pull`
-* `bundle config set without 'development test'`
-* `bundle install`
-* `yarn install`
-* `export RAILS_ENV=production`
-* `bundle exec rake db:migrate`
-* `bundle exec rake assets:precompile`
-* `bundle exec rails server`
+(Summary: stop puma, set `RAILS_ENV` to production, bundle & yarn install, migrate, compile assets, restart puma, reload nginx)
