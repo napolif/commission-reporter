@@ -18,7 +18,8 @@ Some of it might be out of order.
 * make an instance of latest Ubuntu Server
 * `sudo ufw allow 3000/tcp`
 * `sudo apt-get update`
-* `sudo apt-get install wkhtmltopdf`
+* `sudo apt-get install wkhtmltopdf --no-install-recommends`
+  * (if x server gets installed, run `systemctl set-default multi-user.target` to prevent it from loading)
 * `sudo adduser deploy`
 * `sudo usermod -aG sudo deploy`
 * (do everything as "deploy" from here on)
