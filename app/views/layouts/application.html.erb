@@ -10,23 +10,14 @@
       media: 'all', 'data-turbolinks-track': true %>
 
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-
-    <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
-
-    <meta name="pdfkit-page_size" content="Letter"/>
-    <meta name="pdfkit-margin_top" content="0.5in"/>
-    <meta name="pdfkit-margin_right" content="0.5in"/>
-    <meta name="pdfkit-margin_bottom" content="0.5in"/>
-    <meta name="pdfkit-margin_left" content="0.5in"/>
-
-    <% if params[:grayscale] %>
-      <meta name="pdfkit-grayscale" content="true"/>
-    <% end %>
   </head>
 
   <body>
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
+
+    <%= render "header" %>
     <%= yield %>
+    <%= render "footer" %>
   </body>
 </html>
