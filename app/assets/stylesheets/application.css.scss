@@ -12,6 +12,20 @@
  *
  */
 
+@import "bootstrap";
+
+.notice {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.alert {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
 @import "smacss/base";
 @import "smacss/layout";
 @import "smacss/modules";
