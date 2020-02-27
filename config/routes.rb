@@ -4,5 +4,10 @@ Rails.application.routes.draw do
 
   root to: "admin/dashboard#index"
 
-  get '/reports/:batch', to: 'reports#show', as: :report
+  resources :reports, only: [:index] do
+    collection do
+      get 'batch/:batch_id', action: :batch
+      get 'date/:date_from/to/:date_to', action: :date
+    end
+  end
 end

@@ -2,16 +2,26 @@ class ReportsController < ApplicationController
   before_action :authenticate_admin_user!
   before_action :cast_boolean_params
 
-  def show
+  def index
+  end
+
+  def date
+    render plain: [params[:date_from], params[:date_to]]
+  end
+
+  def batch
     @one_per_page = true if params[:one_per_page]
     @list_disabled_reps = true if params[:list_disabled_reps]
-    @presenter = ReportsShowPresenter.new(params[:batch])
+    @presenter = ReportsShowPresenter.new(params[:batch_id])
 
     respond_to do |format|
-      format.html
+      format.html do
+        render :show, layout: "report"
+      end
+
       format.csv do
         send_data(@presenter.as_csv,
-                  filename: "commission-#{params[:batch]}-#{Date.today}.csv")
+                  filename: "commission-#{params[:batch_id]}-#{Date.today}.csv")
       end
     end
   end
