@@ -43,7 +43,13 @@ class Invoice < ApplicationRecord
   end
 
   def self.batch_numbers
-    Invoice.select(:batch).distinct.pluck(:batch)
+    Invoice.
+      pluck(:batch, :created_at).
+      uniq(&:first).
+      sort_by(&:second).
+      reverse.
+      transpose.
+      first
   end
 
   def amount=(val)
