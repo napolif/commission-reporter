@@ -37,7 +37,7 @@ class ReportsShowPresenter
   end
 
   def grand_total
-    totals_by_enabled_rep.values.reduce(:+)
+    totals_by_enabled_rep.values.reduce(:+) || 0
   end
 
   def disabled_reps
