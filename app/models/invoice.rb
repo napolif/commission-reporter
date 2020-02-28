@@ -35,11 +35,11 @@ class Invoice < ApplicationRecord
   before_validation { sales_rep_code.upcase! }
 
   def self.latest_batch_number
-    Invoice.order(batch: :desc).limit(1).pluck(:batch).first
+    Invoice.order(created_at: :desc).limit(1).pluck(:batch).first
   end
 
   def self.next_batch_number
-    latest_batch_number.to_i + 1
+    DateTime.now.utc.to_s.sub(" UTC", "").sub(" ", "-").gsub(":","")
   end
 
   def self.batch_numbers
