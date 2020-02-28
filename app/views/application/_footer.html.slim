@@ -5,8 +5,10 @@
 footer.footer
   .container
     small.text-muted
-      strong> Commit:
-      span = link_to(commit_hash, github_url + commit_hash)
+      strong> Last commit:
+      a[href=(github_url + commit_hash)]
+        i.fab.fa-github>
+        = commit_hash
+
     small.text-muted
-      strong> Date:
       span = commit_date
