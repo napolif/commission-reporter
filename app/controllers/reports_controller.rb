@@ -3,6 +3,7 @@ class ReportsController < ApplicationController
   before_action :cast_boolean_params
 
   def index
+    render :index, locals: {batch_numbers: Invoice.batch_numbers}
   end
 
   def date

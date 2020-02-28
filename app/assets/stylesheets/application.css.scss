@@ -76,7 +76,7 @@ h1, h2, h3 {
 }
 
 .reportListItem {
-  line-height: 300%;
+  line-height: 250%;
 
   &:hover {
     font-weight: bold;
@@ -88,6 +88,13 @@ h1, h2, h3 {
   @extend .btn-primary;
   @extend .btn-sm;
 
-  // padding: 0 4px;
-  margin-right: 4px;
+  padding: 2px 6px;
+
+  & + .formatLink {
+    margin-left: 4px;
+  }
+
+  .svg-inline--fa {
+    margin-right: 4px;
+  }
 }
