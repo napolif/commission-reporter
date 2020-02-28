@@ -10,6 +10,10 @@ class ReportsController < ApplicationController
   end
 
   def batch
+    unless Invoice.where(batch: params[:batch_id]).exists?
+      raise ActiveRecord::RecordNotFound
+    end
+
     @one_per_page = true if params[:one_per_page]
     @list_disabled_reps = true if params[:list_disabled_reps]
     @presenter = ReportsShowPresenter.new(params[:batch_id])
