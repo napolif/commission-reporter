@@ -59,6 +59,7 @@ class Invoice < ApplicationRecord
   end
 
   def margin
+    return 0 if amount.zero?
     profit / amount
   end
 
