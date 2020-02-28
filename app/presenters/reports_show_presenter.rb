@@ -3,11 +3,12 @@ class ReportsShowPresenter
   extend Memoist
 
   attr_reader :batch_num
+  attr_reader :invoices
 
   CSV_DELIM = ",".freeze
 
-  def initialize(batch_num)
-    @batch_num = batch_num
+  def initialize(invoices)
+    @invoices = invoices
   end
 
   def as_csv
@@ -92,15 +93,6 @@ class ReportsShowPresenter
     invoices.group_by(&:sales_rep_code)
   end
   memoize :invoices_by_code
-
-  def invoices
-    if batch_num == "latest"
-      Invoice.latest_batch
-    else
-      Invoice.where(batch: batch_num)
-    end.includes(:sales_rep)
-  end
-  memoize :invoices
 
   def csv_row(commission)
     inv = commission.invoice

@@ -7,17 +7,25 @@ class ReportsController < ApplicationController
   end
 
   def date
-    render plain: [params[:date_from], params[:date_to]]
+    render_report Invoice.where(paid_on: params[:from]..params[:to]).includes(:sales_rep)
   end
 
   def batch
-    unless Invoice.where(batch: params[:batch_id]).exists?
-      raise ActiveRecord::RecordNotFound
-    end
+    batch_num = if params[:batch_id] == "latest"
+                  Invoice.latest_batch_number
+                else
+                  params[:batch_id]
+                end
 
+    render_report Invoice.where(batch: batch_num).includes(:sales_rep)
+  end
+
+  private
+
+  def render_report(invoices)
     @one_per_page = true if params[:one_per_page]
     @list_disabled_reps = true if params[:list_disabled_reps]
-    @presenter = ReportsShowPresenter.new(params[:batch_id])
+    @presenter = ReportsShowPresenter.new(invoices)
 
     respond_to do |format|
       format.html do
@@ -30,8 +38,6 @@ class ReportsController < ApplicationController
       end
     end
   end
-
-  private
 
   def cast_boolean_params
     cast_boolean_param(:grayscale)
