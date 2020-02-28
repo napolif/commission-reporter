@@ -1,0 +1,8 @@
+main.container[role="main"]
+  .jumbotron
+    h2 CSV import failed.
+    hr
+    p Errors:
+    ul
+      - errors.each do |err|
+        li = err
