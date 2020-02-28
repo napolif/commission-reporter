@@ -2,11 +2,6 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
-@media print {
-  body {
-    margin: 0;
-  }
-}
 @import url('https://fonts.googleapis.com/css?family=Lato:400,400i,700&display=swap');
 
 body {
@@ -14,6 +9,22 @@ body {
   font-family: helvetica;
   font-size: 14px;
   font-family: lato, helvetica, sans-serif;
+  color: #444444;
+
+  @media print {
+    margin: 0;
+    color: black;
+  }
+}
+
+
+table {
+  margin-bottom: 8px;
+  width: 100%;
+}
+
+tr {
+  line-height: 24px;
 }
 
 thead {
@@ -22,6 +33,10 @@ thead {
 
 tbody > tr:nth-child(odd) {
   background-color: #eaf0fa;
+}
+
+td {
+  padding: 4px;
 }
 
 td.ralign {
