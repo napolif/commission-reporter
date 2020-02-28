@@ -16,21 +16,21 @@ ActiveAdmin.register_page "Dashboard" do
       para "Latest invoice from: " + latest_date, class: "statistic"
     end
 
-    # panel "Reports" do
-    #   ul class: "reportList" do
-    #     Invoice.batch_numbers.sort.reverse.each do |num|
-    #       li class: "reportListItem" do
-    #         span "Commission Report - #{num}", class: "reportName"
-    #         span link_to("HTML", report_path(num),
-    #                      class: "formatLink-html js-htmlLink")
-    #         span link_to("PDF", report_path(num, format: :pdf),
-    #                      class: "formatLink-pdf js-pdfLink")
-    #         span link_to("CSV", report_path(num, format: :csv),
-    #                      class: "formatLink-csv")
-    #       end
-    #     end
-    #   end
-    # end
+    panel "Reports" do
+      ul class: "reportList" do
+        Invoice.batch_numbers.sort.reverse.each do |num|
+          li class: "reportListItem" do
+            span "Commission Report - #{num}", class: "reportName"
+            span link_to("HTML", by_batch_reports_path(num),
+                         class: "formatLink-html js-htmlLink")
+            span link_to("PDF", by_batch_reports_path(num, format: :pdf),
+                         class: "formatLink-pdf js-pdfLink")
+            span link_to("CSV", by_batch_reports_path(num, format: :csv),
+                         class: "formatLink-csv")
+          end
+        end
+      end
+    end
 
     panel "Options", class: "optionsPanel" do
       input type: "checkbox", class: "js-listDisabledReps", name: "list_disabled_reps"
