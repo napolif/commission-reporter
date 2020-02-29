@@ -41,7 +41,8 @@ class ReportsController < ApplicationController
                         bottom: margin,
                         left: margin,
                         right: margin},
-               print_media_type: true
+               print_media_type: true,
+               grayscale: params[:grayscale]
       end
 
       format.csv do

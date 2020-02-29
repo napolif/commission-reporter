@@ -27,6 +27,17 @@ main.container[role="main"]
               = label_tag "Format"
             .col-4
               = select_tag("format", options_for_select(%w[html pdf csv], "html"), class: "form-control")
+        hr
+        .form-check
+          = check_box_tag("list_disabled_reps", "1", true, class: "form-check-input", id: "optDisabled")
+          = label_tag("list_disabled_reps", "Show disabled reps on summary", class: "form-check-label", for: "optDisabled")
+        .form-check
+          = check_box_tag("grayscale", "1", false, class: "form-check-input", id: "optGrayscale")
+          = label_tag("grayscale", "Grayscale (PDF)", class: "form-check-label", for: "optGrayscale")
+        .form-check
+          = check_box_tag("one_per_page", "1", false, class: "form-check-input", id: "optPageBreak")
+          = label_tag("one_per_page", "One page per rep (PDF)", class: "form-check-label", for: "optPageBreak")
+        hr
         = submit_tag("Submit", class: "btn btn-primary")
 
   .card.bg-light.mb-4
