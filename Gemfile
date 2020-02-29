@@ -32,7 +32,7 @@ gem 'devise'
 gem 'activeadmin'
 gem 'slim'
 gem 'activerecord-import'
-gem 'pdfkit'
+gem 'wicked_pdf'
 gem 'memoist'
 gem 'bootstrap', '~> 4.4'
 

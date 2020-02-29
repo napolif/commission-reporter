@@ -32,6 +32,10 @@ class ReportsController < ApplicationController
         render :show, layout: "report"
       end
 
+      format.pdf do
+        render pdf: "output.pdf", layout: "report"
+      end
+
       format.csv do
         send_data(@presenter.as_csv,
                   filename: "commission-#{params[:batch_id]}-#{Date.today}.csv")
