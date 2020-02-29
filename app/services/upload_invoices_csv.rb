@@ -1,3 +1,4 @@
+# A service for uploading a CSV file. Similar to active_interaction classes.
 class UploadInvoicesCSV
   attr_reader :file, :csv, :errors, :result, :batch_number
 
@@ -12,7 +13,7 @@ class UploadInvoicesCSV
     customer_id: "CUSTNO",
     customer_name: "CUSTNAME",
     cases: "QRYSHIPPED"
-  }
+  }.freeze
 
   def initialize(file)
     @errors = []
@@ -80,8 +81,8 @@ class UploadInvoicesCSV
   private
 
   def validate
-    unless HEADERS.to_set.subset?(csv.headers.to_set)
-      errors << ["invalid headers"]
-    end
+    return if HEADERS.to_set.subset?(csv.headers.to_set)
+
+    errors << ["invalid headers"]
   end
 end
