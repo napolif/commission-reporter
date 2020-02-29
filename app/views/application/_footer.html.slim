@@ -6,7 +6,9 @@ footer.footer
   .container
     small.text-muted
       strong> Last commit:
-      a[href=(github_url + commit_hash)] = commit_hash
+      a[href=(github_url + commit_hash)]
+        = inline_svg_tag("github.svg", class: "githubLogo", height: "16px", width: "16px")
+        = commit_hash
 
     small.text-muted
       span = commit_date

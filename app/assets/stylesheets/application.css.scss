@@ -69,6 +69,23 @@ h1, h2, h3 {
   }
 }
 
+.githubLogo {
+  path {
+    fill: #007bff;
+  }
+  top: -3px;
+  display: inline-block;
+  height: 14px;
+  width: 14px;
+  position: relative;
+}
+
+a:hover .githubLogo {
+  path {
+    fill: #0056b3;
+  }
+}
+
 // duplicated ------------------------------------------------------------------
 
 .reportList {
@@ -91,9 +108,5 @@ h1, h2, h3 {
 
   & + .formatLink {
     margin-left: 4px;
-  }
-
-  .svg-inline--fa {
-    margin-right: 4px;
   }
 }
