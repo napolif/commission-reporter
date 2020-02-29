@@ -2,17 +2,25 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
-@media print {
-  body {
+body {
+  margin: 5em;
+  font-size: 14px;
+  font-family: lato, helvetica, sans-serif;
+  color: #444444;
+
+  @media print {
     margin: 0;
   }
 }
 
-body {
-  margin: 5em;
-  font-family: helvetica;
-  font-size: 10pt;
-  font-family: lato, helvetica, sans-serif;
+
+table {
+  margin-bottom: 8px;
+  width: 100%;
+}
+
+tr {
+  line-height: 24px;
 }
 
 thead {
@@ -21,6 +29,10 @@ thead {
 
 tbody > tr:nth-child(odd) {
   background-color: #eaf0fa;
+}
+
+td {
+  padding: 4px;
 }
 
 td.ralign {

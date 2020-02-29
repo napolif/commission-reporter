@@ -1,32 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title>Commission Reporter</title>
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Lato&display=swap',
-      media: 'all', 'data-turbolinks-track': true %>
-
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-
-    <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
-
-    <meta name="pdfkit-page_size" content="Letter"/>
-    <meta name="pdfkit-margin_top" content="0.5in"/>
-    <meta name="pdfkit-margin_right" content="0.5in"/>
-    <meta name="pdfkit-margin_bottom" content="0.5in"/>
-    <meta name="pdfkit-margin_left" content="0.5in"/>
-
-    <% if params[:grayscale] %>
-      <meta name="pdfkit-grayscale" content="true"/>
-    <% end %>
+    <%= stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Lato&display=swap', media: 'all' %>
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= javascript_pack_tag 'application' %>
   </head>
 
   <body>
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
+
+    <%= render "header" %>
     <%= yield %>
+    <%= render "footer" %>
   </body>
 </html>
