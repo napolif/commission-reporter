@@ -6,9 +6,7 @@ footer.footer
   .container
     small.text-muted
       strong> Last commit:
-      a[href=(github_url + commit_hash)]
-        i.fab.fa-github>
-        = commit_hash
+      a[href=(github_url + commit_hash)] = commit_hash
 
     small.text-muted
       span = commit_date
