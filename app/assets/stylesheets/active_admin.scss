@@ -17,7 +17,6 @@
 //   .status_tag { background: #6090DB; }
 
 body {
-  font-family: lato, helvetica, sans-serif;
   font-size: 14px;
 }
 
@@ -27,60 +26,6 @@ body {
   }
 }
 
-.optionsPanel {
-  input[type="checkbox"] {
-    position: relative;
-    bottom: 1px;
-    margin-right: 2px;
-  }
-
-  label {
-    font-size: 110%;
-  }
-}
-
 .statistic {
-  font-size: 110%;
   margin: 8px 0;
-}
-
-.reportList {
-  font-size: 110%;
-  margin-bottom: 16px;
-}
-
-.reportListItem {
-  margin-top: 8px;
-}
-
-.formatLink {
-  position: relative;
-  bottom: 3px;
-  padding: 3px;
-  font-size: 75%;
-  font-weight: bold;
-  border-radius: 3px;
-  color: white !important;
-  text-decoration: none !important;
-  margin-left: 4px;
-}
-
-.formatLink-html {
-  @extend .formatLink;
-  background-color: rgb(70, 70, 220);
-}
-
-.formatLink-pdf {
-  @extend .formatLink;
-  background-color: rgb(220, 100, 70);
-}
-
-.formatLink-csv {
-  @extend .formatLink;
-  background-color: rgb(100, 180, 70);
-}
-
-.reportName {
-  display: inline-block;
-  width: 14em;
 }
