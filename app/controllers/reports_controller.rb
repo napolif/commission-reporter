@@ -33,7 +33,15 @@ class ReportsController < ApplicationController
       end
 
       format.pdf do
-        render pdf: "output", layout: "report", template: "reports/show"
+        margin = "0.75in"
+        render pdf: "output",
+               layout: "report",
+               template: "reports/show",
+               margin: {top: margin,
+                        bottom: margin,
+                        left: margin,
+                        right: margin},
+               print_media_type: true
       end
 
       format.csv do
