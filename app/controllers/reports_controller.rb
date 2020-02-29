@@ -11,7 +11,7 @@ class ReportsController < ApplicationController
       format.html
 
       format.pdf do
-        render pdf: "output.pdf"
+        render pdf: "output.pdf", layout: "application"
       end
 
       format.csv do
