@@ -33,7 +33,7 @@ class ReportsController < ApplicationController
       end
 
       format.pdf do
-        render pdf: "output.pdf", layout: "report"
+        render pdf: "output", layout: "report", template: "reports/show"
       end
 
       format.csv do
