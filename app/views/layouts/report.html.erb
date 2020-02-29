@@ -3,16 +3,6 @@
   <head>
     <title>Commission Reporter</title>
     <%= stylesheet_link_tag 'report', media: 'all' %>
-
-    <meta name="pdfkit-page_size" content="Letter"/>
-    <meta name="pdfkit-margin_top" content="0.5in"/>
-    <meta name="pdfkit-margin_right" content="0.5in"/>
-    <meta name="pdfkit-margin_bottom" content="0.5in"/>
-    <meta name="pdfkit-margin_left" content="0.5in"/>
-
-    <% if params[:grayscale] %>
-      <meta name="pdfkit-grayscale" content="true"/>
-    <% end %>
   </head>
 
   <body>
