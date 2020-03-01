@@ -29,7 +29,7 @@ class ReportsController < ApplicationController
 
     respond_to do |format|
       format.html do
-        render :show, layout: "report"
+        render :show
       end
 
       format.pdf do

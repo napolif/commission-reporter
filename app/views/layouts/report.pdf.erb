@@ -8,6 +8,16 @@
   </head>
 
   <body class="report">
+    <h1 class="reportHeading">
+      <%= wicked_pdf_image_tag "/ferraro.png", height: "30px" %>
+      <%= wicked_pdf_image_tag "/napoli.png", height: "30px" %>
+
+      Commission Report
+    </h1>
+
+    <p><%= "Generated #{Date.today}" %></p>
+    <hr class="reportRule"/>
+
     <%= yield %>
   </body>
 </html>
