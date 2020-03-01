@@ -14,8 +14,10 @@
 
 @import "bootstrap";
 
-$blueInk: #444455;
+$blue-ink: #444455;
+$light-blue: #eaf0fa;
 $slate: rgb(95, 100, 104);
+$light-slate: lighten($slate, 40%);
 
 // -- overrides
 
@@ -136,7 +138,7 @@ h1, h2, h3 {
   h1 {
     text-transform: uppercase;
     font-size: 3rem;
-    color: $blueInk;
+    color: $blue-ink;
   }
 
   div:nth-child(1) {
@@ -155,7 +157,7 @@ h1, h2, h3 {
 
 .blueBar {
   width: 100%;
-  color: $blueInk;
+  color: $blue-ink;
 
   tr {
     line-height: 24px;
@@ -166,7 +168,7 @@ h1, h2, h3 {
   }
 
   tbody > tr:nth-child(odd) {
-    background-color: #eaf0fa;
+    background-color: $light-blue;
   }
 
   td {
@@ -181,7 +183,7 @@ h1, h2, h3 {
 .reportRule {
   margin: 32px 0;
   border: 0;
-  border-top: 1px solid #e0e0e0;
+  border-top: 1px solid $light-slate;
 }
 
 .salesRepCode {
@@ -192,7 +194,7 @@ h1, h2, h3 {
   border-radius: 3px;
   line-height: 1.25em;
   color: white;
-  background-color: lighten($slate, 40%);
+  background-color: $light-slate;
   font-size: 75%;
   font-weight: bold;
 
