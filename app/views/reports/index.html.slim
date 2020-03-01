@@ -16,17 +16,26 @@ main.container.w-75[role="main"]
             = date_field_tag "to", Date.today, class: "form-control", id: "endDate"
         .form-group
           = label_tag "format", "Format", for: "id-format"
-          = select_tag("format", options_for_select(%w[html pdf csv], "html"), class: "form-control", id: "id-format")
+          = select_tag "format",
+                       options_for_select(%w[html pdf csv], "html"),
+                       class: "form-control",
+                       id: "id-format"
         hr
         .form-check
           = check_box_tag "list_disabled_reps", "1", true, class: "form-check-input", id: "optDisabled"
-          = label_tag "list_disabled_reps", "Show disabled reps on summary", class: "form-check-label", for: "optDisabled"
+          = label_tag "list_disabled_reps",
+                      "Show disabled reps on summary",
+                      class: "form-check-label",
+                      for: "optDisabled"
         .form-check
           = check_box_tag "grayscale", "1", false, class: "form-check-input", id: "optGrayscale"
           = label_tag "grayscale", "Grayscale (PDF)", class: "form-check-label", for: "optGrayscale"
         .form-check
           = check_box_tag "one_per_page", "1", false, class: "form-check-input", id: "optPageBreak"
-          = label_tag "one_per_page", "One page per rep (PDF)", class: "form-check-label", for: "optPageBreak"
+          = label_tag "one_per_page",
+                      "One page per rep (PDF)",
+                      class: "form-check-label",
+                      for: "optPageBreak"
         hr
         = submit_tag "Submit", class: "btn btn-primary"
 
@@ -47,6 +56,6 @@ main.container.w-75[role="main"]
     .card-header.h5.font-weight-bold Upload CSV
     .card-body
       = form_with(url: upload_batches_path, method: "post", local: true, multipart: true) do
-        = file_field_tag("invoices", accept: "text/csv", class: "form-control-file")
+        = file_field_tag "invoices", accept: "text/csv", class: "form-control-file"
         hr
-        = submit_tag("Upload", class: "btn btn-primary")
+        = submit_tag "Upload", class: "btn btn-primary"
