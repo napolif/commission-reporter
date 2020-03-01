@@ -15,6 +15,7 @@
 @import "bootstrap";
 
 $blueInk: #444455;
+$slate: rgb(95, 100, 104);
 
 // -- overrides
 
@@ -123,18 +124,22 @@ h1, h2, h3 {
   h2, h3 {
     font-weight: normal;
     letter-spacing: -0.25px;
-    color: $blueInk;
+    color: rgb(95, 100, 104);
+  }
+
+  .salesRepCode {
+    margin-right: 0.5em;
   }
 }
 
 .reportHeading {
   display: flex;
   align-items: start;
-  color: $blueInk;
 
   h1 {
     text-transform: uppercase;
     font-size: 3rem;
+    color: $blueInk;
   }
 
   div:nth-child(1) {
@@ -183,17 +188,17 @@ h1, h2, h3 {
   border-top: 1px solid #e0e0e0;
 }
 
-.repCode {
+.salesRepCode {
   position: relative;
   bottom: 2px;
   display: inline-block;
   padding: 0 6px;
-  margin-right: 0.5em;
   border-radius: 3px;
   line-height: 1.25em;
   color: white;
-  background-color: lightgray;
+  background-color: lighten($slate, 40%);
   font-size: 75%;
+  font-weight: bold;
 }
 
 section {
