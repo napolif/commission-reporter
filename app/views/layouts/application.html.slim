@@ -1,0 +1,34 @@
+doctype html
+html lang="en"
+  head
+    meta content="text/html; charset=UTF-8" http-equiv="Content-Type"
+    meta charset="utf-8"
+    meta content="IE=edge" http-equiv="X-UA-Compatible"
+    meta content="width=device-width, initial-scale=1" name="viewport"
+
+    title Commission Reporter
+
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Lato&display=swap', media: 'all'
+    = stylesheet_link_tag 'application', media: 'all'
+    = javascript_pack_tag 'application'
+
+  body
+    - if notice
+      .container.w-75
+        .alert.alert-warning.alert-dismissible.fade.show data-dismiss="alert" role="alert"
+          = notice
+          button.close aria-label="Close" data-dismiss="alert" type="button"
+            span aria-hidden="true"  ×
+
+    - if alert
+      .container.w-75
+        .alert.alert-warning.alert-dismissible.fade.show data-dismiss="alert" role="alert"
+          = alert
+          button.close aria-label="Close" data-dismiss="alert" type="button"
+            span aria-hidden="true"  ×
+
+    = render "header"
+    = yield
+    = render "footer"
