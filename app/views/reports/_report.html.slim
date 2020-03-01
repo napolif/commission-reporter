@@ -21,8 +21,8 @@ section.breakBefore
           td = rep.code
           td = rep.name
           td.text-right = "%.2f" % total
-  .total
-    = "Grand Total $: %.2f" % @presenter.grand_total
+  .blueBarTotal
+    = "Grand Total: $%.2f" % @presenter.grand_total
 
   - if @list_disabled_reps
     hr.reportRule
