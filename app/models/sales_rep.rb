@@ -4,24 +4,8 @@
 #
 #  id         :bigint           not null, primary key
 #  code       :string
-#  name       :string
-#  quota_type :string
-#  period1    :decimal(8, 2)
-#  period2    :decimal(8, 2)
-#  period3    :decimal(8, 2)
-#  period4    :decimal(8, 2)
-#  period5    :decimal(8, 2)
-#  goal1      :decimal(8, 2)
-#  goal2      :decimal(8, 2)
-#  goal3      :decimal(8, 2)
-#  goal4      :decimal(8, 2)
-#  goal5      :decimal(8, 2)
-#  goal6      :decimal(8, 2)
-#  goal7      :decimal(8, 2)
-#  goal8      :decimal(8, 2)
-#  goal9      :decimal(8, 2)
-#  goal10     :decimal(8, 2)
 #  comm1      :decimal(8, 2)
+#  comm10     :decimal(8, 2)
 #  comm2      :decimal(8, 2)
 #  comm3      :decimal(8, 2)
 #  comm4      :decimal(8, 2)
@@ -30,10 +14,30 @@
 #  comm7      :decimal(8, 2)
 #  comm8      :decimal(8, 2)
 #  comm9      :decimal(8, 2)
-#  comm10     :decimal(8, 2)
+#  disabled   :boolean          default(FALSE), not null
+#  goal1      :decimal(8, 2)
+#  goal10     :decimal(8, 2)
+#  goal2      :decimal(8, 2)
+#  goal3      :decimal(8, 2)
+#  goal4      :decimal(8, 2)
+#  goal5      :decimal(8, 2)
+#  goal6      :decimal(8, 2)
+#  goal7      :decimal(8, 2)
+#  goal8      :decimal(8, 2)
+#  goal9      :decimal(8, 2)
+#  name       :string
+#  period1    :decimal(8, 2)
+#  period2    :decimal(8, 2)
+#  period3    :decimal(8, 2)
+#  period4    :decimal(8, 2)
+#  period5    :decimal(8, 2)
+#  quota_type :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  disabled   :boolean          default(FALSE), not null
+#
+# Indexes
+#
+#  index_sales_reps_on_disabled  (disabled)
 #
 
 # Info for a sales rep, including commission levels.

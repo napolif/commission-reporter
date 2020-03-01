@@ -10,7 +10,7 @@ class UploadInvoicesCSV
     sales_rep_code: "SLSREPNO",
     amount: "NETSALES",
     cost: "NETCOST",
-    customer_id: "CUSTNO",
+    customer_code: "CUSTNO",
     customer_name: "CUSTNAME",
     cases: "QRYSHIPPED"
   }.freeze
