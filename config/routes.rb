@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   resources :reports, only: [:index] do
     collection do
-      get 'batch/:batch_id', action: :batch, as: 'by_batch'
+      get 'batch/:batch', action: :batch, as: 'by_batch'
       get 'date', action: :date, as: 'by_date'
     end
   end
