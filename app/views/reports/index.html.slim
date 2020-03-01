@@ -39,9 +39,9 @@ main.container.w-75[role="main"]
           li.reportListItem
             span = "Report for batch #{num}"
             .float-right
-              a.formatLink.js-htmlLink href=(by_batch_reports_path num) HTML
-              a.formatLink.js-pdfLink href=(by_batch_reports_path num, format: :pdf) PDF
-              a.formatLink.js-htmlLink href=(by_batch_reports_path num, format: :csv) CSV
+              a.formatLink href=(by_batch_reports_path num) HTML
+              a.formatLink href=(by_batch_reports_path num, format: :pdf) PDF
+              a.formatLink href=(by_batch_reports_path num, format: :csv) CSV
 
   .card.bg-light.mb-4
     .card-header.h5.font-weight-bold Upload CSV
