@@ -16,13 +16,13 @@ hr
           td Invoice
           td Customer ID
           td Customer Name
-          td.ralign Amount
-          td.ralign Cost
-          td.ralign Margin
+          td.text-right Amount
+          td.text-right Cost
+          td.text-right Margin
           td Invoiced On
           td Paid On
           td Age
-          td.ralign Comm $
+          td.text-right Comm $
       tbody
         - comms.each do |comm|
           - inv = comm.invoice
@@ -30,14 +30,14 @@ hr
             td = inv.number
             td = inv.customer_code
             td = inv.customer_name
-            td.ralign = inv.amount
-            td.ralign = inv.cost
-            td.ralign = "%.2f" % inv.margin_pct
+            td.text-right = inv.amount
+            td.text-right = inv.cost
+            td.text-right = "%.2f" % inv.margin_pct
             td = inv.invoiced_on
             td = inv.paid_on
             td = inv.age_category.to_s.sub('within_', '')
-            td.ralign = "%.2f" % comm.amount
-    .total
+            td.text-right = "%.2f" % comm.amount
+    .font-weight-bold
       - total = comms.map(&:amount).reduce(:+)
       = "Total Commission $: %.2f" % total
     - unless params[:one_per_page]
@@ -52,13 +52,13 @@ section.summary
       tr
         td Rep ID
         td Rep Name
-        td.ralign Total Commission $
+        td.text-right Total Commission $
     tbody
       - @presenter.total_rows.each do |rep, total|
         tr
           td = rep.code
           td = rep.name
-          td.ralign = "%.2f" % total
+          td.text-right = "%.2f" % total
   .total
     = "Grand Total $: %.2f" % @presenter.grand_total
 
