@@ -121,14 +121,11 @@ h1, h2, h3 {
 }
 
 .report {
-  h2, h3 {
+  h2 {
     font-weight: normal;
     letter-spacing: -0.25px;
     color: rgb(95, 100, 104);
-  }
-
-  .salesRepCode {
-    margin-right: 0.5em;
+    margin-bottom: 16px;
   }
 }
 
@@ -176,9 +173,8 @@ h1, h2, h3 {
     padding: 4px;
   }
 
-  // TODO: needed?
   .report & {
-    margin: 16px 0;
+    margin-bottom: 16px; // space before totals line
   }
 }
 
@@ -199,6 +195,10 @@ h1, h2, h3 {
   background-color: lighten($slate, 40%);
   font-size: 75%;
   font-weight: bold;
+
+  .report & {
+    margin-right: 12px;
+  }
 }
 
 section {
