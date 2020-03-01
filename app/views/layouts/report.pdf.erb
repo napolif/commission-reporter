@@ -2,11 +2,27 @@
 <html>
   <head>
     <title>Commission Reporter</title>
-    <%= stylesheet_link_tag "https://fonts.googleapis.com/css?family=Lato&display=swap" %>
-    <%= wicked_pdf_stylesheet_link_tag "report" %>
+    <%= wicked_pdf_stylesheet_link_tag "application" %>
   </head>
 
-  <body>
+  <body class="pdfBody">
+    <div class="reportHeading">
+      <div>
+        <h1>Commission Report</h1>
+        <% if params[:batch] %>
+          <p><%= "For batch #{params[:batch]}" %></p>
+        <% else %>
+          <p><%= "From #{params[:from]} to #{params[:to]}" %></p>
+        <% end %>
+      </div>
+
+      <div>
+        <%= wicked_pdf_image_tag "ferraro.png", height: "30px" %>
+        <%= wicked_pdf_image_tag "napoli.png", height: "30px" %>
+      </div>
+    </div>
+    <hr class="reportRule"/>
+
     <%= yield %>
   </body>
 </html>

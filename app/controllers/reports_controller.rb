@@ -11,10 +11,10 @@ class ReportsController < ApplicationController
   end
 
   def batch
-    batch_num = if params[:batch_id] == "latest"
+    batch_num = if params[:batch] == "latest"
                   Invoice.latest_batch_number
                 else
-                  params[:batch_id]
+                  params[:batch]
                 end
 
     render_report Invoice.where(batch: batch_num).includes(:sales_rep)
@@ -29,7 +29,7 @@ class ReportsController < ApplicationController
 
     respond_to do |format|
       format.html do
-        render :show, layout: "report"
+        render :show
       end
 
       format.pdf do
@@ -47,7 +47,7 @@ class ReportsController < ApplicationController
 
       format.csv do
         send_data(@presenter.as_csv,
-                  filename: "commission-#{params[:batch_id]}-#{Date.today}.csv")
+                  filename: "commission-#{params[:batch]}-#{Date.today}.csv")
       end
     end
   end
