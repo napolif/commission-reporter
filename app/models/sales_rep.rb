@@ -61,7 +61,7 @@ class SalesRep < ApplicationRecord
   before_validation { code.upcase! }
 
   def self.default
-    find_by(code: DEFAULT_CODE)
+    @default ||= find_by(code: DEFAULT_CODE)
   end
 
   def self.default_new(code)
