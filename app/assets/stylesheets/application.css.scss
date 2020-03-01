@@ -14,6 +14,7 @@
 
 @import "bootstrap";
 
+$blueInk: #444455;
 
 // -- overrides
 
@@ -112,27 +113,29 @@ h1, h2, h3 {
 
 // -- report
 
-body.report {
+.pdfBody {
   margin: 5em;
   padding: 0;
   font-size: 14px;
-  font-family: lato, helvetica, sans-serif;
-  color: #444455 !important;
+}
 
-  h1 {
-    text-transform: uppercase;
-    font-size: 3rem;
-  }
-
+.report {
   h2, h3 {
     font-weight: normal;
     letter-spacing: -0.25px;
+    color: $blueInk;
   }
 }
 
 .reportHeading {
   display: flex;
   align-items: start;
+  color: $blueInk;
+
+  h1 {
+    text-transform: uppercase;
+    font-size: 3rem;
+  }
 
   div:nth-child(1) {
     flex-grow: 0;
@@ -150,6 +153,7 @@ body.report {
 
 .blueBar {
   width: 100%;
+  color: $blueInk;
 
   tr {
     line-height: 24px;
@@ -167,6 +171,7 @@ body.report {
     padding: 4px;
   }
 
+  // TODO: needed?
   .report & {
     margin: 16px 0;
   }
