@@ -3,37 +3,8 @@ main.container.report
     section[class=("breakAfter" if @one_per_page)]
       h2
         span.salesRepCode = rep.code
-        = rep.name
-      table.blueBar
-        thead
-          tr
-            td Invoice
-            td Customer ID
-            td Customer Name
-            td.text-right Amount
-            td.text-right Cost
-            td.text-right Margin
-            td Invoiced On
-            td Paid On
-            td Age
-            td.text-right Comm $
-        tbody
-          - comms.each do |comm|
-            - inv = comm.invoice
-            tr
-              td = inv.number
-              td = inv.customer_code
-              td = inv.customer_name
-              td.text-right = inv.amount
-              td.text-right = inv.cost
-              td.text-right = "%.2f" % inv.margin_pct
-              td = inv.invoiced_on
-              td = inv.paid_on
-              td = inv.age_category.to_s.sub('within_', '')
-              td.text-right = "%.2f" % comm.amount
-      .font-weight-bold
-        - total = comms.map(&:amount).reduce(:+)
-        = "Total Commission $: %.2f" % total
+        span = rep.name
+      = render partial: "table", locals: {commissions: comms}
       - unless params[:one_per_page]
         hr.reportRule
 
