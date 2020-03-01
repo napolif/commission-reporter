@@ -102,7 +102,7 @@ class ReportsShowPresenter
     margin_pct = "%.2f" % inv.margin_pct.to_f
     amount = "%.2f" % commission.amount.to_f
 
-    fields = [inv.number, inv.customer_id, inv.customer_name]
+    fields = [inv.number, inv.customer_code, inv.customer_name]
     fields += [inv.invoiced_on, inv.paid_on, inv.age_category]
     fields += [inv.amount, inv.cost, margin_pct, inv.cases, delivered]
     fields += [rep.code, rep.name, rep.quota_type, amount]

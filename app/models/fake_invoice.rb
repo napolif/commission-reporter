@@ -57,7 +57,7 @@ class FakeInvoice < Invoice
       invoiced_on: invoiced_on,
       paid_on: Faker::Date.between(from: invoiced_on, to: Date.today),
       customer_name: customer_name,
-      customer_id: customer_name.gsub(" ", "").upcase.first(6),
+      customer_code: customer_name.gsub(" ", "").upcase.first(6),
       cost: cost,
       amount: Faker::Number.between(from: cost, to: cost * 1.25)
     )
