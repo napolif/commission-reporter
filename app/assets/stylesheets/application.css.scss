@@ -117,7 +117,35 @@ body.report {
   padding: 0;
   font-size: 14px;
   font-family: lato, helvetica, sans-serif;
-  color: #444444 !important;
+  color: #444455 !important;
+
+  h1 {
+    text-transform: uppercase;
+    font-size: 3rem;
+  }
+
+  h2, h3 {
+    font-weight: normal;
+    letter-spacing: -0.25px;
+  }
+}
+
+.reportHeading {
+  display: flex;
+  align-items: start;
+
+  div:nth-child(1) {
+    flex-grow: 0;
+  }
+
+  div:nth-child(2) {
+    text-align: right;
+    flex-grow: 1;
+  }
+
+  img + img {
+    margin-left: 10px;
+  }
 }
 
 .blueBar {
