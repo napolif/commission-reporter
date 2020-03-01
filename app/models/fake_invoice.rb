@@ -3,19 +3,25 @@
 # Table name: invoices
 #
 #  id             :bigint           not null, primary key
-#  batch          :string
-#  number         :string
-#  sales_rep_code :string
-#  invoiced_on    :date
-#  paid_on        :date
 #  amount         :decimal(8, 2)
-#  cost           :decimal(8, 2)
-#  customer_id    :string
-#  customer_name  :string
+#  batch          :string
 #  cases          :integer
+#  cost           :decimal(8, 2)
+#  customer_code  :string
+#  customer_name  :string
 #  delivered      :boolean
+#  invoiced_on    :date
+#  number         :string
+#  paid_on        :date
+#  sales_rep_code :string
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
+#
+# Indexes
+#
+#  index_invoices_on_batch                     (batch)
+#  index_invoices_on_batch_and_sales_rep_code  (batch,sales_rep_code)
+#  index_invoices_on_sales_rep_code            (sales_rep_code)
 #
 
 # Convenience class for generating a Invoice with fake information.
