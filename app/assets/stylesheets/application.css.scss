@@ -14,6 +14,16 @@
 
 @import "bootstrap";
 
+
+// -- overrides
+
+@media print {
+  body, main, .container {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+}
+
 html {
   position: relative;
   min-height: 100%;
@@ -29,6 +39,9 @@ body {
 h1, h2, h3 {
   font-weight: 700;
 }
+
+
+// -- header & footer
 
 .navbarGroup {
   display: flex;
@@ -65,13 +78,16 @@ h1, h2, h3 {
   height: 14px;
   width: 14px;
   position: relative;
-}
 
-a:hover .githubLogo {
-  path {
-    fill: #0056b3;
+  a:hover & {
+    path {
+      fill: #0056b3;
+    }
   }
 }
+
+
+// -- dashboard
 
 .reportListItem {
   line-height: 225%;
@@ -93,7 +109,17 @@ a:hover .githubLogo {
   }
 }
 
-// a table style alternating white & blue rows
+
+// -- report
+
+body.report {
+  margin: 5em;
+  padding: 0;
+  font-size: 14px;
+  font-family: lato, helvetica, sans-serif;
+  color: #444444 !important;
+}
+
 .blueBar {
   width: 100%;
 
@@ -147,16 +173,4 @@ section {
 
 .breakBefore {
   page-break-before: always;
-}
-
-body.report {
-  margin: 5em;
-  padding: 0;
-  font-size: 14px;
-  font-family: lato, helvetica, sans-serif;
-  color: #444444 !important;
-
-  @media print {
-    margin: 0;
-  }
 }
