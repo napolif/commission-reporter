@@ -1,5 +1,5 @@
 - @presenter.commissions_by_enabled_rep.each do |rep, comms|
-  section[class=("breakAfter" if @one_per_page)]
+  section class=("breakAfter" if @one_per_page)
     h2
       span.salesRepCode = rep.code
       span = rep.name
