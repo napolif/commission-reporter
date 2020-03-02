@@ -1,9 +1,9 @@
 main.container[role="main"]
   .jumbotron
-    h2 CSV import failed.
+    h2.text-danger CSV import failed.
     hr
     p Errors:
     ul
       - errors.each do |err|
         li = err
-    a.btn.btn-primary.mt-5 href=reports_path Return to Dashboard
+    a.btn.btn-primary.mt-3 href=reports_path Return to Dashboard
