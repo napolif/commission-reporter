@@ -83,6 +83,6 @@ class UploadInvoicesCSV
   def validate
     return if HEADERS.to_set.subset?(csv.headers.to_set)
 
-    errors << "invalid headers"
+    errors << "invalid headers (expecting #{HEADERS.join(', ')})"
   end
 end
