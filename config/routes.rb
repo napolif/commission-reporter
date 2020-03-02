@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :batches, only: [] do
+  resources :batches, only: [:show] do
     collection do
       post 'upload'
       get 'upload', to: redirect("reports#index")
