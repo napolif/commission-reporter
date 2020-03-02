@@ -55,7 +55,7 @@ class Invoice < ApplicationRecord
            .sort_by(&:second)
            .reverse
            .transpose
-           .first
+           .first || []
   end
 
   def amount=(val)
