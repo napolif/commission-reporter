@@ -20,8 +20,9 @@ class UploadInvoicesCSV
     @result = nil
     @file = file
     @csv = CSV.read(@file, headers: true)
+    validate_headers
+
     @batch_number = Invoice.next_batch_number + "-csv"
-    validate
   end
 
   def run
@@ -80,7 +81,7 @@ class UploadInvoicesCSV
 
   private
 
-  def validate
+  def validate_headers
     return if HEADERS.to_set.subset?(csv.headers.to_set)
 
     errors << "invalid headers (expecting #{HEADERS.join(', ')})"
