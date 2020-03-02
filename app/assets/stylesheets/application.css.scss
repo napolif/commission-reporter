@@ -49,6 +49,17 @@ h1, h2, h3 {
 }
 
 
+// -- index
+
+.welcome {
+  background-image: url(asset_path("money.png"));
+  background-repeat: no-repeat;
+  background-position-x: center;
+  background-position-y: center;
+  background-size: contain;
+  text-align: center;
+}
+
 // -- header & footer
 
 .navbarGroup {
