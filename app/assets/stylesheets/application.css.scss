@@ -97,29 +97,6 @@ h1, h2, h3 {
 }
 
 
-// -- dashboard
-
-.reportListItem {
-  line-height: 225%;
-
-  &:hover {
-    font-weight: bold;
-  }
-}
-
-.formatLink {
-  @extend .btn;
-  @extend .btn-primary;
-  @extend .btn-sm;
-
-  padding: 2px 6px;
-
-  & + .formatLink {
-    margin-left: 4px;
-  }
-}
-
-
 // -- report
 
 .pdfBody {

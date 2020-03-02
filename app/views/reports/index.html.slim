@@ -28,15 +28,24 @@ main.container.w-75[role="main"]
   .card.bg-light.mb-4
     .card-header.h5.font-weight-bold Get Report By Batch
     .card-body
-      ul.reportList
-        - batch_numbers.each do |num|
-          - path = by_batch_reports_path(num)
-          li.reportListItem
-            span = "Report for batch #{num}"
-            .float-right
-              a.formatLink href=(by_batch_reports_path num) HTML
-              a.formatLink href=(by_batch_reports_path num, format: :pdf) PDF
-              a.formatLink href=(by_batch_reports_path num, format: :csv) CSV
+      = form_with(url: by_batch_reports_path, method: "get", local: true) do
+        .form-group
+          = label_tag "batch", "Batch", for: "id-batch"
+          = select_tag "batch",
+                       options_for_select(Invoice.batch_numbers),
+                       class: "form-control",
+                       id: "id-batch"
+
+        .form-group
+          = label_tag "format", "Format", for: "id-format"
+          = select_tag "format",
+                       options_for_select(%w[html pdf csv], "html"),
+                       class: "form-control",
+                       id: "id-format"
+        hr
+        = render partial: "form_options"
+        hr
+        = button_tag "Submit", class: "btn btn-primary js-submitReportForm", name: nil
 
   .card.bg-light.mb-4
     .card-header.h5.font-weight-bold Upload Invoice CSV
