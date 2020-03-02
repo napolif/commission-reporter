@@ -2,7 +2,7 @@
 class UploadInvoicesCSV
   attr_reader :file, :csv, :errors, :result, :batch_number
 
-  HEADERS = %w[SLSREPNO CUSTNO CUSTNAME INVNUM LASTORD CRTDATE NETSALES NETCOST REFNUM QRYSHIPPED]
+  HEADERS = %w[SLSREPNO CUSTNO CUSTNAME INVNUM LASTORD CRTDATE NETSALES NETCOST REFNUM QTYSHIPPED]
             .freeze
 
   IGNORED_REPS = %w[550].freeze
@@ -14,7 +14,7 @@ class UploadInvoicesCSV
     cost: "NETCOST",
     customer_code: "CUSTNO",
     customer_name: "CUSTNAME",
-    cases: "QRYSHIPPED"
+    cases: "QTYSHIPPED"
   }.freeze
 
   def initialize(file)
