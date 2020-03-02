@@ -98,15 +98,19 @@ class ReportsShowPresenter
     inv = commission.invoice
     rep = commission.sales_rep
 
-    delivered = if inv.delivered then "yes" else "no" end
-    margin_pct = "%.2f" % inv.margin_pct.to_f
-    amount = "%.2f" % commission.amount.to_f
+    [
+      inv.number, inv.customer_code, inv.customer_name, inv.invoiced_on,
+      inv.paid_on, inv.age_category, inv.amount, inv.cost,
+      pretty_num(inv.margin_pct), inv.cases, pretty_bool(inv.delivered),
+      rep.code, rep.name, rep.quota_type, pretty_num(amount)
+    ].join(CSV_DELIM)
+  end
 
-    fields = [inv.number, inv.customer_code, inv.customer_name]
-    fields += [inv.invoiced_on, inv.paid_on, inv.age_category]
-    fields += [inv.amount, inv.cost, margin_pct, inv.cases, delivered]
-    fields += [rep.code, rep.name, rep.quota_type, amount]
+  def pretty_num(bigdec)
+    "%.2f" % bigdec.to_f
+  end
 
-    fields.join(CSV_DELIM)
+  def pretty_bool(bool)
+    bool ? "yes" : "no"
   end
 end

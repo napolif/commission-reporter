@@ -2,7 +2,9 @@
 class UploadInvoicesCSV
   attr_reader :file, :csv, :errors, :result, :batch_number
 
-  HEADERS = %w[SLSREPNO CUSTNO CUSTNAME INVNUM LASTORD CRTDATE NETSALES NETCOST REFNUM QRYSHIPPED].freeze
+  HEADERS = %w[SLSREPNO CUSTNO CUSTNAME INVNUM LASTORD CRTDATE NETSALES NETCOST REFNUM QRYSHIPPED]
+            .freeze
+
   IGNORED_REPS = %w[550].freeze
 
   FIELD_MAP = {
@@ -24,7 +26,7 @@ class UploadInvoicesCSV
 
     @batch_number = Invoice.next_batch_number + "-csv"
 
-    numbers = csv.map { |x| x['INVNUM'].strip }
+    numbers = csv.map { |x| x["INVNUM"].strip }
     @found_invoices = Invoice.where(number: numbers).index_by(&:number)
   end
 
@@ -40,15 +42,11 @@ class UploadInvoicesCSV
         inv = invoice_for_row(row)
         if inv.invalid?
           errors << "invalid data in row #{row_num}: #{inv.errors.full_messages.join(',')}"
-        # elsif inv.amount.negative?
-        #   errors << "negative sales $ in row #{row_num}"
-        # elsif inv.amount.zero?
-        #   errors << "zero sales $ in row #{row_num}"
         else
           arr << inv
         end
-      rescue StandardError => err
-        errors << "invalid data in row #{row_num}: #{err}"
+      rescue StandardError => e
+        errors << "invalid data in row #{row_num}: #{e}"
       end
     end
 

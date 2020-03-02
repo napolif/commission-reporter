@@ -2,6 +2,11 @@ class ReportsController < ApplicationController
   before_action :authenticate_admin_user!
   before_action :cast_boolean_params
 
+  PDF_OPTIONS = {layout: "report",
+                 template: "reports/show",
+                 margin: {top: "0.75in", bottom: "0.75in", left: "0.75in", right: "0.75in"},
+                 print_media_type: true}.freeze
+
   def index
     render :index, locals: {batch_numbers: Invoice.batch_numbers}
   end
@@ -24,7 +29,7 @@ class ReportsController < ApplicationController
 
   private
 
-  def render_report(invoices)
+  def render_report(invoices) # rubocop:disable Metrics/AbcSize
     @one_per_page = true if params[:one_per_page]
     @list_disabled_reps = true if params[:list_disabled_reps]
     @presenter = ReportsShowPresenter.new(invoices)
@@ -35,16 +40,7 @@ class ReportsController < ApplicationController
       end
 
       format.pdf do
-        margin = "0.75in"
-        render pdf: "output",
-               layout: "report",
-               template: "reports/show",
-               margin: {top: margin,
-                        bottom: margin,
-                        left: margin,
-                        right: margin},
-               print_media_type: true,
-               grayscale: params[:grayscale]
+        render pdf: "output", **PDF_OPTIONS.merge(grayscale: params[:grayscale])
       end
 
       format.csv do
