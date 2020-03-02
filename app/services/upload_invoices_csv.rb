@@ -20,8 +20,12 @@ class UploadInvoicesCSV
     @result = nil
     @file = file
     @csv = CSV.read(@file, headers: true)
+    validate_headers
+
     @batch_number = Invoice.next_batch_number + "-csv"
-    validate
+
+    numbers = csv.map { |x| x['INVNUM'].strip }
+    @found_invoices = Invoice.where(number: numbers).index_by(&:number)
   end
 
   def run
@@ -35,31 +39,31 @@ class UploadInvoicesCSV
         row_num = idx + 2
         inv = invoice_for_row(row)
         if inv.invalid?
-          errors << "invalid data in csv row #{row_num}"
+          errors << "invalid data in row #{row_num}: #{inv.errors.full_messages.join(',')}"
         # elsif inv.amount.negative?
-        #   errors << "negative sales $ in csv row #{row_num}"
+        #   errors << "negative sales $ in row #{row_num}"
         # elsif inv.amount.zero?
-        #   errors << "zero sales $ in csv row #{row_num}"
+        #   errors << "zero sales $ in row #{row_num}"
         else
           arr << inv
         end
-      rescue
-        errors << "invalid data in csv row #{row_num}"
+      rescue StandardError => err
+        errors << "invalid data in row #{row_num}: #{err}"
       end
     end
 
     return unless errors.empty?
 
-    Invoice.transaction do
-      invoices.each(&:save!)
-    end
-
+    Invoice.import(invoices,
+                   on_duplicate_key_update: Invoice.column_names.without("id", "updated_at"))
     @result = invoices
     true
   end
 
   def invoice_for_row(row)
-    Invoice.new.tap do |inv|
+    found = @found_invoices[row.get("INVNUM")]
+
+    (found || Invoice.new).tap do |inv|
       FIELD_MAP.each do |attr, hdr|
         inv[attr] = row.get(hdr)
       end
@@ -80,9 +84,9 @@ class UploadInvoicesCSV
 
   private
 
-  def validate
+  def validate_headers
     return if HEADERS.to_set.subset?(csv.headers.to_set)
 
-    errors << ["invalid headers"]
+    errors << "invalid headers (expecting #{HEADERS.join(', ')})"
   end
 end

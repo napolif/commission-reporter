@@ -21,13 +21,14 @@
 #
 #  index_invoices_on_batch                     (batch)
 #  index_invoices_on_batch_and_sales_rep_code  (batch,sales_rep_code)
+#  index_invoices_on_number                    (number)
 #  index_invoices_on_sales_rep_code            (sales_rep_code)
 #
 
 # Header for an invoice.
 class Invoice < ApplicationRecord
   validates :batch, presence: true
-  validates :number, presence: true
+  validates :number, presence: true, uniqueness: true
   validates :sales_rep_code, presence: true
   validates :invoiced_on, presence: true
   validates :paid_on, presence: true
@@ -38,7 +39,7 @@ class Invoice < ApplicationRecord
 
   scope :latest_batch, -> { where(batch: latest_batch_number) }
 
-  before_validation { sales_rep_code.upcase! }
+  before_validation { sales_rep_code&.upcase! }
 
   def self.latest_batch_number
     Invoice.order(created_at: :desc).limit(1).pluck(:batch).first

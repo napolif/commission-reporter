@@ -55,6 +55,9 @@ main.container.w-75[role="main"]
   .card.bg-light.mb-4
     .card-header.h5.font-weight-bold Upload CSV
     .card-body
+      strong Required Headers:
+      p
+        small = UploadInvoicesCSV::HEADERS.join(", ")
       = form_with(url: upload_batches_path, method: "post", local: true, multipart: true) do
         = file_field_tag "invoices", accept: "text/csv", class: "form-control-file"
         hr
