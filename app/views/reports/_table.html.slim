@@ -18,14 +18,14 @@ table.blueBar
         td = inv.number
         td = inv.customer_code
         td = inv.customer_name
-        td.text-right = inv.amount
-        td.text-right = inv.cost
-        td.text-right = "%.2f" % inv.margin_pct
+        td.text-right = number_to_currency(inv.amount, unit: "")
+        td.text-right = number_to_currency(inv.cost, unit: "")
+        td.text-right = "%0.2f" % inv.margin_pct
         td = inv.invoiced_on
         td = inv.paid_on
         td = inv.age_category.to_s.sub('within_', '')
-        td.text-right = "%.2f" % comm.amount
+        td.text-right = number_to_currency(comm.amount, unit: "")
 
 .blueBarTotal
   - total = commissions.map(&:amount).reduce(:+)
-  = "Total Commission: $%.2f" % total
+  = "Total Commission: $#{number_to_currency(total, unit: '')}"
