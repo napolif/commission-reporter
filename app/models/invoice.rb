@@ -39,7 +39,7 @@ class Invoice < ApplicationRecord
 
   scope :latest_batch, -> { where(batch: latest_batch_number) }
 
-  before_validation { sales_rep_code.upcase! }
+  before_validation { sales_rep_code&.upcase! }
 
   def self.latest_batch_number
     Invoice.order(created_at: :desc).limit(1).pluck(:batch).first
