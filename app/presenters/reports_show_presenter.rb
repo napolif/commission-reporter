@@ -5,23 +5,20 @@ class ReportsShowPresenter
   attr_reader :batch_num
   attr_reader :invoices
 
-  CSV_DELIM = ",".freeze
-
   def initialize(invoices)
     @invoices = invoices
   end
 
   def as_csv
-    commissions = commissions_by_enabled_rep.values.flatten
+    headers = ["Inv Num", "Cust ID", "Cust Name", "Invoiced On", "Paid On",
+               "Age Category", "Amount", "Cost", "Margin %", "Cases",
+               "Delivered", "SR Code", "SR Name", "SR Quota Type", "Comm Amt"]
 
-    header = [
-      "Inv Num", "Cust ID", "Cust Name", "Invoiced On", "Paid On",
-      "Age Category", "Amount", "Cost", "Margin %", "Cases", "Delivered",
-      "SR Code", "SR Name", "SR Quota Type", "Comm Amt"
-    ].join(CSV_DELIM)
-
-    rows = commissions.map { |c| csv_row(c) }.join("\n")
-    [header, rows].join("\n")
+    CSV.generate(col_sep: ",", write_headers: true, headers: headers) do |csv|
+      commissions_by_enabled_rep.values.flatten.each do |comm|
+        csv << csv_row(comm)
+      end
+    end
   end
 
   def commissions_by_enabled_rep
@@ -102,8 +99,8 @@ class ReportsShowPresenter
       inv.number, inv.customer_code, inv.customer_name, inv.invoiced_on,
       inv.paid_on, inv.age_category, inv.amount, inv.cost,
       pretty_num(inv.margin_pct), inv.cases, pretty_bool(inv.delivered),
-      rep.code, rep.name, rep.quota_type, pretty_num(amount)
-    ].join(CSV_DELIM)
+      rep.code, rep.name, rep.quota_type, pretty_num(commission.amount)
+    ]
   end
 
   def pretty_num(bigdec)
