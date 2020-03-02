@@ -6,7 +6,7 @@
       li.breadcrumb-item.active = @title
 
 main.container
-  table.blueBar
+  table.blueBar.mb-4
     thead
       tr
         td Number
@@ -34,4 +34,4 @@ main.container
           td.text-right = "%.2f" % inv.margin_pct
 
   .blueBarTotal
-    = "Count: " % @invoices.size
+    = "Count: %d" % @invoices.size
