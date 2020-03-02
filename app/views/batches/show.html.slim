@@ -26,8 +26,8 @@ main.container
           td = inv.sales_rep_code
           td = inv.customer_code
           td = inv.customer_name
-          td.text-right = inv.amount
-          td.text-right = inv.cost
+          td.text-right = number_to_currency(inv.amount, unit: "")
+          td.text-right = number_to_currency(inv.cost, unit: "")
           td = inv.invoiced_on
           td = inv.paid_on
           td = inv.age_category.to_s.sub('within_', '')
