@@ -9,8 +9,9 @@ main.container role="main"
     p Choose a report below, or upload a CSV containing invoice headers.
 
   .card.bg-light.mb-4
-    .card-header.h5.font-weight-bold Get Report By Date
-    .card-body
+    .card-header.h5.font-weight-bold
+      a href="#id-dateCard" data-toggle="collapse" Get Report By Date
+    .card-body.collapse.show id="id-dateCard"
       = form_with(url: by_date_reports_path, method: "get", local: true) do
         .form-row
           .form-group.col-md-6
@@ -31,8 +32,9 @@ main.container role="main"
         = button_tag "Submit", class: "btn btn-primary js-submitReportForm", name: nil
 
   .card.bg-light.mb-4
-    .card-header.h5.font-weight-bold Get Report By Batch
-    .card-body
+    .card-header.h5.font-weight-bold
+      a href="#id-batchCard" data-toggle="collapse" Get Report By Batch
+    .card-body.collapse id="id-batchCard"
       = form_with(url: by_batch_reports_path, method: "get", local: true) do
         .form-group
           = label_tag "batch", "Batch", for: "id-batch"
@@ -53,8 +55,9 @@ main.container role="main"
         = button_tag "Submit", class: "btn btn-primary js-submitReportForm", name: nil
 
   .card.bg-light.mb-4
-    .card-header.h5.font-weight-bold Upload Invoice CSV
-    .card-body
+    .card-header.h5.font-weight-bold
+      a href="#id-uploadCard" data-toggle="collapse" Upload Invoice CSV
+    .card-body.collapse id="id-uploadCard"
       strong Required Headers:
       p
         small = UploadInvoicesCSV::HEADERS.join(", ")
