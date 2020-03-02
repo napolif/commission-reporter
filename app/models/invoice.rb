@@ -21,6 +21,7 @@
 #
 #  index_invoices_on_batch                     (batch)
 #  index_invoices_on_batch_and_sales_rep_code  (batch,sales_rep_code)
+#  index_invoices_on_number                    (number)
 #  index_invoices_on_sales_rep_code            (sales_rep_code)
 #
 
