@@ -20,11 +20,7 @@ class BatchesController < ApplicationController
     end
 
     batch_number = uploader.result.first.batch
-    report_url = by_batch_reports_path(batch: batch_number)
-    batch_size = Invoice.latest_batch.count
-
-    render :upload_success, locals: {batch_number: batch_number,
-                                     report_url: report_url,
-                                     batch_size: batch_size}
+    flash[:notice] = "Upload Succeeded."
+    redirect_to batch_path(batch_number)
   end
 end
