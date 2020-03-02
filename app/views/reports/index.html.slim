@@ -33,8 +33,8 @@ main.container role="main"
 
   .card.bg-light.mb-4
     .card-header.h5.font-weight-bold
-      a href="#id-batchCard" data-toggle="collapse" Get Report By Batch
-    .card-body.collapse id="id-batchCard"
+      a href="#id-batchFormCard" data-toggle="collapse" Get Report By Batch
+    .card-body.collapse id="id-batchFormCard"
       = form_with(url: by_batch_reports_path, method: "get", local: true) do
         .form-group
           = label_tag "batch", "Batch", for: "id-batch"
@@ -53,6 +53,16 @@ main.container role="main"
         = render partial: "form_options"
         hr
         = button_tag "Submit", class: "btn btn-primary js-submitReportForm", name: nil
+
+  .card.bg-light.mb-4
+    .card-header.h5.font-weight-bold
+      a href="#id-batchListCard" data-toggle="collapse" View Invoices By Batch
+    .card-body.collapse id="id-batchListCard"
+      ul
+        - batch_numbers.each do |bn|
+          li
+            a href=batch_path(bn) = "Batch #{bn}"
+
 
   .card.bg-light.mb-4
     .card-header.h5.font-weight-bold
