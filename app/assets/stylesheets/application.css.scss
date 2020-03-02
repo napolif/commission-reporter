@@ -52,8 +52,10 @@ h1, h2, h3 {
 // -- header & footer
 
 .navbarGroup {
-  display: flex;
-  align-items: center;
+  img {
+    position: relative;
+    top: -2px;
+  }
 }
 
 .headerLogo {
