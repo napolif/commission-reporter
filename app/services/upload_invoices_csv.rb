@@ -35,16 +35,16 @@ class UploadInvoicesCSV
         row_num = idx + 2
         inv = invoice_for_row(row)
         if inv.invalid?
-          errors << "invalid data in csv row #{row_num}"
+          errors << "invalid data in row #{row_num}: #{inv.errors.full_messages.join(',')}"
         # elsif inv.amount.negative?
-        #   errors << "negative sales $ in csv row #{row_num}"
+        #   errors << "negative sales $ in row #{row_num}"
         # elsif inv.amount.zero?
-        #   errors << "zero sales $ in csv row #{row_num}"
+        #   errors << "zero sales $ in row #{row_num}"
         else
           arr << inv
         end
-      rescue
-        errors << "invalid data in csv row #{row_num}"
+      rescue StandardError => err
+        errors << "invalid data in row #{row_num}: #{err}"
       end
     end
 
@@ -83,6 +83,6 @@ class UploadInvoicesCSV
   def validate
     return if HEADERS.to_set.subset?(csv.headers.to_set)
 
-    errors << ["invalid headers"]
+    errors << "invalid headers"
   end
 end
