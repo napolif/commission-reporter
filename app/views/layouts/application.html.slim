@@ -16,14 +16,14 @@ html lang="en"
 
   body
     - if notice
-      .container.w-75
+      .container
         .alert.alert-warning.alert-dismissible.fade.show data-dismiss="alert" role="alert"
           = notice
           button.close aria-label="Close" data-dismiss="alert" type="button"
             span aria-hidden="true"  ×
 
     - if alert
-      .container.w-75
+      .container
         .alert.alert-warning.alert-dismissible.fade.show data-dismiss="alert" role="alert"
           = alert
           button.close aria-label="Close" data-dismiss="alert" type="button"
