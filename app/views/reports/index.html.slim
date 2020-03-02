@@ -10,10 +10,10 @@ main.container.w-75[role="main"]
         .form-row
           .form-group.col-md-6
             = label_tag "start_date", "Start Date", for: "startDate"
-            = date_field_tag "from", Date.today - 1.week, class: "form-control", id: "startDate"
+            = date_field_tag "from", Date.today - 1.week, class: "form-control", id: "startDate", required: true
           .form-group.col-md-6
             = label_tag "end_date", "End Date", for: "endDate"
-            = date_field_tag "to", Date.today, class: "form-control", id: "endDate"
+            = date_field_tag "to", Date.today, class: "form-control", id: "endDate", required: true
         .form-group
           = label_tag "format", "Format", for: "id-format"
           = select_tag "format",
@@ -54,6 +54,6 @@ main.container.w-75[role="main"]
       p
         small = UploadInvoicesCSV::HEADERS.join(", ")
       = form_with(url: upload_batches_path, method: "post", local: true, multipart: true) do
-        = file_field_tag "invoices", accept: "text/csv", class: "form-control-file"
+        = file_field_tag "invoices", accept: "text/csv", class: "form-control-file", required: true
         hr
         = submit_tag "Upload", class: "btn btn-primary"
