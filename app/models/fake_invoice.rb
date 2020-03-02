@@ -36,17 +36,17 @@ class FakeInvoice < Invoice
   end
 
   def self.create_batch(size: 100, batch_num: Invoice.next_batch_number)
-    a_batch = new_batch(size: size, batch_num: batch_num)
+    a_batch = new_batch(size: size, batch_num: batch_num + "-fake")
     Invoice.import!(a_batch)
     a_batch
   end
 
   def self.sales_rep_codes
-    @sales_rep_codes ||= SalesRep.all.pluck(:code)
+    @sales_rep_codes ||= SalesRep.all.pluck(:code).without(SalesRep::DEFAULT_CODE)
   end
 
   def populate # rubocop:disable Metrics/AbcSize
-    invoiced_on = Faker::Date.between(from: 120.days.ago, to: Date.today)
+    invoiced_on = Faker::Date.between(from: 14.days.ago, to: Date.today)
     customer_name = Faker::Restaurant.name
     cost = Faker::Number.decimal(l_digits: 4, r_digits: 2)
 
