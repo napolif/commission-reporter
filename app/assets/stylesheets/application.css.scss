@@ -26,6 +26,10 @@ $light-slate: lighten($slate, 40%);
     margin: 0 !important;
     padding: 0 !important;
   }
+
+  .header, .footer {
+    display: none;
+  }
 }
 
 html {
