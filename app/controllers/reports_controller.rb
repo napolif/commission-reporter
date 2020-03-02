@@ -7,6 +7,7 @@ class ReportsController < ApplicationController
   end
 
   def date
+    @title = "Report for #{params[:from]} to #{params[:to]}"
     render_report Invoice.where(paid_on: params[:from]..params[:to]).includes(:sales_rep)
   end
 
@@ -17,6 +18,7 @@ class ReportsController < ApplicationController
                   params[:batch]
                 end
 
+    @title = "Report for batch #{batch_num}"
     render_report Invoice.where(batch: batch_num).includes(:sales_rep)
   end
 

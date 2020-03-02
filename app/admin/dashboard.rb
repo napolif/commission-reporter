@@ -4,8 +4,8 @@ ActiveAdmin.register_page "Dashboard" do
   content title: proc { I18n.t("active_admin.dashboard") } do
     div class: "blank_slate_container", id: "dashboard_default_message" do
       span class: "blank_slate" do
-        img src: "/ferraro.svg", height: "80px"
-        img src: "/napoli.png", height: "80px"
+        img src: asset_path("ferraro.svg"), height: "80px"
+        img src: asset_path("napoli.png"), height: "80px"
       end
     end
 

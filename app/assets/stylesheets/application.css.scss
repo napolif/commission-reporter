@@ -26,6 +26,10 @@ $light-slate: lighten($slate, 40%);
     margin: 0 !important;
     padding: 0 !important;
   }
+
+  .header, .footer, .breadcrumb {
+    display: none;
+  }
 }
 
 html {
@@ -45,11 +49,25 @@ h1, h2, h3 {
 }
 
 
+// -- index
+
+.welcome {
+  background-image: url(asset_path("money.png"));
+  background-repeat: no-repeat;
+  background-position-x: center;
+  background-position-y: center;
+  background-size: contain;
+  text-align: center;
+}
+
+
 // -- header & footer
 
 .navbarGroup {
-  display: flex;
-  align-items: center;
+  img {
+    position: relative;
+    top: -2px;
+  }
 }
 
 .headerLogo {
@@ -87,29 +105,6 @@ h1, h2, h3 {
     path {
       fill: #0056b3;
     }
-  }
-}
-
-
-// -- dashboard
-
-.reportListItem {
-  line-height: 225%;
-
-  &:hover {
-    font-weight: bold;
-  }
-}
-
-.formatLink {
-  @extend .btn;
-  @extend .btn-primary;
-  @extend .btn-sm;
-
-  padding: 2px 6px;
-
-  & + .formatLink {
-    margin-left: 4px;
   }
 }
 
