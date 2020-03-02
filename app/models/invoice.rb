@@ -28,7 +28,7 @@
 # Header for an invoice.
 class Invoice < ApplicationRecord
   validates :batch, presence: true
-  validates :number, presence: true
+  validates :number, presence: true, uniqueness: true
   validates :sales_rep_code, presence: true
   validates :invoiced_on, presence: true
   validates :paid_on, presence: true
