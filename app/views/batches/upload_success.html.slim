@@ -1,8 +1,19 @@
-main.container[role="main"]
+- content_for :bcrumb do
+  .container.mb-4
+    ol.breadcrumb
+      li.breadcrumb-item
+        a href="/" Dashboard
+      li.breadcrumb-item.active CSV Upload
+
+main.container role="main"
   .jumbotron
     h2 CSV import complete.
     hr
-    p = "Successfully imported #{batch_size} invoices from CSV."
-    a[href=(report_url)]
-      span> Commission report for batch
-      strong = batch_number
+    p.mb-4 = "Successfully imported #{batch_size} invoices from CSV."
+
+    .mb-4
+      strong Batch number:
+      tt = " #{batch_number}"
+
+    a.btn.btn-primary.mt-3.mr-2 href=report_url View Report
+    a.btn.btn-secondary.mt-3 href=reports_path Return to Dashboard

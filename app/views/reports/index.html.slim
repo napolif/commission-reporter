@@ -1,5 +1,10 @@
-main.container.w-75[role="main"]
-  .jumbotron
+- content_for :bcrumb do
+  .container.mb-4
+    ol.breadcrumb
+      li.breadcrumb-item.active Dashboard
+
+main.container role="main"
+  .jumbotron.mb-4
     h2.mb-4 Welcome to Commission Reporter!
     p Choose a report below, or upload a CSV containing invoice headers.
 
