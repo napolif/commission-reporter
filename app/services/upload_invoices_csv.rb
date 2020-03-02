@@ -36,10 +36,10 @@ class UploadInvoicesCSV
         inv = invoice_for_row(row)
         if inv.invalid?
           errors << "invalid data in csv row #{row_num}"
-        elsif inv.amount.negative?
-          errors << "negative sales $ in csv row #{row_num}"
-        elsif inv.amount.zero?
-          errors << "zero sales $ in csv row #{row_num}"
+        # elsif inv.amount.negative?
+        #   errors << "negative sales $ in csv row #{row_num}"
+        # elsif inv.amount.zero?
+        #   errors << "zero sales $ in csv row #{row_num}"
         else
           arr << inv
         end
