@@ -1,9 +1,7 @@
 main.container.w-75[role="main"]
   .jumbotron
-    p
-      h3 Welcome to Commission Reporter!
-      br
-      span Choose a report below, or upload a CSV containing invoice headers.
+    h2.mb-4 Welcome to Commission Reporter!
+    p Choose a report below, or upload a CSV containing invoice headers.
 
   .card.bg-light.mb-4
     .card-header.h5.font-weight-bold Reports
@@ -11,26 +9,35 @@ main.container.w-75[role="main"]
       = form_with(url: by_date_reports_path, method: "get", local: true) do
         .form-row
           .form-group.col-md-6
-            = label_tag("start_date", "Start Date", for: "startDate")
-            = date_field_tag("from", Date.today - 1.week, class: "form-control", id: "startDate")
+            = label_tag "start_date", "Start Date", for: "startDate"
+            = date_field_tag "from", Date.today - 1.week, class: "form-control", id: "startDate"
           .form-group.col-md-6
-            = label_tag("end_date", "End Date", for: "endDate")
-            = date_field_tag("to", Date.today, class: "form-control", id: "endDate")
+            = label_tag "end_date", "End Date", for: "endDate"
+            = date_field_tag "to", Date.today, class: "form-control", id: "endDate"
         .form-group
-          = label_tag("format", "Format", for: "id-format")
-          = select_tag("format", options_for_select(%w[html pdf csv], "html"), class: "form-control", id: "id-format")
+          = label_tag "format", "Format", for: "id-format"
+          = select_tag "format",
+                       options_for_select(%w[html pdf csv], "html"),
+                       class: "form-control",
+                       id: "id-format"
         hr
         .form-check
-          = check_box_tag("list_disabled_reps", "1", true, class: "form-check-input", id: "optDisabled")
-          = label_tag("list_disabled_reps", "Show disabled reps on summary", class: "form-check-label", for: "optDisabled")
+          = check_box_tag "list_disabled_reps", "1", true, class: "form-check-input", id: "optDisabled"
+          = label_tag "list_disabled_reps",
+                      "Show disabled reps on summary",
+                      class: "form-check-label",
+                      for: "optDisabled"
         .form-check
-          = check_box_tag("grayscale", "1", false, class: "form-check-input", id: "optGrayscale")
-          = label_tag("grayscale", "Grayscale (PDF)", class: "form-check-label", for: "optGrayscale")
+          = check_box_tag "grayscale", "1", false, class: "form-check-input", id: "optGrayscale"
+          = label_tag "grayscale", "Grayscale (PDF)", class: "form-check-label", for: "optGrayscale"
         .form-check
-          = check_box_tag("one_per_page", "1", false, class: "form-check-input", id: "optPageBreak")
-          = label_tag("one_per_page", "One page per rep (PDF)", class: "form-check-label", for: "optPageBreak")
+          = check_box_tag "one_per_page", "1", false, class: "form-check-input", id: "optPageBreak"
+          = label_tag "one_per_page",
+                      "One page per rep (PDF)",
+                      class: "form-check-label",
+                      for: "optPageBreak"
         hr
-        = submit_tag("Submit", class: "btn btn-primary")
+        = submit_tag "Submit", class: "btn btn-primary"
 
   .card.bg-light.mb-4
     .card-header.h5.font-weight-bold Reports
@@ -41,14 +48,14 @@ main.container.w-75[role="main"]
           li.reportListItem
             span = "Report for batch #{num}"
             .float-right
-              a.formatLink.js-htmlLink[href=(by_batch_reports_path(num))] HTML
-              a.formatLink.js-pdfLink[href=(by_batch_reports_path(num, format: :pdf))] PDF
-              a.formatLink.js-htmlLink[href=(by_batch_reports_path(num, format: :csv))] CSV
+              a.formatLink href=(by_batch_reports_path num) HTML
+              a.formatLink href=(by_batch_reports_path num, format: :pdf) PDF
+              a.formatLink href=(by_batch_reports_path num, format: :csv) CSV
 
   .card.bg-light.mb-4
     .card-header.h5.font-weight-bold Upload CSV
     .card-body
       = form_with(url: upload_batches_path, method: "post", local: true, multipart: true) do
-        = file_field_tag("invoices", accept: "text/csv", class: "form-control-file")
+        = file_field_tag "invoices", accept: "text/csv", class: "form-control-file"
         hr
-        = submit_tag("Upload", class: "btn btn-primary")
+        = submit_tag "Upload", class: "btn btn-primary"

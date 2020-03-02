@@ -180,6 +180,12 @@ h1, h2, h3 {
   }
 }
 
+.blueBarTotal {
+  font-weight: bold;
+  color: $blue-ink;
+  text-align: right;
+}
+
 .reportRule {
   margin: 32px 0;
   border: 0;

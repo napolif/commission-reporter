@@ -1,1 +1,15 @@
-show.html.slim
+.reportHeading
+  div
+    h1 Commission Report
+    - if params[:batch]
+      p = "For batch #{params[:batch]}"
+    - else
+      p = "From #{params[:from]} to #{params[:to]}"
+  div
+    = wicked_pdf_image_tag "ferraro.png", height: "30px"
+    = wicked_pdf_image_tag "napoli.png", height: "30px"
+
+hr.reportRule
+
+main.container.report
+  = render partial: "report"

@@ -1,72 +1,12 @@
-main.container.report
-  - @presenter.commissions_by_enabled_rep.each do |rep, comms|
-    section[class=("breakAfter" if @one_per_page)]
-      h2
-        span.salesRepCode = rep.code
-        = rep.name
-      table.blueBar
-        thead
-          tr
-            td Invoice
-            td Customer ID
-            td Customer Name
-            td.text-right Amount
-            td.text-right Cost
-            td.text-right Margin
-            td Invoiced On
-            td Paid On
-            td Age
-            td.text-right Comm $
-        tbody
-          - comms.each do |comm|
-            - inv = comm.invoice
-            tr
-              td = inv.number
-              td = inv.customer_code
-              td = inv.customer_name
-              td.text-right = inv.amount
-              td.text-right = inv.cost
-              td.text-right = "%.2f" % inv.margin_pct
-              td = inv.invoiced_on
-              td = inv.paid_on
-              td = inv.age_category.to_s.sub('within_', '')
-              td.text-right = "%.2f" % comm.amount
-      .font-weight-bold
-        - total = comms.map(&:amount).reduce(:+)
-        = "Total Commission $: %.2f" % total
-      - unless params[:one_per_page]
-        hr.reportRule
-
-  section.breakBefore
-    h2 Totals
-    table.blueBar
-      thead
-        tr
-          td Rep ID
-          td Rep Name
-          td.text-right Total Commission $
-      tbody
-        - @presenter.total_rows.each do |rep, total|
-          tr
-            td = rep.code
-            td = rep.name
-            td.text-right = "%.2f" % total
-    .total
-      = "Grand Total $: %.2f" % @presenter.grand_total
-
-    - if @list_disabled_reps
-      hr.reportRule
-      h2 Hidden From Report
-      - if @presenter.disabled_reps.none?
-        p No sales reps have been hidden.
+.container
+  .reportHeading
+    div
+      h1 Commission Report
+      - if params[:batch]
+        p = "For batch #{params[:batch]}"
       - else
-        table.blueBar
-          thead
-            tr
-              td Rep ID
-              td Rep Name
-          tbody
-            - @presenter.disabled_reps.each do |rep|
-              tr
-                td = rep.code
-                td = rep.name
+        p = "From #{params[:from]} to #{params[:to]}"
+  hr.reportRule
+
+main.container.report
+  = render partial: "report"
