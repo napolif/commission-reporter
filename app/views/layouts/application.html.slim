@@ -10,20 +10,20 @@ html lang="en"
 
     = csrf_meta_tags
     = csp_meta_tag
-    = stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Lato&display=swap', media: 'all'
+    = stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Lato:400,700&display=swap', media: 'all'
     = stylesheet_link_tag 'application', media: 'all'
     = javascript_pack_tag 'application'
 
   body
     - if notice
-      .container.w-75
-        .alert.alert-warning.alert-dismissible.fade.show data-dismiss="alert" role="alert"
+      .container
+        .alert.alert-primary.alert-dismissible.fade.show data-dismiss="alert" role="alert"
           = notice
           button.close aria-label="Close" data-dismiss="alert" type="button"
             span aria-hidden="true"  ×
 
     - if alert
-      .container.w-75
+      .container
         .alert.alert-warning.alert-dismissible.fade.show data-dismiss="alert" role="alert"
           = alert
           button.close aria-label="Close" data-dismiss="alert" type="button"

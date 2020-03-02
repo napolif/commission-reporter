@@ -1,0 +1,37 @@
+- content_for :bcrumb do
+  .container
+    ol.breadcrumb.mb-5
+      li.breadcrumb-item
+        a href="/" Dashboard
+      li.breadcrumb-item.active = @title
+
+main.container
+  table.blueBar.mb-4
+    thead
+      tr
+        td Number
+        td Sales Rep Code
+        td Customer ID
+        td Customer Name
+        td.text-right Amount
+        td.text-right Cost
+        td Invoiced On
+        td Paid On
+        td Age
+        td.text-right Margin
+    tbody
+      - @invoices.each do |inv|
+        tr
+          td = inv.number
+          td = inv.sales_rep_code
+          td = inv.customer_code
+          td = inv.customer_name
+          td.text-right = inv.amount
+          td.text-right = inv.cost
+          td = inv.invoiced_on
+          td = inv.paid_on
+          td = inv.age_category.to_s.sub('within_', '')
+          td.text-right = "%.2f" % inv.margin_pct
+
+  .blueBarTotal
+    = "Count: %d" % @invoices.size
