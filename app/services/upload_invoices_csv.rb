@@ -23,6 +23,9 @@ class UploadInvoicesCSV
     validate_headers
 
     @batch_number = Invoice.next_batch_number + "-csv"
+
+    numbers = csv.map { |x| x['INVNUM'].strip }
+    @found_invoices = Invoice.where(number: numbers).index_by(&:number)
   end
 
   def run
@@ -51,16 +54,16 @@ class UploadInvoicesCSV
 
     return unless errors.empty?
 
-    Invoice.transaction do
-      invoices.each(&:save!)
-    end
-
+    Invoice.import(invoices,
+                   on_duplicate_key_update: Invoice.column_names.without("id", "updated_at"))
     @result = invoices
     true
   end
 
   def invoice_for_row(row)
-    Invoice.new.tap do |inv|
+    found = @found_invoices[row.get("INVNUM")]
+
+    (found || Invoice.new).tap do |inv|
       FIELD_MAP.each do |attr, hdr|
         inv[attr] = row.get(hdr)
       end
