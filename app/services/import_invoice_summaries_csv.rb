@@ -1,13 +1,8 @@
 # A service for uploading a CSV file. Similar to active_interaction classes.
-#
-# TODO: figure out why it's loading each one
 class ImportInvoiceSummariesCSV
   attr_reader :file, :csv, :errors, :result, :batch_number
 
-  # IGNORED_REPS = %w[550].freeze
-
   HEADERS = %w[HHUSLNB HHUCUSN HHUCNMB HHUINVN LDATE RDATE HHUEXSN HHUEXCR HHUINVR HHUQYSA].freeze
-
   FIELD_MAP = {
     number: "HHUINVN",
     sales_rep_code: "HHUSLNB",
@@ -17,6 +12,7 @@ class ImportInvoiceSummariesCSV
     customer_name: "HHUCNMB",
     cases: "HHUQYSA"
   }.freeze
+  # IGNORED_REPS = %w[550].freeze
 
   def initialize(file)
     @errors = []
