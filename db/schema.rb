@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_02_004410) do
+ActiveRecord::Schema.define(version: 2020_03_11_013844) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,29 @@ ActiveRecord::Schema.define(version: 2020_03_02_004410) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
+  create_table "customers", force: :cascade do |t|
+    t.string "code"
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["code"], name: "index_customers_on_code"
+  end
+
+  create_table "invoice_headers", force: :cascade do |t|
+    t.string "number"
+    t.string "rep_code"
+    t.string "customer_code"
+    t.decimal "amount", precision: 10, scale: 2
+    t.decimal "cost", precision: 10, scale: 2
+    t.date "order_date"
+    t.integer "qty_ord"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["customer_code"], name: "index_invoice_headers_on_customer_code"
+    t.index ["number"], name: "index_invoice_headers_on_number"
+    t.index ["rep_code"], name: "index_invoice_headers_on_rep_code"
+  end
+
   create_table "invoices", force: :cascade do |t|
     t.string "batch"
     t.string "number"
@@ -59,6 +82,22 @@ ActiveRecord::Schema.define(version: 2020_03_02_004410) do
     t.index ["batch"], name: "index_invoices_on_batch"
     t.index ["number"], name: "index_invoices_on_number"
     t.index ["sales_rep_code"], name: "index_invoices_on_sales_rep_code"
+  end
+
+  create_table "purged_records", force: :cascade do |t|
+    t.string "number"
+    t.decimal "amount", precision: 10, scale: 2
+    t.string "customer_code"
+    t.string "rep_code"
+    t.date "due_date"
+    t.date "created_date"
+    t.string "adj_code"
+    t.string "ref_number"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["adj_code"], name: "index_purged_records_on_adj_code"
+    t.index ["number"], name: "index_purged_records_on_number"
+    t.index ["rep_code"], name: "index_purged_records_on_rep_code"
   end
 
   create_table "sales_reps", force: :cascade do |t|
