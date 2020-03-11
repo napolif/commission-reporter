@@ -1,6 +1,6 @@
 # An abstract service for uploading a CSV file.
 class ImportCSV
-  attr_reader :file, :csv, :errors, :result
+  attr_reader :file, :csv, :errors, :result, :records
 
   def self.target_class(val)
     @@target_class = val
@@ -24,29 +24,11 @@ class ImportCSV
   end
 
   def run
-    return unless errors.empty?
+    return false unless valid?
+    generate_records
+    return false unless valid?
 
-    records = csv.each_with_object([]).with_index do |(row, arr), idx|
-      begin
-        row_num = idx + 2
-        rec = initialize_record(row)
-        if rec.invalid?(:import)
-          errors << "invalid data in row #{row_num}: #{rec.errors.full_messages.join(',')}"
-        else
-          arr << rec
-        end
-      rescue StandardError => e
-        errors << "invalid data in row #{row_num}: #{e}"
-      end
-    end
-
-    return unless errors.empty?
-
-    hashes = records.map(&:attributes)
-    columns = hashes.first.keys
-    @@target_class.import(columns, hashes, validate: false, all_or_none: true)
-    @result = records
-
+    @result = import_records
     true
   end
 
@@ -60,6 +42,26 @@ class ImportCSV
 
   private
 
+  def generate_records
+    @records = csv.each_with_object([]).with_index do |(row, arr), i|
+      begin
+        rec = initialize_record(row)
+        if rec.invalid?
+          messages = rec.errors.full_messages.join(',')
+          errors << "invalid data in row #{i + 2}: #{messages}"
+        else
+          arr << rec
+        end
+      rescue StandardError => e
+        errors << "error on row #{i + 2}: #{e}"
+      end
+    end
+  end
+
+  def import_records
+    @@target_class.import(records, validate: false, all_or_none: true)
+  end
+
   def update_column_names
     @@target_class.column_names.without("id", "updated_at")
   end
@@ -71,6 +73,7 @@ class ImportCSV
         raw = row.get(csv_attr)
         val = respond_to?(transformer, true) ? send(transformer, raw) : raw
         rec[attr] = val
+        rec.importing = true
       end
     end
   end

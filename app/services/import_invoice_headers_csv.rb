@@ -17,4 +17,8 @@ class ImportInvoiceHeadersCSV < ImportCSV
   rescue
     nil
   end
+
+  def import_records
+    @@target_class.import(records, validate_uniqueness: false, validate: false, all_or_none: true)
+  end
 end

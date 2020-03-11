@@ -24,5 +24,7 @@ class InvoiceHeader < ApplicationRecord
   before_validation { customer_code&.upcase! }
   before_validation { rep_code&.upcase! }
 
-  validates :number, presence: true, uniqueness: true
+  validates :number, presence: true, uniqueness: true, unless: :importing
+
+  attr_accessor :importing
 end

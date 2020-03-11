@@ -16,6 +16,8 @@
 class Customer < ApplicationRecord
   before_validation { code&.upcase! }
 
-  validates :code, presence: true, uniqueness: true
+  validates :code, presence: true, uniqueness: true, unless: :importing
   validates :name, presence: true
+
+  attr_accessor :importing
 end
