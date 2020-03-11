@@ -14,4 +14,8 @@
 #
 
 class Customer < ApplicationRecord
+  before_validation { code&.upcase! }
+
+  validates :code, presence: true, uniqueness: true
+  validates :name, presence: true
 end
