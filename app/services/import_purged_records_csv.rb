@@ -2,14 +2,14 @@
 class ImportPurgedRecordsCSV < ImportCSV
   target_class PurgedRecord
 
-  field_map number: "RRWINVN",
-            amount: "RRWINAM",
+  field_map number:        "RRWINVN",
+            amount:        "RRWINAM",
             customer_code: "RRWCUSN",
-            rep_code: "RRWSLNB",
-            due_date: "RRWDTED",
-            created_date: "RRWDTRA",
-            adj_code: "RRWJCDE",
-            ref_number: "RRWINVR"
+            rep_code:      "RRWSLNB",
+            due_date:      "RRWDTED",
+            created_date:  "RRWDTRA",
+            adj_code:      "RRWJCDE",
+            ref_number:    "RRWINVR"
 
   index_field number: "RRWINVN"
 
