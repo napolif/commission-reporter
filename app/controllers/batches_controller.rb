@@ -2,16 +2,16 @@ class BatchesController < ApplicationController
   before_action :authenticate_admin_user!
 
   def show
-    unless params[:id].in? Invoice.batch_numbers
+    unless params[:id].in? InvoiceSummary.batch_numbers
       raise ActiveRecord::RecordNotFound
     end
 
     @title = "Invoice Batch #{params[:id]}"
-    @invoices = Invoice.where(batch: params[:id])
+    @invoices = InvoiceSummary.where(batch: params[:id])
   end
 
   def upload
-    uploader = UploadInvoicesCSV.new(params[:invoices])
+    uploader = ImportInvoiceSummariesCSV.new(params[:invoices])
     uploader.run
 
     if uploader.invalid?

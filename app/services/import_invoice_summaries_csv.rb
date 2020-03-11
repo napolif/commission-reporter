@@ -1,22 +1,12 @@
 # A service for uploading a CSV file. Similar to active_interaction classes.
-class UploadInvoicesCSV
+#
+# TODO: figure out why it's loading each one
+class ImportInvoiceSummariesCSV
   attr_reader :file, :csv, :errors, :result, :batch_number
 
-  IGNORED_REPS = %w[550].freeze
-
-  # HEADERS = %w[SLSREPNO CUSTNO CUSTNAME INVNUM LASTORD CRTDATE NETSALES NETCOST REFNUM QTYSHIPPED].freeze
+  # IGNORED_REPS = %w[550].freeze
 
   HEADERS = %w[HHUSLNB HHUCUSN HHUCNMB HHUINVN LDATE RDATE HHUEXSN HHUEXCR HHUINVR HHUQYSA].freeze
-
-  # FIELD_MAP = {
-  #   number: "INVNUM",
-  #   sales_rep_code: "SLSREPNO",
-  #   amount: "NETSALES",
-  #   cost: "NETCOST",
-  #   customer_code: "CUSTNO",
-  #   customer_name: "CUSTNAME",
-  #   cases: "QTYSHIPPED"
-  # }.freeze
 
   FIELD_MAP = {
     number: "HHUINVN",
@@ -35,18 +25,18 @@ class UploadInvoicesCSV
     @csv = CSV.read(@file, headers: true)
     validate_headers
 
-    @batch_number = Invoice.next_batch_number + "-csv"
+    @batch_number = InvoiceSummary.next_batch_number + "-csv"
 
     numbers = csv.map { |x| x["HHUINVN"].strip }
-    @found_invoices = Invoice.where(number: numbers).index_by(&:number)
+    @found_invoices = InvoiceSummary.where(number: numbers).index_by(&:number)
   end
 
   def run
     return unless errors.empty?
 
     invoices = csv.each_with_object([]).with_index do |(row, arr), idx|
-      next if row.get("RDATE") == "00/00/0000"
-      next if row.get("HHUSLNB").in?(IGNORED_REPS)
+      # next if row.get("RDATE") == "00/00/0000"
+      # next if row.get("HHUSLNB").in?(IGNORED_REPS)
 
       begin
         row_num = idx + 2
@@ -63,8 +53,10 @@ class UploadInvoicesCSV
 
     return unless errors.empty?
 
-    Invoice.import(invoices,
-                   on_duplicate_key_update: Invoice.column_names.without("id", "updated_at"))
+    InvoiceSummary.import(
+      invoices,
+      on_duplicate_key_update: InvoiceSummary.column_names.without("id", "updated_at")
+    )
     @result = invoices
     true
   end
@@ -72,13 +64,19 @@ class UploadInvoicesCSV
   def invoice_for_row(row)
     found = @found_invoices[row.get("HHUINVN")]
 
-    (found || Invoice.new).tap do |inv|
+    (found || InvoiceSummary.new).tap do |inv|
       FIELD_MAP.each do |attr, hdr|
         inv[attr] = row.get(hdr)
       end
 
       inv.invoiced_on = Date.strptime(row.get("LDATE"), "%m/%d/%Y")
-      inv.paid_on = Date.strptime(row.get("RDATE"), "%m/%d/%Y")
+
+      begin
+        inv.paid_on = Date.strptime(row.get("RDATE"), "%m/%d/%Y")
+      rescue
+        inv.paid_on = nil
+      end
+
       inv.batch = batch_number
     end
   end

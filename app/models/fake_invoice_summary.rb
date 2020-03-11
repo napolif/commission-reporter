@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: invoices
+# Table name: invoice_summaries
 #
 #  id             :bigint           not null, primary key
 #  amount         :decimal(8, 2)
@@ -19,25 +19,24 @@
 #
 # Indexes
 #
-#  index_invoices_on_batch                     (batch)
-#  index_invoices_on_batch_and_sales_rep_code  (batch,sales_rep_code)
-#  index_invoices_on_number                    (number)
-#  index_invoices_on_sales_rep_code            (sales_rep_code)
+#  index_invoice_summaries_on_batch                     (batch)
+#  index_invoice_summaries_on_batch_and_sales_rep_code  (batch,sales_rep_code)
+#  index_invoice_summaries_on_number                    (number)
+#  index_invoice_summaries_on_sales_rep_code            (sales_rep_code)
 #
 
-# Convenience class for generating a Invoice with fake information.
-class FakeInvoice < Invoice
+class FakeInvoiceSummary < InvoiceSummary
   after_initialize :populate
 
-  def self.new_batch(size: 100, batch_num: Invoice.next_batch_number)
+  def self.new_batch(size: 100, batch_num: InvoiceSummary.next_batch_number)
     size.times.map do
       new(batch: batch_num)
     end
   end
 
-  def self.create_batch(size: 100, batch_num: Invoice.next_batch_number)
+  def self.create_batch(size: 100, batch_num: InvoiceSummary.next_batch_number)
     a_batch = new_batch(size: size, batch_num: batch_num + "-fake")
-    Invoice.import!(a_batch)
+    InvoiceSummary.import!(a_batch)
     a_batch
   end
 

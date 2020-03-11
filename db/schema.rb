@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_11_013844) do
+ActiveRecord::Schema.define(version: 2020_03_11_015311) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,7 +64,7 @@ ActiveRecord::Schema.define(version: 2020_03_11_013844) do
     t.index ["rep_code"], name: "index_invoice_headers_on_rep_code"
   end
 
-  create_table "invoices", force: :cascade do |t|
+  create_table "invoice_summaries", force: :cascade do |t|
     t.string "batch"
     t.string "number"
     t.string "sales_rep_code"
@@ -78,10 +78,10 @@ ActiveRecord::Schema.define(version: 2020_03_11_013844) do
     t.boolean "delivered"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["batch", "sales_rep_code"], name: "index_invoices_on_batch_and_sales_rep_code"
-    t.index ["batch"], name: "index_invoices_on_batch"
-    t.index ["number"], name: "index_invoices_on_number"
-    t.index ["sales_rep_code"], name: "index_invoices_on_sales_rep_code"
+    t.index ["batch", "sales_rep_code"], name: "index_invoice_summaries_on_batch_and_sales_rep_code"
+    t.index ["batch"], name: "index_invoice_summaries_on_batch"
+    t.index ["number"], name: "index_invoice_summaries_on_number"
+    t.index ["sales_rep_code"], name: "index_invoice_summaries_on_sales_rep_code"
   end
 
   create_table "purged_records", force: :cascade do |t|

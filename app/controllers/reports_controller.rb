@@ -8,17 +8,17 @@ class ReportsController < ApplicationController
                  print_media_type: true}.freeze
 
   def index
-    render :index, locals: {batch_numbers: Invoice.batch_numbers}
+    render :index, locals: {batch_numbers: InvoiceSummary.batch_numbers}
   end
 
   def date
     @title = "Report for #{params[:from]} to #{params[:to]}"
-    render_report Invoice.where(paid_on: params[:from]..params[:to]).includes(:sales_rep)
+    render_report InvoiceSummary.where(paid_on: params[:from]..params[:to]).includes(:sales_rep)
   end
 
   def batch
     batch_num = if params[:batch] == "latest"
-                  Invoice.latest_batch_number
+                  InvoiceSummary.latest_batch_number
                 else
                   params[:batch]
                 end

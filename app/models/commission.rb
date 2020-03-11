@@ -6,8 +6,8 @@ class Commission
   delegate :margin_pct, to: :invoice
   delegate :commission_table, to: :sales_rep
 
-  def initialize(invoice)
-    @invoice = invoice
+  def initialize(invoice_summary)
+    @invoice = invoice_summary
     @sales_rep = invoice.sales_rep || SalesRep.default_new(invoice.sales_rep_code)
   end
 
