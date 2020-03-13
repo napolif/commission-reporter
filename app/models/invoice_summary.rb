@@ -25,6 +25,14 @@
 #  index_invoice_summaries_on_sales_rep_code            (sales_rep_code)
 #
 
+# Derived data about invoice and its possible payment.
+# Comes from COMMFILE in naplib, which has one line per invoice.
+# An invoice can be open (RDATE is zero) or closed (valid RDATE).
+#
+# Adjustments also have their own invoice numbers and are always closed.
+#
+# Ideally we would use these records in all cases, but invoices that are only in
+# Alpha don't show up here, even if paid.
 class InvoiceSummary < ApplicationRecord
   validates :batch, presence: true
   validates :number, presence: true, uniqueness: true
