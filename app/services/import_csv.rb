@@ -15,10 +15,13 @@ class ImportCSV
   end
 
   def initialize(file)
+    @@csv_options ||= {}
     @errors = []
     @result = nil
     @file = file
-    @csv = CSV.read(@file, headers: true)
+
+    options = {headers: true}.merge(@@csv_options)
+    @csv = CSV.read(@file, **options)
 
     validate_headers
   end
