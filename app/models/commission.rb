@@ -18,6 +18,8 @@ class Commission
     case sales_rep.quota_type
     when "revenue"
       adjusted * invoice.amount
+    when "broker"
+      adjusted * invoice.amount
     when "profit"
       adjusted * invoice.profit
     else

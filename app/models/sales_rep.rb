@@ -47,7 +47,7 @@ class SalesRep < ApplicationRecord
 
   DEFAULT_CODE = "_DEF".freeze
 
-  QUOTA_TYPES = %w[profit revenue].freeze
+  QUOTA_TYPES = %w[profit revenue broker].freeze
 
   PERIODS_BY_AGE = {within_45: "period1",
                     within_60: "period2",
