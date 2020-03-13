@@ -34,8 +34,10 @@
 # Ideally we would use these records in all cases, but invoices that are only in
 # Alpha don't show up here, even if paid.
 class InvoiceSummary < ApplicationRecord
+  include Importable
+
   validates :batch, presence: true
-  validates :number, presence: true, uniqueness: true
+  validates :number, presence: true, uniqueness: true, unless: :importing
   validates :sales_rep_code, presence: true
   validates :invoiced_on, presence: true
   # validates :paid_on, presence: true
