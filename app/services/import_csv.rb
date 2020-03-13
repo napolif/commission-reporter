@@ -15,17 +15,12 @@ class ImportCSV
     @@index_field = val
   end
 
-  def self.csv_options(**val)
-    @@index_field = val
-  end
-
-  def initialize(file)
-    @@csv_options ||= {}
+  def initialize(file, csv_options={})
     @errors = []
     @result = nil
     @file = file
 
-    options = {headers: true}.merge(@@csv_options)
+    options = {headers: true}.merge(csv_options)
     @csv = CSV.read(@file, **options)
 
     validate_headers
