@@ -1,6 +1,8 @@
 # A service for uploading a CSV file. Similar to active_interaction classes.
+#
+# TODO: either trash this or extend from ImportCSV
 class ImportInvoiceSummariesCSV
-  attr_reader :file, :csv, :errors, :result, :batch_number
+  attr_reader :file, :csv, :errors, :result, :batch_number, :records
 
   HEADERS = %w[HHUSLNB HHUCUSN HHUCNMB HHUINVN LDATE RDATE HHUEXSN HHUEXCR HHUINVR HHUQYSA].freeze
   FIELD_MAP = {
@@ -12,7 +14,6 @@ class ImportInvoiceSummariesCSV
     customer_name: "HHUCNMB",
     cases: "HHUQYSA"
   }.freeze
-  # IGNORED_REPS = %w[550].freeze
 
   def initialize(file)
     @errors = []
@@ -27,12 +28,15 @@ class ImportInvoiceSummariesCSV
     @found_invoices = InvoiceSummary.where(number: numbers).index_by(&:number)
   end
 
+  def run!
+    raise "invalid" unless run
+  end
+
   def run
     return unless errors.empty?
 
-    invoices = csv.each_with_object([]).with_index do |(row, arr), idx|
+    @records = csv.each_with_object([]).with_index do |(row, arr), idx|
       # next if row.get("RDATE") == "00/00/0000"
-      # next if row.get("HHUSLNB").in?(IGNORED_REPS)
 
       begin
         row_num = idx + 2
@@ -49,11 +53,9 @@ class ImportInvoiceSummariesCSV
 
     return unless errors.empty?
 
-    InvoiceSummary.import(
-      invoices,
-      on_duplicate_key_update: InvoiceSummary.column_names.without("id", "updated_at")
-    )
-    @result = invoices
+    update_columns = InvoiceSummary.column_names.without("id", "updated_at")
+    @result = InvoiceSummary.import(@records,
+                                    on_duplicate_key_update: update_columns)
     true
   end
 
