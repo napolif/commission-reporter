@@ -15,6 +15,10 @@ class ImportCSV
     @@index_field = val
   end
 
+  def self.csv_options(**val)
+    @@index_field = val
+  end
+
   def initialize(file)
     @@csv_options ||= {}
     @errors = []
