@@ -37,6 +37,7 @@
 #
 # Indexes
 #
+#  index_sales_reps_on_code      (code) UNIQUE
 #  index_sales_reps_on_disabled  (disabled)
 #
 
