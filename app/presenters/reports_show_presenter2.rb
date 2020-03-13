@@ -1,16 +1,25 @@
 # Collected data for rendering ReportsController#show.
-class ReportsShowPresenter
+class ReportsShowPresenter2
   extend Memoist
 
   attr_reader :batch_num
-  attr_reader :purgeds
+  attr_reader :invoices
 
-  def initialize(purgeds)
-    @purgeds = purgeds
+  def initialize(invoices)
+    @invoices = invoices
   end
 
-  # def as_csv
-  # end
+  def as_csv
+    headers = ["Inv Num", "Cust ID", "Cust Name", "Invoiced On", "Paid On",
+               "Age Category", "Amount", "Cost", "Margin %", "Cases",
+               "Delivered", "SR Code", "SR Name", "SR Quota Type", "Comm Amt"]
+
+    CSV.generate(col_sep: ",", write_headers: true, headers: headers) do |csv|
+      commissions_by_enabled_rep.values.flatten.each do |comm|
+        csv << csv_row(comm)
+      end
+    end
+  end
 
   def commissions_by_enabled_rep
     enabled_rep_codes.each_with_object({}) do |code, hash|
@@ -50,19 +59,8 @@ class ReportsShowPresenter
   end
 
   def commissions_by_code
-    purgeds_by_code.transform_values do |prs|
-
-      grouped = prs.index_by(&:number)
-
-      # grouped.transform_values do |grp|
-      #   unique = grp.uniq(&:amount)
-      #   raise "weird" unless unique.size == 1
-      #   unique.first
-      # end
-
-      grouped.values.map do |pr|
-        Commission.new(pr)
-      end
+    invoices_by_code.transform_values do |invs|
+      invs.map { |inv| Commission.new(inv) }
     end
   end
   memoize :commissions_by_code
@@ -84,17 +82,26 @@ class ReportsShowPresenter
   memoize :reps_by_code
 
   def rep_codes
-    purgeds_by_code.keys.sort
+    invoices_by_code.keys.sort
   end
   memoize :rep_codes
 
-  def purgeds_by_code
-    purgeds.group_by { |x| x.invoice_header.rep_code }
+  def invoices_by_code
+    invoices.group_by(&:sales_rep_code)
   end
-  memoize :purgeds_by_code
+  memoize :invoices_by_code
 
-  # def csv_row(commission)
-  # end
+  def csv_row(commission)
+    inv = commission.invoice
+    rep = commission.sales_rep
+
+    [
+      inv.number, inv.customer_code, inv.customer_name, inv.invoiced_on,
+      inv.paid_on, inv.age_category, inv.amount, inv.cost,
+      pretty_num(inv.margin_pct), inv.cases, pretty_bool(inv.delivered),
+      rep.code, rep.name, rep.quota_type, pretty_num(commission.amount)
+    ]
+  end
 
   def pretty_num(bigdec)
     "%.2f" % bigdec.to_f

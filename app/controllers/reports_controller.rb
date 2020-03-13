@@ -12,27 +12,38 @@ class ReportsController < ApplicationController
   end
 
   def date
+    # @title = "Report for #{params[:from]} to #{params[:to]}"
+    # render_report InvoiceSummary.where(paid_on: params[:from]..params[:to])
+    #                             .where("amount > ?", 0)
+    #                             .includes(:sales_rep)
+
     @title = "Report for #{params[:from]} to #{params[:to]}"
-    render_report InvoiceSummary.where(paid_on: params[:from]..params[:to]).includes(:sales_rep)
+
+    range = params[:from]..params[:to]
+    all_ar = PurgedRecord.where(created_date: range)
+                         .includes(invoice_header: [:sales_rep, :customer])
+    good_ar = all_ar.where.not(invoice_headers: {id: nil})
+                    # .where("invoice_headers.amount > ?", 0)
+    render_report good_ar
   end
 
-  def batch
-    batch_num = if params[:batch] == "latest"
-                  InvoiceSummary.latest_batch_number
-                else
-                  params[:batch]
-                end
-
-    @title = "Report for batch #{batch_num}"
-    render_report Invoice.where(batch: batch_num).includes(:sales_rep)
-  end
+  # def batch
+  #   batch_num = if params[:batch] == "latest"
+  #                 InvoiceSummary.latest_batch_number
+  #               else
+  #                 params[:batch]
+  #               end
+  #
+  #   @title = "Report for batch #{batch_num}"
+  #   render_report Invoice.where(batch: batch_num).includes(:sales_rep)
+  # end
 
   private
 
-  def render_report(invoices) # rubocop:disable Metrics/AbcSize
+  def render_report(purgeds) # rubocop:disable Metrics/AbcSize
     @one_per_page = true if params[:one_per_page]
     @list_disabled_reps = true if params[:list_disabled_reps]
-    @presenter = ReportsShowPresenter.new(invoices)
+    @presenter = ReportsShowPresenter.new(purgeds)
 
     respond_to do |format|
       format.html do

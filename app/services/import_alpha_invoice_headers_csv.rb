@@ -12,6 +12,41 @@ class ImportAlphaInvoiceHeadersCSV < ImportCSV
 
   index_field number: "inv_number"
 
+  REP_CODE_MAP = {
+    "CP" => "501",
+    "FF" => "502",
+    "CK" => "503",
+    "RC" => "504",
+    "JB" => "507",
+    "JF" => "508",
+    "LC" => "509",
+    "MM" => "510",
+    "MP" => "511",
+    "NS" => "512",
+    "PN" => "515",
+    "OF" => "516",
+    "JE" => "517",
+    "AC" => "518",
+    # "RD" => "519",
+    "SS" => "520",
+    "TS" => "527",
+    "JC" => "528",
+    "SD" => "529",
+    "BB" => "530",
+    "RA" => "531",
+    "MC" => "533",
+    "AG" => "534",
+    "CG" => "535",
+    "WD" => "538",
+    "JK" => "545",
+    "DC" => "546",
+    "AF" => "549",
+    "NF" => "550",
+    "FT" => "552",
+    "BH" => "547",
+    "RP" => "537",
+  }.freeze
+
   def initialize(file)
     super(file, col_sep: "\t", liberal_parsing: true)
   end
@@ -34,5 +69,9 @@ class ImportAlphaInvoiceHeadersCSV < ImportCSV
     Date.strptime(val, "%m/%d/%y")
   rescue
     nil
+  end
+
+  def transform_field_rep_code(val)
+    REP_CODE_MAP[val] || val
   end
 end

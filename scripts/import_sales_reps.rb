@@ -13,6 +13,10 @@ def import(file_name)
   puts svc.result
 end
 
+def disable(code)
+  SalesRep.find_by(code: code).update!(disabled: true)
+end
+
 print_counts(SalesRep) do
   import("../data/retalix_sales_reps.csv")
 end
@@ -20,3 +24,11 @@ end
 print_counts(SalesRep) do
   import("../data/alpha_sales_reps.csv")
 end
+
+puts "disabling a few..."
+
+%w[537 547 548 550].each do |code|
+  disable(code)
+end
+
+puts "done"

@@ -23,4 +23,8 @@
 
 class PurgedRecord < ApplicationRecord
   include Importable
+
+  # TODO: add validations
+
+  belongs_to :invoice_header, primary_key: "number", foreign_key: "number", optional: true
 end

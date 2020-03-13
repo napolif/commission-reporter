@@ -27,4 +27,33 @@ class InvoiceHeader < ApplicationRecord
   before_validation { rep_code&.upcase! }
 
   validates :number, presence: true, uniqueness: true, unless: :importing
+  validates :rep_code, presence: true
+  validates :order_date, presence: true
+  validates :amount, presence: true
+  validates :cost, presence: true
+
+  belongs_to :sales_rep, primary_key: "code", foreign_key: "rep_code", optional: true
+  belongs_to :customer, primary_key: "code", foreign_key: "customer_code", optional: true
+
+  def amount=(val)
+    super BigDecimal(val, 8)
+  end
+
+  def cost=(val)
+    super BigDecimal(val, 8)
+  end
+
+  def profit
+    amount - cost
+  end
+
+  def margin
+    return 0 if amount.zero?
+
+    profit / amount
+  end
+
+  def margin_pct
+    100 * margin
+  end
 end

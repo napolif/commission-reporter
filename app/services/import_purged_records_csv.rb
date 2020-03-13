@@ -24,4 +24,8 @@ class ImportPurgedRecordsCSV < ImportCSV
   rescue
     nil
   end
+
+  def transform_field_ref_number(val)
+    val == "0" ? nil : val
+  end
 end

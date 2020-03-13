@@ -1,16 +1,14 @@
 # Calculation of a commission amount for a given invoice & associated sales rep.
-class Commission
-  attr_reader :invoice, :sales_rep, :purged
+class Commission2
+  attr_reader :invoice, :sales_rep
 
-  delegate :created_date, to: :purged
-  delegate :order_date, to: :invoice
+  delegate :age_category, to: :invoice
   delegate :margin_pct, to: :invoice
   delegate :commission_table, to: :sales_rep
 
-  def initialize(purged_record)
-    @purged = purged_record
-    @invoice = purged.invoice_header
-    @sales_rep = invoice.sales_rep || SalesRep.default_new(invoice.rep_code)
+  def initialize(invoice_summary)
+    @invoice = invoice_summary
+    @sales_rep = invoice.sales_rep || SalesRep.default_new(invoice.sales_rep_code)
   end
 
   # Returns the commission for the associated invoice in dollars.
@@ -54,23 +52,5 @@ class Commission
   def age_adjustment_pct
     period = SalesRep::PERIODS_BY_AGE[age_category]
     sales_rep[period]
-  end
-
-  def age_category
-    wait_days = (created_date - order_date).to_i
-    raise "Error: invoice #{id} paid_on before invoiced_on" if wait_days.negative?
-
-    case wait_days
-    when 0..45
-      :within_45
-    when 45..60
-      :within_60
-    when 61..90
-      :within_90
-    when 90..120
-      :within_120
-    else
-      :over_120
-    end
   end
 end
