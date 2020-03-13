@@ -10,7 +10,7 @@
 #
 # Indexes
 #
-#  index_customers_on_code  (code)
+#  index_customers_on_code  (code) UNIQUE
 #
 
 class Customer < ApplicationRecord
