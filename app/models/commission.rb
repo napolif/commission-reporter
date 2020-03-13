@@ -15,7 +15,7 @@ class Commission
   def amount
     adjusted = adjusted_pct / 100
 
-    case sales_rep.safe_quota_type
+    case sales_rep.quota_type
     when "revenue"
       adjusted * invoice.amount
     when "profit"
