@@ -40,7 +40,6 @@ class InvoiceSummary < ApplicationRecord
   validates :number, presence: true, uniqueness: true, unless: :importing
   validates :sales_rep_code, presence: true
   validates :invoiced_on, presence: true
-  # validates :paid_on, presence: true
   validates :amount, presence: true
   validates :cost, presence: true
 
