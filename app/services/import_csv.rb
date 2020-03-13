@@ -1,4 +1,5 @@
 # An abstract service for uploading a CSV file.
+# The target model class should include the Importable concern.
 class ImportCSV
   attr_reader :file, :csv, :errors, :result, :records
 
@@ -30,6 +31,15 @@ class ImportCSV
     return false unless valid?
     generate_records
     return false unless valid?
+
+    @result = import_records
+    true
+  end
+
+  def run!
+    raise "invalid" unless valid?
+    generate_records
+    raise "invalid" unless valid?
 
     @result = import_records
     true
