@@ -43,6 +43,8 @@
 
 # Info for a sales rep, including commission levels.
 class SalesRep < ApplicationRecord
+  include Importable
+
   DEFAULT_CODE = "_DEF".freeze
 
   QUOTA_TYPES = %w[profit revenue].freeze

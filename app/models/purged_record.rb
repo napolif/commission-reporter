@@ -22,4 +22,5 @@
 #
 
 class PurgedRecord < ApplicationRecord
+  include Importable
 end
