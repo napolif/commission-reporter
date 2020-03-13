@@ -16,7 +16,7 @@
 # Indexes
 #
 #  index_invoice_headers_on_customer_code  (customer_code)
-#  index_invoice_headers_on_number         (number)
+#  index_invoice_headers_on_number         (number) UNIQUE
 #  index_invoice_headers_on_rep_code       (rep_code)
 #
 
