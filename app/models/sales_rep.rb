@@ -55,7 +55,7 @@ class SalesRep < ApplicationRecord
                     within_120: "period4",
                     over_120: "period5"}.freeze
 
-  validates :code, presence: true, uniqueness: {case_sensitive: false}
+  validates :code, presence: true, uniqueness: {case_sensitive: false}, unless: :importing
   validates :name, presence: true
   validates :quota_type, inclusion: {in: QUOTA_TYPES}
 
