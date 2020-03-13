@@ -37,12 +37,7 @@ class ImportCSV
   end
 
   def run!
-    raise "invalid" unless valid?
-    generate_records
-    raise "invalid" unless valid?
-
-    @result = import_records
-    true
+    raise "invalid" unless run
   end
 
   def valid?
