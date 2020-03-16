@@ -10,14 +10,15 @@ section.breakAfter
       - @presenter.total_rows.each do |rep, total|
         tr
           td = rep.code
-          td = rep.name
+          td
+            a.repLink href="#id-#{rep.code}" = rep.name
           td.text-right = "%.2f" % total
   .blueBarTotal
     = "Grand Total: $%.2f" % @presenter.grand_total
   hr.reportRule
 
 - @presenter.commissions_by_enabled_rep.each do |rep, comms|
-  section class=("breakAfter" if @one_per_page)
+  section class=("breakAfter" if @one_per_page) id="id-#{rep.code}"
     h2
       span.salesRepCode = rep.code
       span = rep.name
