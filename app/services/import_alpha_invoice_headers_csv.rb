@@ -13,6 +13,7 @@ class ImportAlphaInvoiceHeadersCSV < ImportCSV
   index_field number: "inv_number"
 
   REP_CODE_MAP = {
+    "PH" => "417",
     "CP" => "501",
     "FF" => "502",
     "CK" => "503",
@@ -27,24 +28,27 @@ class ImportAlphaInvoiceHeadersCSV < ImportCSV
     "OF" => "516",
     "JE" => "517",
     "AC" => "518",
-    # "RD" => "519",
+    "RD" => "519",
     "SS" => "520",
+    "GP" => "521",
     "TS" => "527",
     "JC" => "528",
     "SD" => "529",
     "BB" => "530",
     "RA" => "531",
+    "KC" => "532",
     "MC" => "533",
     "AG" => "534",
     "CG" => "535",
+    "RP" => "537",
     "WD" => "538",
     "JK" => "545",
     "DC" => "546",
+    "AM" => "548",
     "AF" => "549",
     "NF" => "550",
     "FT" => "552",
     "BH" => "547",
-    "RP" => "537",
   }.freeze
 
   def initialize(file)
