@@ -17,8 +17,10 @@ def disable(code)
   SalesRep.find_by(code: code).update!(disabled: true)
 end
 
+# SalesRep.where.not(code: "_DEF").delete_all
+
 print_counts(SalesRep) do
-  import("../data/retalix_sales_reps.csv")
+  import("../data/sales_reps.csv")
 end
 
 puts "disabling a few..."
