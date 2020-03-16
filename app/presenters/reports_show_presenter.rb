@@ -52,7 +52,7 @@ class ReportsShowPresenter
   def commissions_by_code
     purgeds_by_code.transform_values do |prs|
 
-      grouped = prs.index_by(&:number)
+      grouped = prs.index_by(&:invoice_number)
 
       # grouped.transform_values do |grp|
       #   unique = grp.uniq(&:amount)

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_16_210324) do
+ActiveRecord::Schema.define(version: 2020_03_16_225449) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,7 +85,7 @@ ActiveRecord::Schema.define(version: 2020_03_16_210324) do
   end
 
   create_table "purged_records", force: :cascade do |t|
-    t.string "number"
+    t.string "invoice_number"
     t.decimal "amount", precision: 10, scale: 2
     t.string "customer_code"
     t.string "rep_code"
@@ -97,7 +97,7 @@ ActiveRecord::Schema.define(version: 2020_03_16_210324) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "invoice_type", default: 1, null: false
     t.index ["adj_code"], name: "index_purged_records_on_adj_code"
-    t.index ["number"], name: "index_purged_records_on_number"
+    t.index ["invoice_number"], name: "index_purged_records_on_invoice_number"
     t.index ["rep_code"], name: "index_purged_records_on_rep_code"
   end
 
