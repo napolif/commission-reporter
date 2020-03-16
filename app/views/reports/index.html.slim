@@ -31,39 +31,6 @@ main.container role="main"
         hr
         = button_tag "Submit", class: "btn btn-primary js-submitReportForm", name: nil
 
-  /.card.bg-light.mb-4
-  /  .card-header.h5.font-weight-bold
-  /    a href="#id-batchFormCard" data-toggle="collapse" Get Report By Batch
-  /  .card-body.collapse id="id-batchFormCard"
-  /    = form_with(url: by_batch_reports_path, method: "get", local: true) do
-  /      .form-group
-  /        = label_tag "batch", "Batch", for: "id-batch"
-  /        = select_tag "batch",
-  /                     options_for_select(InvoiceSummary.batch_numbers),
-  /                     class: "form-control",
-  /                     id: "id-batch"
-  /
-  /      .form-group
-  /        = label_tag "format", "Format", for: "id-format"
-  /        = select_tag "format",
-  /                     options_for_select(%w[html pdf csv], "html"),
-  /                     class: "form-control",
-  /                     id: "id-format"
-  /      hr
-  /      = render partial: "form_options"
-  /      hr
-  /      = button_tag "Submit", class: "btn btn-primary js-submitReportForm", name: nil
-  /
-  /.card.bg-light.mb-4
-  /  .card-header.h5.font-weight-bold
-  /    a href="#id-batchListCard" data-toggle="collapse" View Invoice Summaries By Batch
-  /  .card-body.collapse id="id-batchListCard"
-  /    ul
-  /      - batch_numbers.each do |bn|
-  /        li
-  /          a href=batch_path(bn) = "Batch #{bn}"
-
-
   .card.bg-light.mb-4
     .card-header.h5.font-weight-bold
       a href="#id-uploadCard" data-toggle="collapse" Upload Invoice Summary CSV
