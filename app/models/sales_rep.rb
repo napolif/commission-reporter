@@ -51,11 +51,11 @@ class SalesRep < ApplicationRecord
 
   QUOTA_TYPES = %w[profit revenue].freeze
 
-  PERIODS_BY_AGE = {within_45: "period1",
-                    within_60: "period2",
-                    within_90: "period3",
+  PERIODS_BY_AGE = {within_45:  "period1",
+                    within_60:  "period2",
+                    within_90:  "period3",
                     within_120: "period4",
-                    over_120: "period5"}.freeze
+                    over_120:   "period5"}.freeze
 
   validates :code, presence: true, uniqueness: {case_sensitive: false}, unless: :importing
   validates :name, presence: true

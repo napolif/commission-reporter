@@ -52,8 +52,8 @@ class ImportSalesRepsCSV < ImportCSV
     case val
     when "S" ; "revenue"
     when "O" ; "profit"
-    when nil ; "revenue"
     when ""  ; "revenue"
+    when nil ; "revenue"
     end
   end
 end
