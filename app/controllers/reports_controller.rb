@@ -14,9 +14,9 @@ class ReportsController < ApplicationController
   def date
     @title = "Report for #{params[:from]} to #{params[:to]}"
 
-    range = params[:from]..params[:to]
-    all_ar = PurgedRecord.where(created_date: range)
+    all_ar = PurgedRecord.where(created_date: params[:from]..params[:to])
                          .includes(invoice_header: [:sales_rep, :customer])
+
     render_report all_ar.where.not(invoice_headers: {id: nil})
   end
 
