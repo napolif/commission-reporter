@@ -88,8 +88,8 @@ class ImportAlphaInvoiceHeadersCSV < ImportCSV
   def customer_code_map
     cc_csv = CSV.readlines("../data/customer_mapping.csv", "rb", headers: true)
     cc_csv.each_with_object({}) do |row, hsh|
-      key = row["ID Alpha"].sub(/^'/, "")
-      val = row["ID Retalix"].sub(/^'/, "")
+      key = row.get("ID Alpha").sub(/^'/, "")
+      val = row.get("ID Retalix").sub(/^'/, "")
       hsh[key] = val
     end
   end
