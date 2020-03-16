@@ -3,6 +3,8 @@ class ImportSalesRepsCSV < ImportCSV
 
   field_map code: "SLS CODE",
             name: "NAME",
+            rep_type: "TYPE",
+            disabled: "DISABLED",
             quota_type: "S/O",
             period1: "P1 %",
             period2: "P2 %",
@@ -48,14 +50,10 @@ class ImportSalesRepsCSV < ImportCSV
 
   def transform_field_quota_type(val)
     case val
-    when nil
-      "broker"
-    when ""
-      "broker"
-    when "S"
-      "revenue"
-    when "O"
-      "profit"
+    when "S" ; "revenue"
+    when "O" ; "profit"
+    when nil ; "revenue"
+    when ""  ; "revenue"
     end
   end
 end

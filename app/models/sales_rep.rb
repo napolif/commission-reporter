@@ -32,6 +32,7 @@
 #  period4    :decimal(8, 2)
 #  period5    :decimal(8, 2)
 #  quota_type :string
+#  rep_type   :string           default("outside"), not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
@@ -39,6 +40,7 @@
 #
 #  index_sales_reps_on_code      (code) UNIQUE
 #  index_sales_reps_on_disabled  (disabled)
+#  index_sales_reps_on_rep_type  (rep_type)
 #
 
 # Info for a sales rep, including commission levels.
@@ -47,7 +49,7 @@ class SalesRep < ApplicationRecord
 
   DEFAULT_CODE = "_DEF".freeze
 
-  QUOTA_TYPES = %w[profit revenue broker].freeze
+  QUOTA_TYPES = %w[profit revenue].freeze
 
   PERIODS_BY_AGE = {within_45: "period1",
                     within_60: "period2",
