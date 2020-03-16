@@ -12,31 +12,13 @@ class ReportsController < ApplicationController
   end
 
   def date
-    # @title = "Report for #{params[:from]} to #{params[:to]}"
-    # render_report InvoiceSummary.where(paid_on: params[:from]..params[:to])
-    #                             .where("amount > ?", 0)
-    #                             .includes(:sales_rep)
-
     @title = "Report for #{params[:from]} to #{params[:to]}"
 
     range = params[:from]..params[:to]
     all_ar = PurgedRecord.where(created_date: range)
                          .includes(invoice_header: [:sales_rep, :customer])
-    good_ar = all_ar.where.not(invoice_headers: {id: nil})
-                    # .where("invoice_headers.amount > ?", 0)
-    render_report good_ar
+    render_report all_ar.where.not(invoice_headers: {id: nil})
   end
-
-  # def batch
-  #   batch_num = if params[:batch] == "latest"
-  #                 InvoiceSummary.latest_batch_number
-  #               else
-  #                 params[:batch]
-  #               end
-  #
-  #   @title = "Report for batch #{batch_num}"
-  #   render_report Invoice.where(batch: batch_num).includes(:sales_rep)
-  # end
 
   private
 
