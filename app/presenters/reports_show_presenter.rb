@@ -9,6 +9,7 @@ class ReportsShowPresenter
     @purgeds = purgeds
   end
 
+  # TODO: restore
   # def as_csv
   # end
 
@@ -51,15 +52,7 @@ class ReportsShowPresenter
 
   def commissions_by_code
     purgeds_by_code.transform_values do |prs|
-
       grouped = prs.index_by(&:invoice_number)
-
-      # grouped.transform_values do |grp|
-      #   unique = grp.uniq(&:amount)
-      #   raise "weird" unless unique.size == 1
-      #   unique.first
-      # end
-
       grouped.values.map do |pr|
         Commission.new(pr)
       end
@@ -93,6 +86,7 @@ class ReportsShowPresenter
   end
   memoize :purgeds_by_code
 
+  # TODO: restore (move into commission?)
   # def csv_row(commission)
   # end
 
