@@ -8,6 +8,7 @@
 #  created_date  :date
 #  customer_code :string
 #  due_date      :date
+#  invoice_type  :integer          default(1), not null
 #  number        :string
 #  ref_number    :string
 #  rep_code      :string
