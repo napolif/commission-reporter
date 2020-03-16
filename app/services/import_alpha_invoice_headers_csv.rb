@@ -1,5 +1,7 @@
 # A service for uploading a CSV file with invoice headers (from alpha).
 class ImportAlphaInvoiceHeadersCSV < ImportCSV
+  extend Memoist
+
   target_class InvoiceHeader
 
   field_map number:         "inv_number",
@@ -78,4 +80,18 @@ class ImportAlphaInvoiceHeadersCSV < ImportCSV
   def transform_field_rep_code(val)
     REP_CODE_MAP[val] || val
   end
+
+  def transform_field_customer_code(val)
+    customer_code_map[val] || val
+  end
+
+  def customer_code_map
+    cc_csv = CSV.readlines("../data/customer_mapping.csv", "rb", headers: true)
+    cc_csv.each_with_object({}) do |row, hsh|
+      key = row["ID Alpha"].sub(/^'/, "")
+      val = row["ID Retalix"].sub(/^'/, "")
+      hsh[key] = val
+    end
+  end
+  memoize :customer_code_map
 end
