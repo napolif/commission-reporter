@@ -6,13 +6,13 @@ class ImportInvoiceSummariesCSV
 
   HEADERS = %w[HHUSLNB HHUCUSN HHUCNMB HHUINVN LDATE RDATE HHUEXSN HHUEXCR HHUINVR HHUQYSA].freeze
   FIELD_MAP = {
-    number: "HHUINVN",
-    sales_rep_code: "HHUSLNB",
-    amount: "HHUEXSN",
-    cost: "HHUEXCR",
-    customer_code: "HHUCUSN",
-    customer_name: "HHUCNMB",
-    cases: "HHUQYSA"
+    number:          "HHUINVN",
+    sales_rep_code:  "HHUSLNB",
+    amount:          "HHUEXSN",
+    cost:            "HHUEXCR",
+    customer_code:   "HHUCUSN",
+    customer_name:   "HHUCNMB",
+    cases:           "HHUQYSA"
   }.freeze
 
   def initialize(file)
