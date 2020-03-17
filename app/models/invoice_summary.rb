@@ -36,12 +36,12 @@
 class InvoiceSummary < ApplicationRecord
   include Importable
 
+  validates :amount, presence: true
   validates :batch, presence: true
+  validates :cost, presence: true
+  validates :invoiced_on, presence: true
   validates :number, presence: true, uniqueness: true, unless: :importing
   validates :sales_rep_code, presence: true
-  validates :invoiced_on, presence: true
-  validates :amount, presence: true
-  validates :cost, presence: true
 
   belongs_to :sales_rep, primary_key: "code", foreign_key: "sales_rep_code", optional: true
 
