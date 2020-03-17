@@ -22,6 +22,11 @@
 #  index_purged_records_on_rep_code        (rep_code)
 #
 
+# An entry in the Retalix "A/R Purged Detail" file.
+#
+# A single invoice will typically have multiple entries in this file, e.g.: an entry for
+# the amount owed, and an entry for the amount paid. Invoices do not appear in this file
+# unless they are fully paid.
 class PurgedRecord < ApplicationRecord
   include Importable
 

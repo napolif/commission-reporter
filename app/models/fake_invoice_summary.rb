@@ -25,6 +25,7 @@
 #  index_invoice_summaries_on_sales_rep_code            (sales_rep_code)
 #
 
+# Generates a fake InvoiceSummary.
 class FakeInvoiceSummary < InvoiceSummary
   after_initialize :populate
 

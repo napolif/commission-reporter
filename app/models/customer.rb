@@ -13,6 +13,7 @@
 #  index_customers_on_code  (code) UNIQUE
 #
 
+# Information about a particular customer. Used to look up full name.
 class Customer < ApplicationRecord
   include Importable
 

@@ -20,6 +20,7 @@
 #  index_invoice_headers_on_rep_code       (rep_code)
 #
 
+# Information about a single invoice (either Alpha or Retalix), not counting line items.
 class InvoiceHeader < ApplicationRecord
   include Importable
 

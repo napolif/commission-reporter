@@ -1,3 +1,4 @@
+# A service for uploading a CSV file with sales reps.
 class ImportSalesRepsCSV < ImportCSV
   target_class SalesRep
 
