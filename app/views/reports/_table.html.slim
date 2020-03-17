@@ -1,7 +1,7 @@
 table.blueBar
   thead
     tr
-      td Invoice
+      td Number
       td Customer ID
       td Customer Name
       td.text-right Amount
@@ -17,13 +17,13 @@ table.blueBar
       tr
         td = inv.number
         td = inv.customer_code
-        td = inv.customer_name
+        td = inv.customer&.name
         td.text-right = number_to_currency(inv.amount, unit: "")
         td.text-right = number_to_currency(inv.cost, unit: "")
         td.text-right = "%0.2f" % inv.margin_pct
-        td = inv.invoiced_on
-        td = inv.paid_on
-        td = inv.age_category.to_s.sub('within_', '')
+        td = comm.order_date
+        td = comm.created_date
+        td = comm.age_category.to_s.sub('within_', '')
         td.text-right = number_to_currency(comm.amount, unit: "")
 
 .blueBarTotal

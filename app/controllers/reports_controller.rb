@@ -8,31 +8,24 @@ class ReportsController < ApplicationController
                  print_media_type: true}.freeze
 
   def index
-    render :index, locals: {batch_numbers: Invoice.batch_numbers}
+    render :index, locals: {batch_numbers: InvoiceSummary.batch_numbers}
   end
 
   def date
     @title = "Report for #{params[:from]} to #{params[:to]}"
-    render_report Invoice.where(paid_on: params[:from]..params[:to]).includes(:sales_rep)
-  end
 
-  def batch
-    batch_num = if params[:batch] == "latest"
-                  Invoice.latest_batch_number
-                else
-                  params[:batch]
-                end
+    all_ar = PurgedRecord.where(created_date: params[:from]..params[:to])
+                         .includes(invoice_header: [:sales_rep, :customer])
 
-    @title = "Report for batch #{batch_num}"
-    render_report Invoice.where(batch: batch_num).includes(:sales_rep)
+    render_report all_ar.where.not(invoice_headers: {id: nil})
   end
 
   private
 
-  def render_report(invoices) # rubocop:disable Metrics/AbcSize
+  def render_report(purgeds) # rubocop:disable Metrics/AbcSize
     @one_per_page = true if params[:one_per_page]
     @list_disabled_reps = true if params[:list_disabled_reps]
-    @presenter = ReportsShowPresenter.new(invoices)
+    @presenter = ReportsShowPresenter.new(purgeds)
 
     respond_to do |format|
       format.html do

@@ -3,23 +3,15 @@ class ReportsShowPresenter
   extend Memoist
 
   attr_reader :batch_num
-  attr_reader :invoices
+  attr_reader :purgeds
 
-  def initialize(invoices)
-    @invoices = invoices
+  def initialize(purgeds)
+    @purgeds = purgeds
   end
 
-  def as_csv
-    headers = ["Inv Num", "Cust ID", "Cust Name", "Invoiced On", "Paid On",
-               "Age Category", "Amount", "Cost", "Margin %", "Cases",
-               "Delivered", "SR Code", "SR Name", "SR Quota Type", "Comm Amt"]
-
-    CSV.generate(col_sep: ",", write_headers: true, headers: headers) do |csv|
-      commissions_by_enabled_rep.values.flatten.each do |comm|
-        csv << csv_row(comm)
-      end
-    end
-  end
+  # TODO: restore
+  # def as_csv
+  # end
 
   def commissions_by_enabled_rep
     enabled_rep_codes.each_with_object({}) do |code, hash|
@@ -59,8 +51,11 @@ class ReportsShowPresenter
   end
 
   def commissions_by_code
-    invoices_by_code.transform_values do |invs|
-      invs.map { |inv| Commission.new(inv) }
+    purgeds_by_code.transform_values do |prs|
+      grouped = prs.index_by(&:invoice_number)
+      grouped.values.map do |pr|
+        Commission.new(pr)
+      end
     end
   end
   memoize :commissions_by_code
@@ -82,26 +77,18 @@ class ReportsShowPresenter
   memoize :reps_by_code
 
   def rep_codes
-    invoices_by_code.keys.sort
+    purgeds_by_code.keys.sort
   end
   memoize :rep_codes
 
-  def invoices_by_code
-    invoices.group_by(&:sales_rep_code)
+  def purgeds_by_code
+    purgeds.group_by { |x| x.invoice_header.rep_code }
   end
-  memoize :invoices_by_code
+  memoize :purgeds_by_code
 
-  def csv_row(commission)
-    inv = commission.invoice
-    rep = commission.sales_rep
-
-    [
-      inv.number, inv.customer_code, inv.customer_name, inv.invoiced_on,
-      inv.paid_on, inv.age_category, inv.amount, inv.cost,
-      pretty_num(inv.margin_pct), inv.cases, pretty_bool(inv.delivered),
-      rep.code, rep.name, rep.quota_type, pretty_num(commission.amount)
-    ]
-  end
+  # TODO: restore (move into commission?)
+  # def csv_row(commission)
+  # end
 
   def pretty_num(bigdec)
     "%.2f" % bigdec.to_f

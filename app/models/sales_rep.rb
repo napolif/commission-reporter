@@ -32,27 +32,32 @@
 #  period4    :decimal(8, 2)
 #  period5    :decimal(8, 2)
 #  quota_type :string
+#  rep_type   :string           default("outside"), not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
 # Indexes
 #
+#  index_sales_reps_on_code      (code) UNIQUE
 #  index_sales_reps_on_disabled  (disabled)
+#  index_sales_reps_on_rep_type  (rep_type)
 #
 
 # Info for a sales rep, including commission levels.
 class SalesRep < ApplicationRecord
+  include Importable
+
   DEFAULT_CODE = "_DEF".freeze
 
   QUOTA_TYPES = %w[profit revenue].freeze
 
-  PERIODS_BY_AGE = {within_45: "period1",
-                    within_60: "period2",
-                    within_90: "period3",
+  PERIODS_BY_AGE = {within_45:  "period1",
+                    within_60:  "period2",
+                    within_90:  "period3",
                     within_120: "period4",
-                    over_120: "period5"}.freeze
+                    over_120:   "period5"}.freeze
 
-  validates :code, presence: true, uniqueness: {case_sensitive: false}
+  validates :code, presence: true, uniqueness: {case_sensitive: false}, unless: :importing
   validates :name, presence: true
   validates :quota_type, inclusion: {in: QUOTA_TYPES}
 
@@ -78,11 +83,5 @@ class SalesRep < ApplicationRecord
 
   def last_name
     name.split.second
-  end
-
-  def safe_quota_type
-    return "profit" if quota_type.blank?
-
-    quota_type
   end
 end
