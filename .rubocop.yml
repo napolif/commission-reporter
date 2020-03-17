@@ -26,6 +26,9 @@ Metrics/BlockLength:
 Metrics/MethodLength:
   Max: 20
 
+Layout/EmptyLineAfterGuardClause:
+  Enabled: false
+
 Layout/HashAlignment:
   Enabled: false
 
