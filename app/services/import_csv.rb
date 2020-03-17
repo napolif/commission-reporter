@@ -30,7 +30,6 @@ class ImportCSV
     return false unless valid?
     generate_records
     return false unless valid?
-
     @result = import_records
     true
   end
@@ -49,19 +48,17 @@ class ImportCSV
 
   private
 
-  def generate_records
+  def generate_records # rubocop:disable Metrics/AbcSize
     @records = csv.each_with_object([]).with_index do |(row, arr), i|
-      begin
-        rec = initialize_record(row)
-        if rec.invalid?
-          messages = rec.errors.full_messages.join(',')
-          errors << "invalid data in row #{i + 2}: #{messages}"
-        else
-          arr << rec
-        end
-      rescue StandardError => e
-        errors << "error on row #{i + 2}: #{e}"
+      rec = initialize_record(row)
+      if rec.invalid?
+        messages = rec.errors.full_messages.join(",")
+        errors << "invalid data in row #{i + 2}: #{messages}"
+      else
+        arr << rec
       end
+    rescue StandardError => e
+      errors << "error on row #{i + 2}: #{e}"
     end
   end
 

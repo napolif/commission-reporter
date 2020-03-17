@@ -51,10 +51,12 @@ class ImportSalesRepsCSV < ImportCSV
 
   def transform_field_quota_type(val)
     case val
-    when "S" ; "revenue"
-    when "O" ; "profit"
-    when ""  ; "revenue"
-    when nil ; "revenue"
+    when "S"
+      "revenue"
+    when "O"
+      "profit"
+    else
+      "revenue"
     end
   end
 end

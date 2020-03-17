@@ -14,7 +14,7 @@ class ImportInvoiceHeadersCSV < ImportCSV
 
   def transform_field_order_date(val)
     Date.strptime(val, "%Y%m%d")
-  rescue
+  rescue ArgumentError
     nil
   end
 

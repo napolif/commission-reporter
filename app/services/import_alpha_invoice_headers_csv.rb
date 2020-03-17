@@ -50,7 +50,7 @@ class ImportAlphaInvoiceHeadersCSV < ImportCSV
     "AF" => "549",
     "NF" => "550",
     "FT" => "552",
-    "BH" => "547",
+    "BH" => "547"
   }.freeze
 
   def initialize(file)
@@ -73,7 +73,7 @@ class ImportAlphaInvoiceHeadersCSV < ImportCSV
 
   def transform_field_order_date(val)
     Date.strptime(val, "%m/%d/%y")
-  rescue
+  rescue ArgumentError
     nil
   end
 

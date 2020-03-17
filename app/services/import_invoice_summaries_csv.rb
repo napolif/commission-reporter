@@ -5,6 +5,7 @@ class ImportInvoiceSummariesCSV
   attr_reader :file, :csv, :errors, :result, :batch_number, :records
 
   HEADERS = %w[HHUSLNB HHUCUSN HHUCNMB HHUINVN LDATE RDATE HHUEXSN HHUEXCR HHUINVR HHUQYSA].freeze
+
   FIELD_MAP = {
     number:          "HHUINVN",
     sales_rep_code:  "HHUSLNB",
@@ -32,23 +33,19 @@ class ImportInvoiceSummariesCSV
     raise "invalid" unless run
   end
 
-  def run
+  def run # rubocop:disable Metrics/AbcSize
     return unless errors.empty?
 
     @records = csv.each_with_object([]).with_index do |(row, arr), idx|
-      # next if row.get("RDATE") == "00/00/0000"
-
-      begin
-        row_num = idx + 2
-        inv = invoice_for_row(row)
-        if inv.invalid?
-          errors << "invalid data in row #{row_num}: #{inv.errors.full_messages.join(',')}"
-        else
-          arr << inv
-        end
-      rescue StandardError => e
-        errors << "invalid data in row #{row_num}: #{e}"
+      row_num = idx + 2
+      inv = invoice_for_row(row)
+      if inv.invalid?
+        errors << "invalid data in row #{row_num}: #{inv.errors.full_messages.join(',')}"
+      else
+        arr << inv
       end
+    rescue StandardError => e
+      errors << "invalid data in row #{row_num}: #{e}"
     end
 
     return unless errors.empty?
@@ -71,7 +68,7 @@ class ImportInvoiceSummariesCSV
 
       begin
         inv.paid_on = Date.strptime(row.get("RDATE"), "%m/%d/%Y")
-      rescue
+      rescue ArgumentError
         inv.paid_on = nil
       end
 
