@@ -37,7 +37,7 @@ class InvoiceSummary < ApplicationRecord
   include Importable
 
   validates :amount, presence: true
-  validates :batch, presence: true
+  validates :batch, presence: true, unless: :importing
   validates :cost, presence: true
   validates :invoiced_on, presence: true
   validates :number, presence: true, uniqueness: true, unless: :importing
