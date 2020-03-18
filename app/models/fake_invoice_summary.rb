@@ -21,7 +21,7 @@
 #
 #  index_invoice_summaries_on_batch                     (batch)
 #  index_invoice_summaries_on_batch_and_sales_rep_code  (batch,sales_rep_code)
-#  index_invoice_summaries_on_number                    (number)
+#  index_invoice_summaries_on_number                    (number) UNIQUE
 #  index_invoice_summaries_on_sales_rep_code            (sales_rep_code)
 #
 

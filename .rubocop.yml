@@ -20,6 +20,10 @@ Style/Documentation:
     - 'app/mailers/**/*'
     - 'app/models/application_record.rb'
 
+Lint/AmbiguousBlockAssociation:
+  Exclude:
+    - 'spec/**/*'
+
 Metrics/BlockLength:
   Enabled: false
 
@@ -56,6 +60,9 @@ Layout/MultilineMethodCallIndentation:
 Style/AutoResourceCleanup:
   Description: 'Suggests the usage of an auto resource cleanup version of a method (if available).'
   Enabled: true
+
+Style/BlockComments:
+  Enabled: false
 
 Style/CollectionMethods:
   Description: 'Preferred collection methods.'

@@ -5,19 +5,7 @@ class ImportCustomersCSV < ImportCSV
   field_map code: "FFDCUSN",
             name: "FFDCNMB"
 
-  index_field code: "FFDCUSN"
+  natural_key :code
 
-  def import_records
-    update_columns = @@target_class.column_names.without("id", "updated_at")
-    @@target_class.import(
-      records,
-      validate_uniqueness: false,
-      validate: false,
-      all_or_none: true,
-      on_duplicate_key_update: {
-        conflict_target: [:code],
-        columns: update_columns
-      }
-    )
-  end
+  upsert true
 end

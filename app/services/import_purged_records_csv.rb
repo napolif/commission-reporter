@@ -12,7 +12,9 @@ class ImportPurgedRecordsCSV < ImportCSV
             ref_number:     "RRWINVR",
             invoice_type:   "RRWRTPE"
 
-  index_field number: "RRWINVN"
+  natural_key :number
+
+  upsert false
 
   def transform_field_due_date(val)
     Date.strptime(val, "%Y%m%d")

@@ -21,7 +21,7 @@
 #
 #  index_invoice_summaries_on_batch                     (batch)
 #  index_invoice_summaries_on_batch_and_sales_rep_code  (batch,sales_rep_code)
-#  index_invoice_summaries_on_number                    (number)
+#  index_invoice_summaries_on_number                    (number) UNIQUE
 #  index_invoice_summaries_on_sales_rep_code            (sales_rep_code)
 #
 
@@ -37,7 +37,7 @@ class InvoiceSummary < ApplicationRecord
   include Importable
 
   validates :amount, presence: true
-  validates :batch, presence: true
+  validates :batch, presence: true, unless: :importing
   validates :cost, presence: true
   validates :invoiced_on, presence: true
   validates :number, presence: true, uniqueness: true, unless: :importing
