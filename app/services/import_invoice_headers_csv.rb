@@ -10,7 +10,7 @@ class ImportInvoiceHeadersCSV < ImportCSV
             order_date:    "HHHDTET",
             qty_ord:       "HHHQYOA"
 
-  index_field number: "HHHINVN"
+  natural_key number: "HHHINVN"
 
   upsert true
 

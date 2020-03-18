@@ -5,7 +5,7 @@ class ImportCustomersCSV < ImportCSV
   field_map code: "FFDCUSN",
             name: "FFDCNMB"
 
-  index_field code: "FFDCUSN"
+  natural_key code: "FFDCUSN"
 
   upsert true
 end

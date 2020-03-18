@@ -51,7 +51,7 @@ class ImportAlphaInvoiceHeadersCSV < ImportCSV
             order_date:    "maybe_invoice_date",
             qty_ord:       "total_cases"
 
-  index_field number: "inv_number"
+  natural_key number: "inv_number"
 
   upsert true
 

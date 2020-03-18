@@ -16,8 +16,8 @@ class ImportCSV
       @field_map = val
     end
 
-    def index_field(**val)
-      @index_field = val
+    def natural_key(**val)
+      @natural_key = val
     end
 
     def csv_options(**val)
@@ -25,7 +25,7 @@ class ImportCSV
     end
   end
 
-  %i[target_class field_map index_field csv_options upsert].each do |name|
+  %i[target_class field_map natural_key csv_options upsert].each do |name|
     define_method(name) do
       self.class.instance_variable_get("@#{name}")
     end
@@ -113,7 +113,7 @@ class ImportCSV
       validate: false,
       all_or_none: true,
       on_duplicate_key_update: {
-        conflict_target: [index_field.keys.first],
+        conflict_target: [natural_key.keys.first],
         columns: target_class.column_names.without("id", "updated_at")
       }
     )

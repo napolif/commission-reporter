@@ -13,7 +13,7 @@ class ImportInvoiceSummariesCSV < ImportCSV
             paid_on:        "RDATE",
             delivered:      "HHUINVR"
 
-  index_field number: "HHUINVN"
+  natural_key number: "HHUINVN"
 
   upsert true
 
