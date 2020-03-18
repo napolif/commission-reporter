@@ -61,3 +61,7 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 end
+
+def path_to_csv(file_name)
+  File.join("spec", "data", file_name)
+end
