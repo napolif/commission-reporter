@@ -33,7 +33,7 @@ class ImportSalesRepsCSV < ImportCSV
             comm9:      "LVL 9 COMM %",
             comm10:     "LVL 10 COMM %"
 
-  natural_key code: "SLS CODE"
+  natural_key :code
 
   upsert true
 

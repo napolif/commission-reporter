@@ -5,7 +5,7 @@ class ImportCustomersCSV < ImportCSV
   field_map code: "FFDCUSN",
             name: "FFDCNMB"
 
-  natural_key code: "FFDCUSN"
+  natural_key :code
 
   upsert true
 end

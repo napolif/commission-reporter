@@ -16,7 +16,7 @@ class ImportCSV
       @field_map = val
     end
 
-    def natural_key(**val)
+    def natural_key(val)
       @natural_key = val
     end
 
@@ -113,7 +113,7 @@ class ImportCSV
       validate: false,
       all_or_none: true,
       on_duplicate_key_update: {
-        conflict_target: [natural_key.keys.first],
+        conflict_target: [natural_key],
         columns: target_class.column_names.without("id", "updated_at")
       }
     )
