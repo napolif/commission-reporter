@@ -70,6 +70,13 @@ class ImportCSV
 
   private
 
+  def validate_headers
+    headers = field_map.values
+    return if headers.to_set.subset?(csv.headers.to_set)
+
+    errors << "invalid headers (expecting #{headers.join(', ')})"
+  end
+
   def generate_records # rubocop:disable Metrics/AbcSize
     @records = csv.each_with_object([]).with_index do |(row, arr), i|
       rec = initialize_record(row)
@@ -81,6 +88,18 @@ class ImportCSV
       end
     rescue StandardError => e
       errors << "error on row #{i + 2}: #{e}"
+    end
+  end
+
+  def initialize_record(row)
+    target_class.new.tap do |rec|
+      field_map.each do |attr, csv_attr|
+        transformer = "transform_field_#{attr}"
+        raw = row.get(csv_attr)
+        val = respond_to?(transformer, true) ? send(transformer, raw) : raw
+        rec[attr] = val
+        rec.importing = true
+      end
     end
   end
 
@@ -98,24 +117,5 @@ class ImportCSV
         columns: target_class.column_names.without("id", "updated_at")
       }
     )
-  end
-
-  def initialize_record(row)
-    target_class.new.tap do |rec|
-      field_map.each do |attr, csv_attr|
-        transformer = "transform_field_#{attr}"
-        raw = row.get(csv_attr)
-        val = respond_to?(transformer, true) ? send(transformer, raw) : raw
-        rec[attr] = val
-        rec.importing = true
-      end
-    end
-  end
-
-  def validate_headers
-    headers = field_map.values
-    return if headers.to_set.subset?(csv.headers.to_set)
-
-    errors << "invalid headers (expecting #{headers.join(', ')})"
   end
 end
