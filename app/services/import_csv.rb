@@ -8,6 +8,10 @@ class ImportCSV
       @target_class = val
     end
 
+    def upsert(val)
+      @upsert = val
+    end
+
     def field_map(**val)
       @field_map = val
     end
@@ -21,7 +25,7 @@ class ImportCSV
     end
   end
 
-  %i[target_class field_map index_field csv_options].each do |name|
+  %i[target_class field_map index_field csv_options upsert].each do |name|
     define_method(name) do
       self.class.instance_variable_get("@#{name}")
     end
@@ -42,7 +46,13 @@ class ImportCSV
     return false unless valid?
     generate_records
     return false unless valid?
-    @result = import_records
+
+    if upsert
+      @result = upsert_records
+    else
+      @result = insert_records
+    end
+
     true
   end
 
@@ -74,12 +84,20 @@ class ImportCSV
     end
   end
 
-  def import_records
+  def insert_records
     target_class.import(records, validate: false, all_or_none: true)
   end
 
-  def update_column_names
-    target_class.column_names.without("id", "updated_at")
+  def upsert_records
+    target_class.import(
+      records,
+      validate: false,
+      all_or_none: true,
+      on_duplicate_key_update: {
+        conflict_target: [index_field.keys.first],
+        columns: target_class.column_names.without("id", "updated_at")
+      }
+    )
   end
 
   def initialize_record(row)

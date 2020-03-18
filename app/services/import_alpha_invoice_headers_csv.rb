@@ -53,22 +53,10 @@ class ImportAlphaInvoiceHeadersCSV < ImportCSV
 
   index_field number: "inv_number"
 
+  upsert true
+
   csv_options col_sep: "\t",
               liberal_parsing: true
-
-  def import_records
-    update_columns = target_class.column_names.without("id", "updated_at")
-    target_class.import(
-      records,
-      validate_uniqueness: false,
-      validate: false,
-      all_or_none: true,
-      on_duplicate_key_update: {
-        conflict_target: [:number],
-        columns: update_columns
-      }
-    )
-  end
 
   def transform_field_order_date(val)
     Date.strptime(val, "%m/%d/%y")

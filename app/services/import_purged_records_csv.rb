@@ -14,6 +14,8 @@ class ImportPurgedRecordsCSV < ImportCSV
 
   index_field number: "RRWINVN"
 
+  upsert false
+
   def transform_field_due_date(val)
     Date.strptime(val, "%Y%m%d")
   rescue ArgumentError
