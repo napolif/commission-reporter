@@ -113,20 +113,9 @@ class ImportCSV
   end
 
   def validate_headers
+    headers = field_map.values
     return if headers.to_set.subset?(csv.headers.to_set)
 
     errors << "invalid headers (expecting #{headers.join(', ')})"
-  end
-
-  def headers
-    field_map.values
-  end
-
-  def id_attr
-    index_field.keys.first
-  end
-
-  def csv_id_attr
-    index_field.values.first
   end
 end
