@@ -19,8 +19,8 @@ class ImportInvoiceHeadersCSV < ImportCSV
   end
 
   def import_records
-    update_columns = @@target_class.column_names.without("id", "updated_at")
-    @@target_class.import(
+    update_columns = target_class.column_names.without("id", "updated_at")
+    target_class.import(
       records,
       validate_uniqueness: false,
       validate: false,

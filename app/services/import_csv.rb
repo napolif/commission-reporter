@@ -3,24 +3,36 @@
 class ImportCSV
   attr_reader :file, :csv, :errors, :result, :records
 
-  def self.target_class(val)
-    @@target_class = val
+  class << self
+    def target_class(val)
+      @target_class = val
+    end
+
+    def field_map(**val)
+      @field_map = val
+    end
+
+    def index_field(**val)
+      @index_field = val
+    end
+
+    def csv_options(**val)
+      @csv_options = val
+    end
   end
 
-  def self.field_map(**val)
-    @@field_map = val
+  %i[target_class field_map index_field csv_options].each do |name|
+    define_method(name) do
+      self.class.instance_variable_get("@#{name}")
+    end
   end
 
-  def self.index_field(**val)
-    @@index_field = val
-  end
-
-  def initialize(file, csv_options={})
+  def initialize(file)
     @errors = []
     @result = nil
     @file = file
 
-    options = {headers: true}.merge(csv_options)
+    options = {headers: true}.merge(csv_options || {})
     @csv = CSV.read(@file, **options)
 
     validate_headers
@@ -63,16 +75,16 @@ class ImportCSV
   end
 
   def import_records
-    @@target_class.import(records, validate: false, all_or_none: true)
+    target_class.import(records, validate: false, all_or_none: true)
   end
 
   def update_column_names
-    @@target_class.column_names.without("id", "updated_at")
+    target_class.column_names.without("id", "updated_at")
   end
 
   def initialize_record(row)
-    @@target_class.new.tap do |rec|
-      @@field_map.each do |attr, csv_attr|
+    target_class.new.tap do |rec|
+      field_map.each do |attr, csv_attr|
         transformer = "transform_field_#{attr}"
         raw = row.get(csv_attr)
         val = respond_to?(transformer, true) ? send(transformer, raw) : raw
@@ -89,14 +101,14 @@ class ImportCSV
   end
 
   def headers
-    @@field_map.values
+    field_map.values
   end
 
   def id_attr
-    @@index_field.keys.first
+    index_field.keys.first
   end
 
   def csv_id_attr
-    @@index_field.values.first
+    index_field.values.first
   end
 end

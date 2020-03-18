@@ -2,18 +2,6 @@
 class ImportAlphaInvoiceHeadersCSV < ImportCSV
   extend Memoist
 
-  target_class InvoiceHeader
-
-  field_map number:         "inv_number",
-            rep_code:       "sales_rep",
-            customer_code:  "cust_code",
-            amount:         "amount",
-            cost:           "cost",
-            order_date:     "maybe_invoice_date",
-            qty_ord:        "total_cases"
-
-  index_field number: "inv_number"
-
   REP_CODE_MAP = {
     "PH" => "417",
     "CP" => "501",
@@ -53,13 +41,24 @@ class ImportAlphaInvoiceHeadersCSV < ImportCSV
     "BH" => "547"
   }.freeze
 
-  def initialize(file)
-    super(file, col_sep: "\t", liberal_parsing: true)
-  end
+  target_class InvoiceHeader
+
+  field_map number:         "inv_number",
+            rep_code:       "sales_rep",
+            customer_code:  "cust_code",
+            amount:         "amount",
+            cost:           "cost",
+            order_date:     "maybe_invoice_date",
+            qty_ord:        "total_cases"
+
+  index_field number: "inv_number"
+
+  csv_options col_sep: "\t",
+              liberal_parsing: true
 
   def import_records
-    update_columns = @@target_class.column_names.without("id", "updated_at")
-    @@target_class.import(
+    update_columns = target_class.column_names.without("id", "updated_at")
+    target_class.import(
       records,
       validate_uniqueness: false,
       validate: false,
