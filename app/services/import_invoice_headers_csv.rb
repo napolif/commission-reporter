@@ -2,13 +2,13 @@
 class ImportInvoiceHeadersCSV < ImportCSV
   target_class InvoiceHeader
 
-  field_map number:         "HHHINVN",
-            rep_code:       "HHHSLNB",
-            customer_code:  "HHHCUSN",
-            amount:         "HHHINAM",
-            cost:           "HHHEXCR",
-            order_date:     "HHHDTET",
-            qty_ord:        "HHHQYOA"
+  field_map number:        "HHHINVN",
+            rep_code:      "HHHSLNB",
+            customer_code: "HHHCUSN",
+            amount:        "HHHINAM",
+            cost:          "HHHEXCR",
+            order_date:    "HHHDTET",
+            qty_ord:       "HHHQYOA"
 
   index_field number: "HHHINVN"
 

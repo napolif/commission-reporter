@@ -43,13 +43,13 @@ class ImportAlphaInvoiceHeadersCSV < ImportCSV
 
   target_class InvoiceHeader
 
-  field_map number:         "inv_number",
-            rep_code:       "sales_rep",
-            customer_code:  "cust_code",
-            amount:         "amount",
-            cost:           "cost",
-            order_date:     "maybe_invoice_date",
-            qty_ord:        "total_cases"
+  field_map number:        "inv_number",
+            rep_code:      "sales_rep",
+            customer_code: "cust_code",
+            amount:        "amount",
+            cost:          "cost",
+            order_date:    "maybe_invoice_date",
+            qty_ord:       "total_cases"
 
   index_field number: "inv_number"
 
