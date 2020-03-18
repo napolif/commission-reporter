@@ -20,6 +20,10 @@ Style/Documentation:
     - 'app/mailers/**/*'
     - 'app/models/application_record.rb'
 
+Lint/AmbiguousBlockAssociation:
+  Exclude:
+    - 'spec/**/*'
+
 Metrics/BlockLength:
   Enabled: false
 

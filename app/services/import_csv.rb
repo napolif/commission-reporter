@@ -3,6 +3,7 @@
 class ImportCSV
   attr_reader :file, :csv, :errors, :result, :records
 
+  # rubocop:disable Style/TrivialAccessors
   class << self
     def target_class(val)
       @target_class = val
@@ -12,18 +13,19 @@ class ImportCSV
       @upsert = val
     end
 
-    def field_map(**val)
-      @field_map = val
-    end
-
     def natural_key(val)
       @natural_key = val
+    end
+
+    def field_map(**val)
+      @field_map = val
     end
 
     def csv_options(**val)
       @csv_options = val
     end
   end
+  # rubocop:enable Style/TrivialAccessors
 
   %i[target_class field_map natural_key csv_options upsert].each do |name|
     define_method(name) do
@@ -47,12 +49,11 @@ class ImportCSV
     generate_records
     return false unless valid?
 
-    if upsert
-      @result = upsert_records
-    else
-      @result = insert_records
-    end
-
+    @result = if upsert
+                upsert_records
+              else
+                insert_records
+              end
     true
   end
 
