@@ -92,7 +92,7 @@ class ReportsShowPresenter
   memoize :rep_codes
 
   def purgeds_by_code
-    purgeds.group_by { |x| x.invoice_header.rep_code }
+    purgeds.group_by { |pr| pr.invoice_header.rep_code }
   end
   memoize :purgeds_by_code
 end
