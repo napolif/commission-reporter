@@ -12,6 +12,20 @@ class Commission
     @sales_rep = invoice.sales_rep || SalesRep.default_new(invoice.rep_code)
   end
 
+  # TODO: add original invoice amount
+  # TODO: add adjusted cost?
+  def as_csv
+    i = invoice
+    r = sales_rep
+
+    [
+      i.number, i.customer_code, i.customer.name, i.order_date,
+      paid_date, age_category, paid_amount, i.cost,
+      pretty_num(i.margin_pct), i.qty_ord,
+      r.code, r.name, r.quota_type, pretty_num(amount)
+    ]
+  end
+
   def paid_date
     purged_records.map(&:created_date).max
   end
@@ -95,5 +109,13 @@ class Commission
     else
       :over_120
     end
+  end
+
+  def pretty_num(bigdec)
+    "%.2f" % bigdec.to_f
+  end
+
+  def pretty_bool(bool)
+    bool ? "yes" : "no"
   end
 end

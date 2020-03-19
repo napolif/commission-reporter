@@ -9,9 +9,18 @@ class ReportsShowPresenter
     @purgeds = purgeds
   end
 
-  # TODO: restore
-  # def as_csv
-  # end
+   # TODO: add original invoice amount
+   def as_csv
+    headers = ["Inv Num", "Cust ID", "Cust Name", "Invoiced On", "Paid On",
+               "Age Category", "Inv Amount (Adj)", "Inv Cost", "Margin %", "Cases",
+               "Rep Code", "Rep Name", "Quota Type", "Comm Amt"]
+
+    CSV.generate(write_headers: true, headers: headers) do |csv|
+      commissions_by_enabled_rep.values.flatten.each do |comm|
+        csv << comm.as_csv
+      end
+    end
+  end
 
   def commissions_by_enabled_rep
     enabled_rep_codes.each_with_object({}) do |code, hash|
@@ -86,16 +95,4 @@ class ReportsShowPresenter
     purgeds.group_by { |x| x.invoice_header.rep_code }
   end
   memoize :purgeds_by_code
-
-  # TODO: restore (move into commission?)
-  # def csv_row(commission)
-  # end
-
-  def pretty_num(bigdec)
-    "%.2f" % bigdec.to_f
-  end
-
-  def pretty_bool(bool)
-    bool ? "yes" : "no"
-  end
 end
