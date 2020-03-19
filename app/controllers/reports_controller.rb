@@ -14,10 +14,14 @@ class ReportsController < ApplicationController
   def date
     @title = "Report for #{params[:from]} to #{params[:to]}"
 
-    all_ar = PurgedRecord.where(created_date: params[:from]..params[:to])
-                         .includes(invoice_header: [:sales_rep, :customer])
+    # TODO: PurgedRecordQuery
+    all_by_date = PurgedRecord.where(created_date: params[:from]..params[:to])
+                              .includes(invoice_header: [:sales_rep, :customer])
+    paid_inv_nums = all_by_date.where(invoice_type: 2).pluck(:invoice_number).uniq
+    paid = all_by_date.where(invoice_number: paid_inv_nums)
+    paid_present = paid.where.not(invoice_headers: {id: nil})
 
-    render_report all_ar.where.not(invoice_headers: {id: nil})
+    render_report paid_present
   end
 
   private
