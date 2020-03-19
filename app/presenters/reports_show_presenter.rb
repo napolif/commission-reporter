@@ -52,10 +52,11 @@ class ReportsShowPresenter
 
   def commissions_by_code
     purgeds_by_code.transform_values do |prs|
-      grouped = prs.index_by(&:invoice_number)
-      grouped.values.map do |pr|
-        Commission.new(pr)
+      invoice_groups = prs.group_by(&:invoice_number)
+      comms = invoice_groups.map do |_num, iprs|
+        Commission.new(iprs)
       end
+      comms.reject { |c| c.amount.zero? }.sort_by(&:amount).reverse
     end
   end
   memoize :commissions_by_code
