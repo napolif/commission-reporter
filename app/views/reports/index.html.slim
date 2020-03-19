@@ -37,7 +37,7 @@ main.container role="main"
     .card-body.collapse id="id-uploadCard"
       strong Required Headers:
       p
-        small = ImportInvoiceSummariesCSV::HEADERS.join(", ")
+        small = ImportInvoiceSummariesCSV.instance_variable_get(:@field_map).values.join(", ")
       = form_with(url: upload_batches_path, method: "post", local: true, multipart: true) do
         = file_field_tag "invoices", accept: "text/csv", class: "form-control-file", required: true
         hr
