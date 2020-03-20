@@ -50,7 +50,6 @@ class Commission
   def profit
     invoice.profit * ratio
   end
-  # ------------------------------------------
 
   # Returns the commission for the associated invoice in dollars.
   def amount
