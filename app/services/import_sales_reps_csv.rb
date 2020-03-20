@@ -3,6 +3,7 @@ class ImportSalesRepsCSV < ImportCSV
   target_class SalesRep
 
   field_map code:       "SLS CODE",
+            alpha_code: "ALPHA CODE",
             name:       "NAME",
             rep_type:   "TYPE",
             disabled:   "DISABLED",
