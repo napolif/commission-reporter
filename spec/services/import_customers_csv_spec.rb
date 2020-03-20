@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe ImportCustomersCSV do
-  let(:csv_path) { path_to_csv("customer.csv") }
+  let(:csv_path) { path_to_csv("customers.csv") }
   let(:service) { ImportCustomersCSV.new(csv_path) }
 
   context "before import" do
@@ -26,10 +26,10 @@ RSpec.describe ImportCustomersCSV do
   end
 
   context "with existing Customer records" do
-    let(:csv_path) { path_to_csv("customer2.csv") }
+    let(:csv_path) { path_to_csv("customers2.csv") }
     let(:customer) { Customer.find_by(code: "ILLIAN") }
 
-    before { ImportCustomersCSV.new(path_to_csv("customer.csv")).run }
+    before { ImportCustomersCSV.new(path_to_csv("customers.csv")).run }
 
     it "does not create new records" do
       expect { service.run }.not_to change { Customer.count }
