@@ -13,6 +13,7 @@ class ReportsController < ApplicationController
 
   def date
     @title = "Report for #{params[:from]} to #{params[:to]}"
+    @rep_type = params[:rep_type]
 
     # TODO: PurgedRecordQuery
     all_by_date = PurgedRecord.where(created_date: params[:from]..params[:to])
@@ -21,7 +22,12 @@ class ReportsController < ApplicationController
     paid = all_by_date.where(invoice_number: paid_inv_nums)
     paid_present = paid.where.not(invoice_headers: {id: nil})
 
-    render_report paid_present
+    if @rep_type
+      rep_codes = SalesRep.where(rep_type: @rep_type).pluck(:code)
+      render_report paid_present.where(rep_code: rep_codes)
+    else
+      render_report paid_present
+    end
   end
 
   private
