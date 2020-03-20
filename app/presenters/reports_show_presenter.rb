@@ -9,8 +9,8 @@ class ReportsShowPresenter
     @purgeds = purgeds
   end
 
-   # TODO: add original invoice amount
-   def as_csv
+  # TODO: add original invoice amount
+  def as_csv
     headers = ["Inv Num", "Cust ID", "Cust Name", "Invoiced On", "Paid On",
                "Age Category", "Inv Amount (Adj)", "Inv Cost", "Margin %", "Cases",
                "Rep Code", "Rep Name", "Quota Type", "Comm Amt"]
