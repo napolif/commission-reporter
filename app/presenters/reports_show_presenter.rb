@@ -12,8 +12,9 @@ class ReportsShowPresenter
   # TODO: add original invoice amount
   def as_csv
     headers = ["Inv Num", "Cust ID", "Cust Name", "Invoiced On", "Paid On",
-               "Age Category", "Inv Amount (Adj)", "Inv Cost", "Margin %", "Cases",
-               "Rep Code", "Rep Name", "Quota Type", "Comm Amt"]
+               "Age Category", "Inv Amount", "Paid Amount", "Inv Cost",
+               "Adjusted Cost", "Paid Fraction", "Margin %", "Cases", "Rep Code", "Rep Name",
+               "Quota Type", "Comm Amt"]
 
     CSV.generate(write_headers: true, headers: headers) do |csv|
       commissions_by_enabled_rep.values.flatten.each do |comm|

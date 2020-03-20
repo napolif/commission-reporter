@@ -20,7 +20,8 @@ class Commission
 
     [
       i.number, i.customer_code, i.customer.name, i.order_date,
-      paid_date, age_category, paid_amount, i.cost,
+      paid_date, age_category, i.amount, paid_amount, i.cost,
+      pretty_num(adjusted_cost), pretty_num(paid_fraction),
       pretty_num(i.margin_pct), i.qty_ord,
       r.code, r.name, r.quota_type, pretty_num(amount)
     ]
@@ -66,6 +67,10 @@ class Commission
   def paid_fraction
     return 0 if invoice.amount.zero?
     paid_amount / invoice.amount
+  end
+
+  def adjusted_cost
+    paid_fraction * invoice.cost
   end
 
   # Returns the base commission % for the matching level.

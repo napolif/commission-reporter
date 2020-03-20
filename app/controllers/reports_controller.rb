@@ -42,7 +42,7 @@ class ReportsController < ApplicationController
 
       format.csv do
         send_data(@presenter.as_csv,
-                  filename: "commission-#{params[:batch]}-#{Date.today}.csv")
+                  filename: "commission-report.csv")
       end
     end
   end
