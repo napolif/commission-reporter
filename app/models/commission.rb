@@ -1,35 +1,71 @@
 # Calculation of a commission amount for a given invoice & associated sales rep.
 class Commission
-  attr_reader :invoice, :sales_rep, :purged
+  attr_reader :invoice, :sales_rep, :purged_records
 
-  delegate :created_date, to: :purged
   delegate :order_date, to: :invoice
   delegate :margin_pct, to: :invoice
   delegate :commission_table, to: :sales_rep
+  delegate :quota_type, to: :sales_rep
 
-  def initialize(purged_record)
-    @purged = purged_record
-    @invoice = purged.invoice_header
+  def initialize(purged_records)
+    @purged_records = purged_records
+    @invoice = purged_records.first.invoice_header
     @sales_rep = invoice.sales_rep || SalesRep.default_new(invoice.rep_code)
   end
 
-  # Returns the commission for the associated invoice in dollars.
+  # Returns the commission information as an array for use with CSV export.
+  def as_csv # rubocop:disable Metrics/AbcSize
+    i = invoice
+    r = sales_rep
+
+    [
+      i.number, i.customer_code, i.customer.name, i.order_date,
+      paid_date, age_category, paid_amount, i.cost,
+      pretty_num(i.margin_pct), i.qty_ord,
+      r.code, r.name, r.quota_type, pretty_num(amount)
+    ]
+  end
+
+  # Returns the commission to be paid in dollars.
   def amount
     adjusted = adjusted_pct / 100
 
-    case sales_rep.quota_type
+    case quota_type
     when "revenue"
-      adjusted * invoice.amount
+      adjusted * paid_amount
     when "profit"
-      adjusted * invoice.profit
+      adjusted * profit
     else
-      adjusted * invoice.profit
+      adjusted * profit
     end
   end
 
   # Returns the base commission adjusted for invoice payment age.
   def adjusted_pct
+    period = SalesRep::PERIODS_BY_AGE[age_category]
+    age_adjustment_pct = sales_rep[period]
     base_pct * (age_adjustment_pct / 100)
+  end
+
+  # Returns the total amount that the customer paid towards the invoice,
+  # which may be lower than the original invoice amount.
+  def paid_amount
+    payments = purged_records.select { |rec| rec.invoice_type == 2 }
+    return 0 unless payments.present?
+
+    payments.map(&:amount).reduce(:+)
+  end
+
+  # Returns the invoice profit dollars, adjusted down by the fraction paid.
+  def profit
+    invoice.profit * paid_fraction
+  end
+
+  # Returns the fraction of the invoice total that was paid (will be < 1 for
+  # adjusted invoices).
+  def paid_fraction
+    return 0 if invoice.amount.zero?
+    paid_amount / invoice.amount
   end
 
   # Returns the base commission % for the matching level.
@@ -48,14 +84,8 @@ class Commission
     end
   end
 
-  # Returns the commission adjustment given the invoice payment age.
-  def age_adjustment_pct
-    period = SalesRep::PERIODS_BY_AGE[age_category]
-    sales_rep[period]
-  end
-
   def age_category
-    wait_days = (created_date - order_date).to_i
+    wait_days = (paid_date - order_date).to_i
     raise "Error: invoice #{id} paid_on before invoiced_on" if wait_days.negative?
 
     case wait_days
@@ -70,5 +100,19 @@ class Commission
     else
       :over_120
     end
+  end
+
+  def paid_date
+    purged_records.map(&:created_date).max
+  end
+
+  private
+
+  def pretty_num(bigdec)
+    "%.2f" % bigdec.to_f
+  end
+
+  def pretty_bool(bool)
+    bool ? "yes" : "no"
   end
 end
