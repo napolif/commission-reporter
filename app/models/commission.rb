@@ -5,6 +5,7 @@ class Commission
   delegate :order_date, to: :invoice
   delegate :margin_pct, to: :invoice
   delegate :commission_table, to: :sales_rep
+  delegate :quota_type, to: :sales_rep
 
   def initialize(purged_records)
     @purged_records = purged_records
@@ -54,7 +55,7 @@ class Commission
   def amount
     adjusted = adjusted_pct / 100
 
-    case sales_rep.quota_type
+    case quota_type
     when "revenue"
       adjusted * paid_amount
     when "profit"
