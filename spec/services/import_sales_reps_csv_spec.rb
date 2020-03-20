@@ -1,8 +1,8 @@
 require "rails_helper"
 
-RSpec.describe ImportCustomersCSV do
-  let(:csv_path) { path_to_csv("customers.csv") }
-  let(:service) { ImportCustomersCSV.new(csv_path) }
+RSpec.describe ImportSalesRepsCSV do
+  let(:csv_path) { path_to_csv("sales_reps.csv") }
+  let(:service) { ImportSalesRepsCSV.new(csv_path) }
 
   context "before import" do
     it "is valid for valid headers" do
@@ -10,9 +10,9 @@ RSpec.describe ImportCustomersCSV do
     end
   end
 
-  context "with empty Customer table" do
+  context "with empty SalesRep table" do
     it "creates records" do
-      expect { service.run }.to change { Customer.count }.from(0).to(8)
+      expect { service.run }.to change { SalesRep.count }.from(0).to(3)
     end
 
     it "is still valid after import" do
@@ -25,14 +25,14 @@ RSpec.describe ImportCustomersCSV do
     end
   end
 
-  context "with existing Customer records" do
-    let(:csv_path) { path_to_csv("customers2.csv") }
-    let(:customer) { Customer.find_by(code: "ILLIAN") }
+  context "with existing SalesRep records" do
+    let(:csv_path) { path_to_csv("sales_reps2.csv") }
+    let(:salesrep) { SalesRep.find_by(name: "Albert Einstein") }
 
-    before { ImportCustomersCSV.new(path_to_csv("customers.csv")).run }
+    before { ImportSalesRepsCSV.new(path_to_csv("sales_reps.csv")).run }
 
     it "does not create new records" do
-      expect { service.run }.not_to change { Customer.count }
+      expect { service.run }.not_to change { SalesRep.count }
     end
 
     it "is still valid after import" do
@@ -46,9 +46,9 @@ RSpec.describe ImportCustomersCSV do
 
     it "updates records where necessary" do
       expect { service.run }
-        .to(change { customer.reload.name }
-        .from("ILLIANO'S ( WATERFORD )")
-        .to("ILLIANO'S ( WATERBURY )"))
+        .to(change { salesrep.reload.disabled }
+        .from(true)
+        .to(false))
     end
   end
 end
