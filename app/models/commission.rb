@@ -3,7 +3,7 @@ class Commission
   attr_reader :invoice, :sales_rep, :purged_records
 
   delegate :order_date, to: :invoice
-  delegate :margin_pct, to: :invoice # TODO: calculate this here?
+  delegate :margin_pct, to: :invoice
   delegate :commission_table, to: :sales_rep
 
   def initialize(purged_records)
@@ -12,8 +12,6 @@ class Commission
     @sales_rep = invoice.sales_rep || SalesRep.default_new(invoice.rep_code)
   end
 
-  # TODO: add original invoice amount
-  # TODO: add adjusted cost?
   def as_csv
     i = invoice
     r = sales_rep
