@@ -13,7 +13,8 @@ class Commission
     @sales_rep = invoice.sales_rep || SalesRep.default_new(invoice.rep_code)
   end
 
-  def as_csv
+  # Returns the commission information as an array for use with CSV export.
+  def as_csv # rubocop:disable Metrics/AbcSize
     i = invoice
     r = sales_rep
 
