@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_18_031609) do
+ActiveRecord::Schema.define(version: 2020_03_20_001659) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -134,6 +134,7 @@ ActiveRecord::Schema.define(version: 2020_03_18_031609) do
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "disabled", default: false, null: false
     t.string "rep_type", default: "outside", null: false
+    t.string "alpha_code"
     t.index ["code"], name: "index_sales_reps_on_code", unique: true
     t.index ["disabled"], name: "index_sales_reps_on_disabled"
     t.index ["rep_type"], name: "index_sales_reps_on_rep_type"
