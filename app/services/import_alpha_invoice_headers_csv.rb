@@ -2,45 +2,6 @@
 class ImportAlphaInvoiceHeadersCSV < ImportCSV
   extend Memoist
 
-  REP_CODE_MAP = {
-    "PH" => "417",
-    "CP" => "501",
-    "FF" => "502",
-    "CK" => "503",
-    "RC" => "504",
-    "JB" => "507",
-    "JF" => "508",
-    "LC" => "509",
-    "MM" => "510",
-    "MP" => "511",
-    "NS" => "512",
-    "PN" => "515",
-    "OF" => "516",
-    "JE" => "517",
-    "AC" => "518",
-    "RD" => "519",
-    "SS" => "520",
-    "GP" => "521",
-    "TS" => "527",
-    "JC" => "528",
-    "SD" => "529",
-    "BB" => "530",
-    "RA" => "531",
-    "KC" => "532",
-    "MC" => "533",
-    "AG" => "534",
-    "CG" => "535",
-    "RP" => "537",
-    "WD" => "538",
-    "JK" => "545",
-    "DC" => "546",
-    "AM" => "548",
-    "AF" => "549",
-    "NF" => "550",
-    "FT" => "552",
-    "BH" => "547"
-  }.freeze
-
   target_class InvoiceHeader
 
   field_map number:        "inv_number",
@@ -65,7 +26,7 @@ class ImportAlphaInvoiceHeadersCSV < ImportCSV
   end
 
   def transform_field_rep_code(val)
-    REP_CODE_MAP[val] || val
+    sales_rep_code_map[val] || val
   end
 
   def transform_field_customer_code(val)
@@ -81,4 +42,12 @@ class ImportAlphaInvoiceHeadersCSV < ImportCSV
     end
   end
   memoize :customer_code_map
+
+  def sales_rep_code_map
+    SalesRep.all.pluck(:alpha_code, :code).each_with_object({}) do |(alf, ret), hsh|
+      next unless alf
+      hsh[alf] = ret
+    end
+  end
+  memoize :sales_rep_code_map
 end

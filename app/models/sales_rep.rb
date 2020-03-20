@@ -3,6 +3,7 @@
 # Table name: sales_reps
 #
 #  id         :bigint           not null, primary key
+#  alpha_code :string
 #  code       :string
 #  comm1      :decimal(8, 2)
 #  comm10     :decimal(8, 2)
