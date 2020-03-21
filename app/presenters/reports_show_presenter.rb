@@ -37,7 +37,7 @@ class ReportsShowPresenter
   end
 
   def grand_total
-    totals_by_enabled_rep.values.reduce(:+) || 0
+    totals_by_enabled_rep.values.sum
   end
 
   def disabled_reps
@@ -73,7 +73,7 @@ class ReportsShowPresenter
 
   def totals_by_enabled_rep
     commissions_by_enabled_rep.transform_values do |comms|
-      comms.map(&:amount).reduce(:+)
+      comms.map(&:amount).sum
     end
   end
   memoize :totals_by_enabled_rep
