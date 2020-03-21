@@ -58,4 +58,8 @@ class InvoiceHeader < ApplicationRecord
   def margin_pct
     100 * margin
   end
+
+  def source
+    number.to_i < 790000 ? :alpha : :retalix
+  end
 end

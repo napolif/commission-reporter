@@ -56,11 +56,20 @@ class Commission
   # Returns the total amount that the customer paid towards the invoice,
   # which may be lower than the original invoice amount.
   def paid_amount
-    payments = purged_records.select { |rec| rec.invoice_type == 2 }
-    return 0 unless payments.present?
+    # some alpha invoices have payments split between both systems.
+    if invoice.source == :alpha && real_paid_amount < invoice.amount
+      return invoice.amount
+    end
 
-    paid = payments.map(&:amount).reduce(:+)
-    [paid, invoice.amount].min
+    # for retalix invoices, if the paid amount was zero, use zero
+    return 0 if real_paid_amount.zero?
+
+    # otherise use the paid amount, unless it's larger than the invoice amount
+    [real_paid_amount, invoice.amount].min
+  end
+
+  def real_paid_amount
+    purged_records.select { |pr| pr.invoice_type == 2 }.map(&:amount).sum
   end
 
   # Returns the invoice profit dollars, adjusted down by the fraction paid.
