@@ -7,6 +7,10 @@ class Commission
   delegate :commission_table, to: :sales_rep
   delegate :quota_type, to: :sales_rep
 
+  def self.for_invoice(num)
+    new InvoiceHeader.find_by(number: num).purged_records
+  end
+
   def initialize(purged_records)
     @purged_records = purged_records
     @invoice = purged_records.first.invoice_header

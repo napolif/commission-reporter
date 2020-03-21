@@ -35,6 +35,7 @@ class InvoiceHeader < ApplicationRecord
 
   belongs_to :customer, primary_key: "code", foreign_key: "customer_code", optional: true
   belongs_to :sales_rep, primary_key: "code", foreign_key: "rep_code", optional: true
+  has_many :purged_records, primary_key: "number", foreign_key: "invoice_number"
 
   def amount=(val)
     super BigDecimal(val, 8)
