@@ -24,8 +24,8 @@ class Commission
     r = sales_rep
 
     [
-      i.number, i.customer_code, i.customer.name, i.order_date,
-      paid_date, age_category, i.amount, paid_amount, i.cost,
+      i.number, i.customer_code, i.customer.name, order_date,
+      paid_date, age_category, i.amount, paid_amount, pretty_num(i.cost),
       pretty_num(adjusted_cost), pretty_num(paid_fraction),
       pretty_num(i.margin_pct), i.qty_ord,
       r.code, r.name, r.quota_type, pretty_num(amount)
