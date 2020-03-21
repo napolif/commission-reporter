@@ -59,7 +59,8 @@ class Commission
     payments = purged_records.select { |rec| rec.invoice_type == 2 }
     return 0 unless payments.present?
 
-    payments.map(&:amount).reduce(:+)
+    paid = payments.map(&:amount).reduce(:+)
+    [paid, invoice.amount].min
   end
 
   # Returns the invoice profit dollars, adjusted down by the fraction paid.
