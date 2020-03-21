@@ -5,8 +5,8 @@ class ImportInvoiceHeadersCSV < ImportCSV
   field_map number:        "HHHINVN",
             rep_code:      "HHHSLNB",
             customer_code: "HHHCUSN",
-            amount:        "HHHINAM",
-            cost:          "HHHEXCR",
+            amount:        "HHHEXSN",
+            cost:          "HHHEXRC",
             order_date:    "HHHDTET",
             qty_ord:       "HHHQYOA"
 
