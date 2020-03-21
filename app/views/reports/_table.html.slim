@@ -27,5 +27,5 @@ table.blueBar
         td.text-right = number_to_currency(comm.amount, unit: "")
 
 .blueBarTotal
-  - total = commissions.map(&:amount).reduce(:+)
+  - total = commissions.map(&:amount).sum
   = "Total Commission: $#{number_to_currency(total, unit: '')}"

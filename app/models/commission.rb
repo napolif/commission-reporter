@@ -53,14 +53,25 @@ class Commission
     base_pct * (age_adjustment_pct / 100)
   end
 
-  # Returns the total amount that the customer paid towards the invoice,
-  # which may be lower than the original invoice amount.
+  # The dollar amount used as a base for calculating commission. This is typically
+  # the same as real_paid_amount.
   def paid_amount
-    payments = purged_records.select { |rec| rec.invoice_type == 2 }
-    return 0 unless payments.present?
+    # For alpha invoices, because some were paid across both systems, if real_paid_amount
+    # is lower, we just trust the invoice header sales total.
+    if invoice.source == :alpha && real_paid_amount < invoice.amount
+      return invoice.amount
+    end
 
-    paid = payments.map(&:amount).reduce(:+)
-    [paid, invoice.amount].min
+    # for retalix invoices, if the paid amount was zero, use zero
+    return 0 if real_paid_amount.zero?
+
+    # otherise use the paid amount, unless it's larger than the invoice amount
+    [real_paid_amount, invoice.amount].min
+  end
+
+  # The total amount a customer paid that was put towards the invoice in Retalix.
+  def real_paid_amount
+    purged_records.select { |pr| pr.invoice_type == 2 }.map(&:amount).sum
   end
 
   # Returns the invoice profit dollars, adjusted down by the fraction paid.
