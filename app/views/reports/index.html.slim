@@ -8,6 +8,11 @@ main.container role="main"
     h2.mb-4 Welcome to Commission Reporter!
     p Choose a report below, or upload a CSV containing invoice headers.
 
+  ruby:
+    today = Date.today
+    saturday = today - (today.wday + 1) % 7
+    sunday = saturday - 6
+
   .card.bg-light.mb-4
     .card-header.h5.font-weight-bold
       a href="#id-dateCard" data-toggle="collapse" Get Report By Date
@@ -16,10 +21,10 @@ main.container role="main"
         .form-row
           .form-group.col-md-6
             = label_tag "start_date", "Start Date", for: "startDate"
-            = date_field_tag "from", Date.today - 1.week, class: "form-control", id: "startDate", required: true
+            = date_field_tag "from", sunday, class: "form-control", id: "startDate", required: true
           .form-group.col-md-6
             = label_tag "end_date", "End Date", for: "endDate"
-            = date_field_tag "to", Date.today, class: "form-control", id: "endDate", required: true
+            = date_field_tag "to", saturday, class: "form-control", id: "endDate", required: true
         .form-group
           = label_tag "format", "Format", for: "id-format"
           = select_tag "format",
