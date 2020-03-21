@@ -2,6 +2,7 @@
 class Commission
   attr_reader :invoice, :sales_rep, :purged_records
 
+  delegate :number, to: :invoice
   delegate :order_date, to: :invoice
   delegate :margin_pct, to: :invoice
   delegate :commission_table, to: :sales_rep
