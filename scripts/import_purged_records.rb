@@ -13,6 +13,9 @@ def import(file_name)
   puts svc.result
 end
 
+puts "deleting purged a/r records..."
+PurgedRecord.delete_all
+
 print_counts(PurgedRecord) do
   import("../data/rrwrecwp.csv")
 end
