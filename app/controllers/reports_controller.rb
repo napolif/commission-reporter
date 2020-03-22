@@ -13,13 +13,6 @@ class ReportsController < ApplicationController
 
   def date
     @title = "Report for #{params[:from]} to #{params[:to]}"
-    @rep_type = params[:rep_type]
-
-    rep_codes = if @rep_type
-                  SalesRep.where(rep_type: @rep_type).pluck(:code)
-                else
-                  SalesRep.all.pluck(:code)
-                end
 
     numbers = PurgedRecord.where(created_date: params[:from]..params[:to])
                           .includes(:invoice_header)
@@ -28,7 +21,7 @@ class ReportsController < ApplicationController
                           .uniq
 
     payments = PurgedRecord.where(invoice_number: numbers)
-                           .where(rep_code: rep_codes)
+                           .where(rep_code: included_rep_codes)
                            .includes(invoice_header: [:sales_rep, :customer])
                            .where(invoice_type: 2)
 
@@ -37,10 +30,10 @@ class ReportsController < ApplicationController
 
   private
 
-  def render_report(purgeds) # rubocop:disable Metrics/AbcSize
+  def render_report(purged_records) # rubocop:disable Metrics/AbcSize
     @one_per_page = true if params[:one_per_page]
     @list_disabled_reps = true if params[:list_disabled_reps]
-    @presenter = ReportsShowPresenter.new(purgeds)
+    @presenter = ReportsShowPresenter.new(purged_records)
 
     respond_to do |format|
       format.html do
@@ -55,6 +48,14 @@ class ReportsController < ApplicationController
         send_data(@presenter.as_csv,
                   filename: "commission-report.csv")
       end
+    end
+  end
+
+  def included_rep_codes
+    if params[:rep_type]
+      SalesRep.where(rep_type: params[:rep_type]).pluck(:code)
+    else
+      SalesRep.all.pluck(:code)
     end
   end
 
