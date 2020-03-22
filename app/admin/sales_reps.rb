@@ -25,6 +25,7 @@ ActiveAdmin.register SalesRep do
       row :code
       row :name
       row("Commission Type") { rep.quota_type }
+      row :rep_type
       row :disabled
     end
 
@@ -59,6 +60,7 @@ ActiveAdmin.register SalesRep do
     inputs "Sales Rep Details" do
       input :code
       input :name
+      input :rep_type
       input :quota_type, as: :select, collection: SalesRep::QUOTA_TYPES, label: "Quota Type"
       input :disabled, type: :checkbox
     end
