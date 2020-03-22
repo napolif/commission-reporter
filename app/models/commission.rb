@@ -28,8 +28,8 @@ class Commission
       order_date, paid_date, age_category,
       pretty_num(i.amount),
       pretty_num(i.cost),
-      pretty_num(total_received),
-      pretty_num(applied_revenue),
+      pretty_num(received),
+      pretty_num(applied),
       pretty_num(paid_ratio * 100),
       pretty_num(i.margin_pct),
       i.qty_ord,
@@ -44,7 +44,7 @@ class Commission
 
     case quota_type
     when "revenue"
-      adjusted * applied_revenue
+      adjusted * applied
     when "profit"
       adjusted * profit
     else
@@ -60,23 +60,23 @@ class Commission
   end
 
   # The dollar amount used as a base for calculating commission. This is typically
-  # the same as total_received.
-  def applied_revenue
-    # For alpha invoices, because some were paid across both systems, if total_received
+  # the same as `received`.
+  def applied
+    # For alpha invoices, because some were paid across both systems, if received
     # is lower, we just trust the invoice header sales total.
-    if invoice.source == :alpha && total_received < invoice.amount
+    if invoice.source == :alpha && received < invoice.amount
       return invoice.amount
     end
 
     # for retalix invoices, if the paid amount was zero, use zero
-    return 0 if total_received.zero?
+    return 0 if received.zero?
 
     # otherise use the paid amount, unless it's larger than the invoice amount
-    [total_received, invoice.amount].min
+    [received, invoice.amount].min
   end
 
   # The total amount a customer paid that was put towards the invoice in Retalix.
-  def total_received
+  def received
     purged_records.select { |pr| pr.invoice_type == 2 }.map(&:amount).sum
   end
 
@@ -89,7 +89,7 @@ class Commission
   # adjusted invoices).
   def paid_ratio
     return 0 if invoice.amount.zero?
-    applied_revenue / invoice.amount
+    applied / invoice.amount
   end
 
   # Returns the base commission % for the matching level.
