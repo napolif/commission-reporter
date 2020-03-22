@@ -3,10 +3,10 @@ class ReportsShowPresenter
   extend Memoist
 
   attr_reader :batch_num
-  attr_reader :purgeds
+  attr_reader :purged_records
 
-  def initialize(purgeds)
-    @purgeds = purgeds
+  def initialize(purged_records)
+    @purged_records = purged_records
   end
 
   def as_csv
@@ -66,7 +66,7 @@ class ReportsShowPresenter
   end
 
   def commissions_by_code
-    purgeds_by_code.transform_values do |prs|
+    purged_records_by_code.transform_values do |prs|
       invoice_groups = prs.group_by(&:invoice_number)
       comms = invoice_groups.map do |_num, iprs|
         Commission.new(iprs)
@@ -93,12 +93,12 @@ class ReportsShowPresenter
   memoize :reps_by_code
 
   def rep_codes
-    purgeds_by_code.keys.sort
+    purged_records_by_code.keys.sort
   end
   memoize :rep_codes
 
-  def purgeds_by_code
-    purgeds.group_by { |pr| pr.invoice_header.rep_code }
+  def purged_records_by_code
+    purged_records.group_by { |pr| pr.invoice_header.rep_code }
   end
-  memoize :purgeds_by_code
+  memoize :purged_records_by_code
 end
