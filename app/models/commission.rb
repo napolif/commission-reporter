@@ -24,11 +24,17 @@ class Commission
     r = sales_rep
 
     [
-      i.number, i.customer_code, i.customer.name, order_date,
-      paid_date, age_category, i.amount, paid_amount, pretty_num(i.cost),
-      pretty_num(adjusted_cost), pretty_num(paid_fraction),
-      pretty_num(i.margin_pct), i.qty_ord,
-      r.code, r.name, r.quota_type, pretty_num(amount)
+      i.number, i.customer_code, i.customer.name,
+      order_date, paid_date, age_category,
+      pretty_num(i.amount),
+      pretty_num(i.cost),
+      pretty_num(total_received),
+      pretty_num(applied_revenue),
+      pretty_num(paid_ratio * 100),
+      pretty_num(i.margin_pct),
+      i.qty_ord,
+      r.code, r.name, r.quota_type,
+      pretty_num(amount)
     ]
   end
 
@@ -38,7 +44,7 @@ class Commission
 
     case quota_type
     when "revenue"
-      adjusted * paid_amount
+      adjusted * applied_revenue
     when "profit"
       adjusted * profit
     else
@@ -54,40 +60,36 @@ class Commission
   end
 
   # The dollar amount used as a base for calculating commission. This is typically
-  # the same as real_paid_amount.
-  def paid_amount
-    # For alpha invoices, because some were paid across both systems, if real_paid_amount
+  # the same as total_received.
+  def applied_revenue
+    # For alpha invoices, because some were paid across both systems, if total_received
     # is lower, we just trust the invoice header sales total.
-    if invoice.source == :alpha && real_paid_amount < invoice.amount
+    if invoice.source == :alpha && total_received < invoice.amount
       return invoice.amount
     end
 
     # for retalix invoices, if the paid amount was zero, use zero
-    return 0 if real_paid_amount.zero?
+    return 0 if total_received.zero?
 
     # otherise use the paid amount, unless it's larger than the invoice amount
-    [real_paid_amount, invoice.amount].min
+    [total_received, invoice.amount].min
   end
 
   # The total amount a customer paid that was put towards the invoice in Retalix.
-  def real_paid_amount
+  def total_received
     purged_records.select { |pr| pr.invoice_type == 2 }.map(&:amount).sum
   end
 
   # Returns the invoice profit dollars, adjusted down by the fraction paid.
   def profit
-    invoice.profit * paid_fraction
+    invoice.profit * paid_ratio
   end
 
   # Returns the fraction of the invoice total that was paid (will be < 1 for
   # adjusted invoices).
-  def paid_fraction
+  def paid_ratio
     return 0 if invoice.amount.zero?
-    paid_amount / invoice.amount
-  end
-
-  def adjusted_cost
-    paid_fraction * invoice.cost
+    applied_revenue / invoice.amount
   end
 
   # Returns the base commission % for the matching level.

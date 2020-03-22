@@ -9,11 +9,16 @@ class ReportsShowPresenter
     @purgeds = purgeds
   end
 
-  # TODO: add original invoice amount
   def as_csv
-    headers = ["Inv Num", "Cust ID", "Cust Name", "Invoiced On", "Paid On",
-               "Age Category", "Inv Amount", "Paid Amount", "Inv Cost",
-               "Adjusted Cost", "Paid Fraction", "Margin %", "Cases", "Rep Code", "Rep Name",
+    headers = ["Inv Num", "Cust ID", "Cust Name", "Invoiced On", "Closed On",
+               "Age Category",
+               "Invoice Total",
+               "Invoice Cost",
+               "Received $",
+               "Applied $",
+               "Applied %",
+               "Margin %",
+               "Cases", "Rep Code", "Rep Name",
                "Quota Type", "Comm Amt"]
 
     CSV.generate(write_headers: true, headers: headers) do |csv|
