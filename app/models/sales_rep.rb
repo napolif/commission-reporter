@@ -62,7 +62,9 @@ class SalesRep < ApplicationRecord
   validates :name, presence: true
   validates :quota_type, inclusion: {in: QUOTA_TYPES}
 
-  has_many :invoices, primary_key: "code", foreign_key: "sales_rep_code"
+  has_many :invoice_summaries, primary_key: "code", foreign_key: "sales_rep_code"
+  has_many :invoice_headers, primary_key: "code", foreign_key: "rep_code"
+  has_many :purged_records, primary_key: "code", foreign_key: "rep_code"
 
   before_validation { code.upcase! }
 
