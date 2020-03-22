@@ -54,9 +54,9 @@ class ReportsController < ApplicationController
 
   def included_rep_codes
     if params[:rep_type]
-      SalesRep.where(rep_type: params[:rep_type]).pluck(:code)
+      SalesRep.where(rep_type: params[:rep_type])
     else
-      SalesRep.all.pluck(:code)
+      SalesRep.all.pluck(:code).without(SalesRep.default.code)
     end
   end
 
