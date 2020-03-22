@@ -4,20 +4,22 @@ table.blueBar
       td Number
       td Customer ID
       td Customer Name
-      td.text-right Amount
-      td.text-right Cost
+      td.text-right Applied
+      td.text-right Inv Amount
+      td.text-right Inv Cost
       td.text-right Margin
       td Invoiced On
       td Paid On
       td Age
-      td.text-right Comm $
+      td.text-right Comm.
   tbody
     - commissions.each do |comm|
       - inv = comm.invoice
       tr
-        td = inv.number
+        td = comm.number
         td = inv.customer_code
         td = inv.customer&.name
+        td.text-right = number_to_currency(comm.applied, unit: "")
         td.text-right = number_to_currency(inv.amount, unit: "")
         td.text-right = number_to_currency(inv.cost, unit: "")
         td.text-right = "%0.2f" % inv.margin_pct
