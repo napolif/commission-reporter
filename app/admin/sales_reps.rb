@@ -14,8 +14,8 @@ ActiveAdmin.register SalesRep do
     id_column
     column :code
     column :name
+    column :rep_type
     column :quota_type
-    column :created_at
     column :disabled
     actions
   end
