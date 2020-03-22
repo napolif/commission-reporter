@@ -38,7 +38,7 @@ class ReportsShowPresenter
 
   def total_rows
     rows = totals_by_enabled_rep.to_a
-    rows.sort_by { |row| row.first.code }.sort_by(&:second).reverse
+    rows.sort_by { |row| row.first.code }
   end
 
   def grand_total
