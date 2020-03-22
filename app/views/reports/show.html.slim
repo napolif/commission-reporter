@@ -9,10 +9,7 @@
   .reportHeading
     div
       h1 Commission Report
-      - if params[:batch]
-        p = "For batch #{params[:batch]}"
-      - else
-        p = "From #{params[:from]} to #{params[:to]}"
+      p = "From #{params[:from]} to #{params[:to]}"
   hr.reportRule
 
 main.container.report
