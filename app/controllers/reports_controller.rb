@@ -29,7 +29,7 @@ class ReportsController < ApplicationController
       end
 
       format.csv do
-        send_data(@presenter.as_csv,
+        send_data(CommissionsCSV.new(@presenter.commissions).generate,
                   filename: "commission-report.csv")
       end
     end

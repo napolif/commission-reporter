@@ -18,26 +18,6 @@ class Commission
     @sales_rep = invoice.sales_rep || SalesRep.default_new(invoice.rep_code)
   end
 
-  # Returns the commission information as an array for use with CSV export.
-  def as_csv # rubocop:disable Metrics/AbcSize
-    i = invoice
-    r = sales_rep
-
-    [
-      i.number, i.customer_code, i.customer.name,
-      order_date, paid_date, age_category,
-      pretty_num(i.amount),
-      pretty_num(i.cost),
-      pretty_num(received),
-      pretty_num(applied),
-      pretty_num(paid_ratio * 100),
-      pretty_num(i.margin_pct),
-      i.qty_ord,
-      r.code, r.name, r.quota_type,
-      pretty_num(amount)
-    ]
-  end
-
   # Returns the commission to be paid in dollars.
   def amount
     adjusted = adjusted_pct / 100
@@ -128,15 +108,5 @@ class Commission
 
   def paid_date
     purged_records.map(&:created_date).max
-  end
-
-  private
-
-  def pretty_num(bigdec)
-    "%.2f" % bigdec.to_f
-  end
-
-  def pretty_bool(bool)
-    bool ? "yes" : "no"
   end
 end

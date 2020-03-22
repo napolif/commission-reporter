@@ -11,25 +11,6 @@ class ReportsShowPresenter
     @rep_codes = rep_codes.sort
   end
 
-  def as_csv
-    headers = ["Inv Num", "Cust ID", "Cust Name", "Invoiced On", "Closed On",
-               "Age Category",
-               "Invoice Total",
-               "Invoice Cost",
-               "Received $",
-               "Applied $",
-               "Applied %",
-               "Margin %",
-               "Cases", "Rep Code", "Rep Name",
-               "Quota Type", "Comm Amt"]
-
-    CSV.generate(write_headers: true, headers: headers) do |csv|
-      commissions_by_enabled_rep.values.flatten.each do |comm|
-        csv << comm.as_csv
-      end
-    end
-  end
-
   def commissions_by_enabled_rep
     enabled_rep_codes.each_with_object({}) do |code, hash|
       key = reps_by_code[code]
@@ -51,6 +32,10 @@ class ReportsShowPresenter
     disabled_rep_codes.map do |code|
       reps_by_code[code]
     end
+  end
+
+  def commissions
+    commissions_by_enabled_rep.values.flatten
   end
 
   private
