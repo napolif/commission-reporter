@@ -36,4 +36,19 @@ class PurgedRecord < ApplicationRecord
   validates :invoice_type, inclusion: {in: 1..4}
 
   belongs_to :invoice_header, foreign_key: "invoice_number", primary_key: "number", optional: true
+
+  scope :payments, -> { where(invoice_type: 2) }
+  scope :invoice_numbers, -> { select(:invoice_number) }
+  scope :with_present_invoices, -> {
+    includes(:invoice_header).where.not(invoice_headers: {id: nil})
+  }
+
+  def self.for_dates_and_reps(dates, rep_codes)
+    subquery = where(created_date: dates).with_present_invoices.invoice_numbers
+
+    includes(invoice_header: [:sales_rep, :customer])
+      .where(invoice_number: subquery)
+      .where(rep_code: rep_codes)
+      .payments
+  end
 end

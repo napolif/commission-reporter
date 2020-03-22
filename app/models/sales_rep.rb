@@ -68,6 +68,9 @@ class SalesRep < ApplicationRecord
 
   before_validation { code.upcase! }
 
+  scope :codes, -> { select(:code) }
+  scope :real, -> { where.not(code: DEFAULT_CODE) }
+
   def self.default
     @default ||= find_by(code: DEFAULT_CODE)
   end
@@ -76,6 +79,11 @@ class SalesRep < ApplicationRecord
     default.dup.tap do |sr|
       sr.code = code
     end
+  end
+
+  def self.filtered_by_type(type)
+    relation = type.nil? ? all : where(rep_type: type)
+    relation.real
   end
 
   def commission_table

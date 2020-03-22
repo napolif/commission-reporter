@@ -11,26 +11,8 @@ class ReportsController < ApplicationController
     render :index, locals: {batch_numbers: InvoiceSummary.batch_numbers}
   end
 
-  def date
+  def date # rubocop:disable Metrics/AbcSize
     @title = "Report for #{params[:from]} to #{params[:to]}"
-
-    numbers = PurgedRecord.where(created_date: params[:from]..params[:to])
-                          .includes(:invoice_header)
-                          .where.not(invoice_headers: {id: nil})
-                          .pluck(:invoice_number)
-                          .uniq
-
-    payments = PurgedRecord.where(invoice_number: numbers)
-                           .where(rep_code: included_rep_codes)
-                           .includes(invoice_header: [:sales_rep, :customer])
-                           .where(invoice_type: 2)
-
-    render_report payments
-  end
-
-  private
-
-  def render_report(purged_records) # rubocop:disable Metrics/AbcSize
     @one_per_page = true if params[:one_per_page]
     @list_disabled_reps = true if params[:list_disabled_reps]
     @presenter = ReportsShowPresenter.new(purged_records: purged_records,
@@ -42,7 +24,8 @@ class ReportsController < ApplicationController
       end
 
       format.pdf do
-        render pdf: "output", **PDF_OPTIONS.merge(grayscale: params[:grayscale])
+        render pdf: "commission-report",
+                    **PDF_OPTIONS.merge(grayscale: params[:grayscale])
       end
 
       format.csv do
@@ -52,12 +35,15 @@ class ReportsController < ApplicationController
     end
   end
 
+  private
+
+  def purged_records
+    PurgedRecord.for_dates_and_reps(params[:from]..params[:to],
+                                    included_rep_codes)
+  end
+
   def included_rep_codes
-    if params[:rep_type]
-      SalesRep.where(rep_type: params[:rep_type])
-    else
-      SalesRep.all.pluck(:code).without(SalesRep.default.code)
-    end
+    SalesRep.filtered_by_type(params[:rep_type]).pluck(:code)
   end
 
   def cast_boolean_params
