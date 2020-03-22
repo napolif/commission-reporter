@@ -33,7 +33,8 @@ class ReportsController < ApplicationController
   def render_report(purged_records) # rubocop:disable Metrics/AbcSize
     @one_per_page = true if params[:one_per_page]
     @list_disabled_reps = true if params[:list_disabled_reps]
-    @presenter = ReportsShowPresenter.new(purged_records)
+    @presenter = ReportsShowPresenter.new(purged_records: purged_records,
+                                          rep_codes: included_rep_codes)
 
     respond_to do |format|
       format.html do

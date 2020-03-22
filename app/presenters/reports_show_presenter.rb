@@ -4,9 +4,11 @@ class ReportsShowPresenter
 
   attr_reader :batch_num
   attr_reader :purged_records
+  attr_reader :rep_codes
 
-  def initialize(purged_records)
+  def initialize(purged_records:, rep_codes:)
     @purged_records = purged_records
+    @rep_codes = rep_codes.sort
   end
 
   def as_csv
@@ -31,7 +33,7 @@ class ReportsShowPresenter
   def commissions_by_enabled_rep
     enabled_rep_codes.each_with_object({}) do |code, hash|
       key = reps_by_code[code]
-      value = commissions_by_code[code]
+      value = commissions_by_code[code] || []
       hash[key] = value
     end
   end
@@ -91,11 +93,6 @@ class ReportsShowPresenter
     end
   end
   memoize :reps_by_code
-
-  def rep_codes
-    purged_records_by_code.keys.sort
-  end
-  memoize :rep_codes
 
   def purged_records_by_code
     purged_records.group_by { |pr| pr.invoice_header.rep_code }
