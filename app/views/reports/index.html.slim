@@ -36,6 +36,12 @@ main.container role="main"
         hr
         = button_tag "Submit", class: "btn btn-primary js-submitReportForm", name: nil
 
+  .card.bg-light.mb-4
+    .card-header.h5.font-weight-bold
+      a href="#id-adminCard" data-toggle="collapse" Visit Admin Area
+    .card-body.collapse id="id-adminCard"
+      = link_to "Go", admin_root_path, class: "btn btn-primary"
+
   /.card.bg-light.mb-4
   /  .card-header.h5.font-weight-bold
   /    a href="#id-uploadCard" data-toggle="collapse" Upload Invoice Summary CSV

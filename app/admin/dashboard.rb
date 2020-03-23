@@ -2,18 +2,23 @@ ActiveAdmin.register_page "Dashboard" do
   menu priority: 1, label: proc { I18n.t("active_admin.dashboard") }
 
   content title: proc { I18n.t("active_admin.dashboard") } do
-    div class: "blank_slate_container", id: "dashboard_default_message" do
-      span class: "blank_slate" do
-        img src: asset_path("ferraro.svg"), height: "80px"
-        img src: asset_path("napoli.png"), height: "80px"
-      end
-    end
 
     panel "Information" do
       para "Build: %s" % Rails.configuration.x.commit_hash, class: "statistic"
-      para "Latest batch size: " + InvoiceSummary.latest_batch.count.to_s, class: "statistic"
-      latest_date = InvoiceSummary.latest_batch.pluck(:invoiced_on).max.to_s
-      para "Latest invoice from: " + latest_date, class: "statistic"
+
+      latest_date = InvoiceHeader.maximum(:order_date)
+      para "Latest invoice from: " + latest_date.to_s, class: "statistic"
+    end
+
+    panel "Totals" do
+      para "Invoice Headers: " + InvoiceHeader.count.to_s, class: "statistic"
+      para "Purged A/R Records: " + PurgedRecord.count.to_s, class: "statistic"
+      para "Sales Reps: " + SalesRep.count.to_s, class: "statistic"
+      para "Customers: " + Customer.count.to_s, class: "statistic"
+    end
+
+    panel "Exit Admin" do
+      a "Go to Reports Dashboard", href: reports_path
     end
   end
 end
