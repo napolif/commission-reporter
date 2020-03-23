@@ -42,7 +42,7 @@ class FakeInvoiceSummary < InvoiceSummary
   end
 
   def self.sales_rep_codes
-    @sales_rep_codes ||= SalesRep.all.pluck(:code).without(SalesRep::DEFAULT_CODE)
+    @sales_rep_codes ||= SalesRep.real.pluck(:code)
   end
 
   def populate # rubocop:disable Metrics/AbcSize
