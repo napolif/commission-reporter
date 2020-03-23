@@ -6,7 +6,10 @@ html lang="en"
     meta content="IE=edge" http-equiv="X-UA-Compatible"
     meta content="width=device-width, initial-scale=1" name="viewport"
 
-    title Commission Reporter
+    - if Rails.env.development?
+      title = "[DEV] Commission Reporter"
+    - else
+      title Commission Reporter
 
     = csrf_meta_tags
     = csp_meta_tag
