@@ -31,6 +31,12 @@ main.container role="main"
                        options_for_select(%w[html pdf csv], "html"),
                        class: "form-control",
                        id: "id-format"
+        .form-group
+          = label_tag "rep_type", "Filter by Type", for: "id-repType"
+          = select_tag "rep_type",
+                       options_for_select(SalesRep::REP_TYPES, "all"),
+                       class: "form-control",
+                       id: "id-repType"
         hr
         = render partial: "form_options"
         hr
