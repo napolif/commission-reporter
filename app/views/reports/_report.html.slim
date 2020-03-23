@@ -42,7 +42,7 @@ section.breakAfter
                         total: @presenter.totals_by_enabled_rep[rep],
                         margin: @presenter.margin_pcts_by_enabled_rep[rep]}
     - else
-      p = "#{rep.name} has no purged invoices for this period."
+      p = "#{rep.name} has no closed invoices for this period."
     - unless params[:one_per_page]
       hr.reportRule
 
