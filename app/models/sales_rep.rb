@@ -61,6 +61,7 @@ class SalesRep < ApplicationRecord
   validates :code, presence: true, uniqueness: {case_sensitive: false}, unless: :importing
   validates :name, presence: true
   validates :quota_type, inclusion: {in: QUOTA_TYPES}
+  validates :rep_type, presence: true
 
   has_many :invoice_summaries, primary_key: "code", foreign_key: "sales_rep_code"
   has_many :invoice_headers, primary_key: "code", foreign_key: "rep_code"
