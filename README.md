@@ -4,7 +4,7 @@ Commission Reporter is a Rails app for calculating commission payments.
 
 ## Requirements
 
-* Ruby 2.6.2
+* Ruby 2.6.5
 * Bundler 2.1.4
 * PostgreSQL
 
