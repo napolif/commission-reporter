@@ -5,14 +5,18 @@ section.breakAfter
       tr
         td Rep ID
         td Rep Name
+        td.text-right Total Margin %
         td.text-right Total Commission $
     tbody
-      - @presenter.total_rows.each do |rep, total|
+      - @presenter.total_rows.each do |rep, total, margin|
         tr
           td = rep.code
           td
             a.repLink href="#id-#{rep.code}" = rep.name
+          td.text-right = "%.2f" % margin
           td.text-right = "%.2f" % total
+  .blueBarTotal
+    = "Overall Margin: %.2f%%" % @presenter.grand_margin_pct
   .blueBarTotal
     = "Grand Total: $%.2f" % @presenter.grand_total
   hr.reportRule
@@ -22,7 +26,10 @@ section.breakAfter
     h2
       span.salesRepCode = rep.code
       span = rep.name
-    = render partial: "table", locals: {commissions: comms}
+    = render partial: "table",
+             locals: {commissions: comms,
+                      total: @presenter.totals_by_enabled_rep[rep],
+                      margin: @presenter.margin_pcts_by_enabled_rep[rep]}
     - unless params[:one_per_page]
       hr.reportRule
 

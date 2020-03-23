@@ -20,12 +20,23 @@ class ReportsShowPresenter
   end
 
   def total_rows
-    rows = totals_by_enabled_rep.to_a
-    rows.sort_by { |row| row.first.code }
+    reps = totals_by_enabled_rep.keys.sort_by(&:code)
+
+    reps.each_with_object([]) do |rep, arr|
+      arr << [
+        rep,
+        totals_by_enabled_rep[rep],
+        margin_pcts_by_enabled_rep[rep]
+      ]
+    end
   end
 
   def grand_total
     totals_by_enabled_rep.values.sum
+  end
+
+  def grand_margin_pct
+    overall_margin_pct(commissions)
   end
 
   def disabled_reps
@@ -37,6 +48,21 @@ class ReportsShowPresenter
   def commissions
     commissions_by_enabled_rep.values.flatten
   end
+  memoize :commissions
+
+  def margin_pcts_by_enabled_rep
+    commissions_by_enabled_rep.transform_values do |comms|
+      overall_margin_pct(comms)
+    end
+  end
+  memoize :margin_pcts_by_enabled_rep
+
+  def totals_by_enabled_rep
+    commissions_by_enabled_rep.transform_values do |comms|
+      comms.map(&:amount).sum
+    end
+  end
+  memoize :totals_by_enabled_rep
 
   private
 
@@ -63,13 +89,6 @@ class ReportsShowPresenter
   end
   memoize :commissions_by_code
 
-  def totals_by_enabled_rep
-    commissions_by_enabled_rep.transform_values do |comms|
-      comms.map(&:amount).sum
-    end
-  end
-  memoize :totals_by_enabled_rep
-
   def reps_by_code
     known_reps_by_code = SalesRep.all.index_by(&:code)
 
@@ -83,4 +102,12 @@ class ReportsShowPresenter
     purged_records.group_by { |pr| pr.invoice_header.rep_code }
   end
   memoize :purged_records_by_code
+
+  def overall_margin_pct(comms)
+    tsales = comms.map { |c| c.invoice.amount }.sum
+    return 0 if tsales.zero?
+
+    tcosts = comms.map { |c| c.invoice.cost }.sum
+    100 * (tsales - tcosts) / tsales
+  end
 end
