@@ -311,6 +311,7 @@ ActiveAdmin.setup do |config|
   # you only pass content you trust.
   #
   # config.head = ''.html_safe
+  config.head = '<link rel="stylesheet" media="all" href="https://fonts.googleapis.com/css?family=Lato:400,700&amp;display=swap">'.html_safe
 
   # == Footer
   #
