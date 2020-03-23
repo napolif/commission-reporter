@@ -51,6 +51,7 @@ class SalesRep < ApplicationRecord
   DEFAULT_CODE = "_DEF".freeze
 
   QUOTA_TYPES = %w[profit revenue].freeze
+  REP_TYPES = %w[all inside outside broker].freeze
 
   PERIODS_BY_AGE = {within_45:  "period1",
                     within_60:  "period2",
@@ -68,7 +69,6 @@ class SalesRep < ApplicationRecord
 
   before_validation { code.upcase! }
 
-  scope :codes, -> { select(:code) }
   scope :real, -> { where.not(code: DEFAULT_CODE) }
 
   def self.default
@@ -81,9 +81,14 @@ class SalesRep < ApplicationRecord
     end
   end
 
-  def self.filtered_by_type(type)
-    relation = type.nil? ? all : where(rep_type: type)
-    relation.real
+  def self.by_type(type)
+    return real if type == "all"
+
+    where(rep_type: type).real
+  end
+
+  def self.codes
+    select(:code).pluck(:code)
   end
 
   def commission_table
