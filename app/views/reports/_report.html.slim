@@ -38,9 +38,15 @@ section.breakAfter
       span = rep.name
     - if comms.any?
       = render partial: "table",
-               locals: {commissions: comms,
+               locals: {commissions: comms.select(&:normal?),
                         total: @presenter.totals_by_enabled_rep[rep],
                         margin: @presenter.margin_pcts_by_enabled_rep[rep]}
+
+      - if comms.select(&:suspicious?).any?
+        .excluded
+          h4 Excluded From Totals
+          = render partial: "table",
+                   locals: {commissions: comms.select(&:suspicious?)}
     - else
       p = "#{rep.name} has no closed invoices for this period."
     - unless params[:one_per_page]

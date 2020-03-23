@@ -59,7 +59,7 @@ class ReportsShowPresenter
 
   def totals_by_enabled_rep
     commissions_by_enabled_rep.transform_values do |comms|
-      comms.map(&:amount).sum
+      comms.select(&:normal?).map(&:amount).sum
     end
   end
   memoize :totals_by_enabled_rep
@@ -104,6 +104,7 @@ class ReportsShowPresenter
   memoize :purged_records_by_code
 
   def overall_margin_pct(comms)
+    comms = comms.select(&:normal?)
     tsales = comms.map { |c| c.invoice.amount }.sum
     return 0 if tsales.zero?
 

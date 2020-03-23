@@ -28,7 +28,8 @@ table.blueBar
         td = comm.age_category.to_s.sub('within_', '')
         td.text-right = number_to_currency(comm.amount, unit: "")
 
-.blueBarTotal
-  = "Overall Margin: #{number_to_currency(margin, unit: '')}%"
-.blueBarTotal
-  = "Total Commission: $#{number_to_currency(total, unit: '')}"
+- if defined?(margin)
+  .blueBarTotal
+    = "Overall Margin: #{number_to_currency(margin, unit: '')}%"
+  .blueBarTotal
+    = "Total Commission: $#{number_to_currency(total, unit: '')}"

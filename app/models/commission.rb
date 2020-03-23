@@ -18,6 +18,16 @@ class Commission
     @sales_rep = invoice.sales_rep || SalesRep.default_new(invoice.rep_code)
   end
 
+  def normal?
+    !suspicious?
+  end
+
+  def suspicious? # rubocop:disable Metrics/AbcSize
+    huge = invoice.amount.abs > 3 * invoice.cost.abs
+    under = invoice.amount.abs < invoice.cost.abs
+    huge || under || amount.zero?
+  end
+
   # Returns the commission to be paid in dollars.
   def amount
     adjusted = adjusted_pct / 100
