@@ -27,16 +27,10 @@ main.container role="main"
             = date_field_tag "to", saturday, class: "form-control", id: "id-endDate", required: true
         .form-group
           = label_tag "format", "Format", for: "id-format"
-          = select_tag "format",
-                       options_for_select(%w[html pdf csv], "html"),
-                       class: "form-control",
-                       id: "id-format"
+          = select_tag "format", options_for_select(%w[html pdf csv], "html"), class: "form-control", id: "id-format"
         .form-group
           = label_tag "rep_type", "Filter by Type", for: "id-repType"
-          = select_tag "rep_type",
-                       options_for_select(SalesRep::REP_TYPES, "all"),
-                       class: "form-control",
-                       id: "id-repType"
+          = select_tag "rep_type", options_for_select(SalesRep::REP_TYPES, "all"), class: "form-control", id: "id-repType"
         hr
         = render partial: "form_options"
         hr
