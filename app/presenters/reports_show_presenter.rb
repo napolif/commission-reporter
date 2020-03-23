@@ -84,7 +84,7 @@ class ReportsShowPresenter
       comms = invoice_groups.map do |_num, iprs|
         Commission.new(iprs)
       end
-      comms.reject { |c| c.amount.zero? }.sort_by(&:number)
+      comms.sort_by(&:number)
     end
   end
   memoize :commissions_by_code
