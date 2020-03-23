@@ -22,10 +22,9 @@ class Commission
     !suspicious?
   end
 
-  def suspicious? # rubocop:disable Metrics/AbcSize
+  def suspicious?
     huge = invoice.amount.abs > 3 * invoice.cost.abs
-    under = invoice.amount.abs < invoice.cost.abs
-    huge || under || amount.zero?
+    huge || amount.zero?
   end
 
   # Returns the commission to be paid in dollars.
