@@ -13,8 +13,8 @@ section.breakAfter
           td = rep.code
           td
             a.repLink href="#id-#{rep.code}" = rep.name
-          td.text-right = "%.2f" % margin
-          td.text-right = "%.2f" % total
+          td.text-right = number_to_currency(margin, unit: "")
+          td.text-right = number_to_currency(total, unit: "")
   .blueBarTotal
     = "Overall Margin: %.2f%%" % @presenter.grand_margin_pct
   .blueBarTotal

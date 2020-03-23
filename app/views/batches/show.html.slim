@@ -31,7 +31,7 @@ main.container
           td = inv.invoiced_on
           td = inv.paid_on
           td = inv.age_category.to_s.sub('within_', '')
-          td.text-right = "%.2f" % inv.margin_pct
+          td.text-right = number_to_currency(inv.margin_pct, unit: "")
 
   .blueBarTotal
     = "Count: %d" % @invoices.size

@@ -22,7 +22,7 @@ table.blueBar
         td.text-right = number_to_currency(comm.applied, unit: "")
         td.text-right = number_to_currency(inv.amount, unit: "")
         td.text-right = number_to_currency(inv.cost, unit: "")
-        td.text-right = "%0.2f" % inv.margin_pct
+        td.text-right = number_to_currency(inv.margin_pct, unit: "")
         td = comm.order_date
         td = comm.paid_date
         td = comm.age_category.to_s.sub('within_', '')
