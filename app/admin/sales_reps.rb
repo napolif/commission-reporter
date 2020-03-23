@@ -8,6 +8,7 @@ ActiveAdmin.register SalesRep do
 
   filter :quota_type
   filter :disabled
+  filter :rep_type
 
   index do
     selectable_column
