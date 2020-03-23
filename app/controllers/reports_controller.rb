@@ -16,7 +16,7 @@ class ReportsController < ApplicationController
     @one_per_page = true if params[:one_per_page]
     @list_disabled_reps = true if params[:list_disabled_reps]
     @presenter = ReportsShowPresenter.new(purged_records: purged_records,
-                                          rep_codes: included_rep_codes)
+                                          rep_codes: rep_codes)
 
     respond_to do |format|
       format.html do
@@ -39,11 +39,11 @@ class ReportsController < ApplicationController
 
   def purged_records
     PurgedRecord.for_dates_and_reps(params[:from]..params[:to],
-                                    included_rep_codes)
+                                    rep_codes)
   end
 
-  def included_rep_codes
-    SalesRep.filtered_by_type(params[:rep_type]).pluck(:code)
+  def rep_codes
+    SalesRep.by_type(params[:rep_type] || "all").codes
   end
 
   def cast_boolean_params
