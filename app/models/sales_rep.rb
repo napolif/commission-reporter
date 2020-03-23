@@ -51,7 +51,6 @@ class SalesRep < ApplicationRecord
   DEFAULT_CODE = "_DEF".freeze
 
   QUOTA_TYPES = %w[profit revenue].freeze
-  REP_TYPES = %w[all employee broker].freeze
 
   PERIODS_BY_AGE = {within_45:  "period1",
                     within_60:  "period2",
@@ -89,6 +88,10 @@ class SalesRep < ApplicationRecord
 
   def self.codes
     select(:code).pluck(:code)
+  end
+
+  def self.existing_rep_types
+    ["all"] + real.select(:rep_type).distinct.pluck(:rep_type).sort
   end
 
   def commission_table
