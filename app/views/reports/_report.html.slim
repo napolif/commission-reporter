@@ -15,16 +15,20 @@ section.breakAfter
         tr
           th Rep ID
           th Rep Name
-          th.text-right Total Margin %
+          th.text-right Total Applied $
+          th.text-right Total Sales $
+          th.text-right Overall Margin %
           th.text-right Total Commission $
       tbody
-        - @presenter.total_rows.each do |rep, total, margin|
+        - @presenter.total_rows.each do |rep, applied, sales, margin, amount|
           tr
             td = rep.code
             td
               a.repLink href="#id-#{rep.code}" = rep.name
+            td.text-right = number_to_currency(applied, unit: "")
+            td.text-right = number_to_currency(sales, unit: "")
             td.text-right = number_to_currency(margin, unit: "")
-            td.text-right = number_to_currency(total, unit: "")
+            td.text-right = number_to_currency(amount, unit: "")
     .blueBarTotal
       = "Overall Margin: %.2f%%" % @presenter.grand_margin_pct
     .blueBarTotal
@@ -39,7 +43,7 @@ section.breakAfter
     - if comms.any?
       = render partial: "table",
                locals: {commissions: comms.select(&:normal?),
-                        total: @presenter.totals_by_enabled_rep[rep],
+                        total: @presenter.total_amounts_by_enabled_rep[rep],
                         margin: @presenter.margin_pcts_by_enabled_rep[rep]}
 
       - if comms.select(&:suspicious?).any?

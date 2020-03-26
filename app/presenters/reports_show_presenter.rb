@@ -20,19 +20,21 @@ class ReportsShowPresenter
   end
 
   def total_rows
-    reps = totals_by_enabled_rep.keys.sort_by(&:code)
+    reps = total_amounts_by_enabled_rep.keys.sort_by(&:code)
 
     reps.each_with_object([]) do |rep, arr|
       arr << [
         rep,
-        totals_by_enabled_rep[rep],
-        margin_pcts_by_enabled_rep[rep]
+        total_applied_by_enabled_rep[rep],
+        total_sales_by_enabled_rep[rep],
+        margin_pcts_by_enabled_rep[rep],
+        total_amounts_by_enabled_rep[rep]
       ]
     end
   end
 
   def grand_total
-    totals_by_enabled_rep.values.sum
+    total_amounts_by_enabled_rep.values.sum
   end
 
   def grand_margin_pct
@@ -57,14 +59,28 @@ class ReportsShowPresenter
   end
   memoize :margin_pcts_by_enabled_rep
 
-  def totals_by_enabled_rep
+  def total_amounts_by_enabled_rep
     commissions_by_enabled_rep.transform_values do |comms|
       comms.select(&:normal?).map(&:amount).sum
     end
   end
-  memoize :totals_by_enabled_rep
+  memoize :total_amounts_by_enabled_rep
 
   private
+
+  def total_sales_by_enabled_rep
+    commissions_by_enabled_rep.transform_values do |comms|
+      comms.select(&:normal?).map { |c| c.invoice.amount }.sum
+    end
+  end
+  memoize :total_sales_by_enabled_rep
+
+  def total_applied_by_enabled_rep
+    commissions_by_enabled_rep.transform_values do |comms|
+      comms.select(&:normal?).map(&:applied).sum
+    end
+  end
+  memoize :total_applied_by_enabled_rep
 
   def enabled_rep_codes
     rep_codes.reject do |code|
