@@ -16,12 +16,9 @@
 @import url("https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css");
 
 .dataTable th {
-  &::before {
+  &::before, &::after {
     height: 1.2em;
-  }
-
-  &::after {
-    height: 1.2em;
+    filter: opacity(50%);
   }
 }
 
