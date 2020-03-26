@@ -1,17 +1,17 @@
-table.blueBar.dt
+table.blueBar.dt width="100%"
   thead
     tr
-      td Number
-      td Customer ID
-      td Customer Name
-      td.text-right Applied
-      td.text-right Inv. Amount
-      td.text-right Inv. Cost
-      td.text-right Margin
-      td Invoiced On
-      td Paid On
-      td Age
-      td.text-right Comm.
+      th Num.
+      th Cust. ID
+      th Cust. Name
+      th.text-right Applied
+      th.text-right Inv. Amount
+      th.text-right Inv. Cost
+      th.text-right Margin
+      th Invoiced On
+      th Paid On
+      th Age
+      th.text-right Comm.
   tbody
     - commissions.each do |comm|
       - inv = comm.invoice
