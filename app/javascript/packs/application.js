@@ -8,9 +8,11 @@ require("@rails/ujs").start()
 // require("@rails/activestorage").start()
 // require("channels")
 
-import "jquery"
+import $ from "jquery"
 import "popper.js"
 import "bootstrap"
+import "datatables.net"
+import "datatables.net-bs4"
 
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
@@ -18,3 +20,16 @@ import "bootstrap"
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
+
+// require("datatables.net")(window, $)
+
+// dt(window, $)
+$(document).ready(() => {
+  if (window.matchMedia("print").matches) { return }
+
+  $(".dt").DataTable({
+    paging: false,
+    info: false,
+    searching: false
+  })
+})
