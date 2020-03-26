@@ -13,6 +13,14 @@
  */
 
 @import "bootstrap";
+@import url("https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css");
+
+.dataTable th {
+  &::before, &::after {
+    height: 1.2em;
+    filter: opacity(50%);
+  }
+}
 
 $blue-ink: #444455;
 $light-blue: #eaf0fa;
@@ -178,7 +186,7 @@ h1, h2, h3 {
     background-color: $light-blue;
   }
 
-  td {
+  td, th {
     padding: 4px;
   }
 

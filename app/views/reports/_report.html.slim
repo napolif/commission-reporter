@@ -10,13 +10,13 @@ section.breakAfter
       | .
   - else
     h2 Totals
-    table.blueBar
+    table.blueBar.dt
       thead
         tr
-          td Rep ID
-          td Rep Name
-          td.text-right Total Margin %
-          td.text-right Total Commission $
+          th Rep ID
+          th Rep Name
+          th.text-right Total Margin %
+          th.text-right Total Commission $
       tbody
         - @presenter.total_rows.each do |rep, total, margin|
           tr
