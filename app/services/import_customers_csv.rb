@@ -8,4 +8,8 @@ class ImportCustomersCSV < ImportCSV
   natural_key :code
 
   upsert true
+
+  def skip_row?(row)
+    row.get("FFDCMPN") != "1" || row.get("FFDDIVN") != "6" || row.get("FFDDPTN") != "6"
+  end
 end
