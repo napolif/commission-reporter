@@ -81,6 +81,8 @@ class ImportCSV
   def generate_records # rubocop:disable Metrics/AbcSize
     @records = csv.each_with_object([]).with_index do |(row, arr), i|
       rec = initialize_record(row)
+      next if skip_row?(row)
+
       if rec.invalid?
         messages = rec.errors.full_messages.join(",")
         errors << "invalid data in row #{i + 2}: #{messages}"
@@ -90,6 +92,10 @@ class ImportCSV
     rescue StandardError => e
       errors << "error on row #{i + 2}: #{e}"
     end
+  end
+
+  def skip_row?(_row)
+    false
   end
 
   def initialize_record(row)
