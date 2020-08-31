@@ -30,6 +30,7 @@ $(document).ready(() => {
   $(".dt").DataTable({
     paging: false,
     info: false,
-    searching: false
+    searching: false,
+    aaSorting: []
   })
 })
