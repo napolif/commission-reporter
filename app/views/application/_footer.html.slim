@@ -1,5 +1,6 @@
 - commit_date = DateTime.strptime(Rails.configuration.x.commit_date, "%Y-%m-%d %H:%M:%S %Z").to_s(:long)
 - commit_hash = Rails.configuration.x.commit_hash
+- commit_message = Rails.configuration.x.commit_message
 - github_url = "https://github.com/napolif/commission-reporter/commit/"
 
 footer.footer
@@ -9,6 +10,9 @@ footer.footer
       a[href=(github_url + commit_hash)]
         = inline_svg_tag("github.svg", class: "githubLogo", height: "16px", width: "16px")
         = commit_hash
+
+    small.text-muted
+      = commit_message
 
     small.text-muted
       span = commit_date
