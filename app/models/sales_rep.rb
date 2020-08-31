@@ -102,6 +102,6 @@ class SalesRep < ApplicationRecord
   end
 
   def last_name
-    name.split.second
+    name.split.second || name
   end
 end
