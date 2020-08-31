@@ -45,15 +45,28 @@ class ImportCSV
   end
 
   def run
-    return false unless valid?
+    old_logger = ActiveRecord::Base.logger
+    ActiveRecord::Base.logger = nil
+
+    unless valid?
+      ActiveRecord::Base.logger = old_logger
+      return false
+    end
+
     generate_records
-    return false unless valid?
+
+    unless valid?
+      ActiveRecord::Base.logger = old_logger
+      return false
+    end
 
     @result = if upsert
                 upsert_records
               else
                 insert_records
               end
+
+    ActiveRecord::Base.logger = old_logger
     true
   end
 
