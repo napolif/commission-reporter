@@ -104,4 +104,8 @@ class SalesRep < ApplicationRecord
   def last_name
     name.split.second || name
   end
+
+  def sort_name
+    format("%-30s", last_name) + name
+  end
 end
