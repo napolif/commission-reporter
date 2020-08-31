@@ -8,7 +8,11 @@ class ReportsShowPresenter
 
   def initialize(purged_records:, rep_codes:)
     @purged_records = purged_records
-    @rep_codes = rep_codes.sort
+    @rep_codes = rep_codes.dup
+
+    rep_codes.sort_by! do |code|
+      reps_by_code[code].last_name
+    end
   end
 
   def commissions_by_enabled_rep
@@ -20,7 +24,7 @@ class ReportsShowPresenter
   end
 
   def total_rows
-    reps = total_amounts_by_enabled_rep.keys.sort_by(&:code)
+    reps = total_amounts_by_enabled_rep.keys.sort_by(&:last_name)
 
     reps.each_with_object([]) do |rep, arr|
       arr << [
