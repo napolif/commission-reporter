@@ -1,7 +1,7 @@
 ActiveAdmin.register SalesRep do
   menu priority: 2
 
-  permit_params :code, :name, :quota_type, :disabled,
+  permit_params :code, :name, :quota_type, :disabled, :rep_type,
                 :period1, :period2, :period3, :period4, :period5,
                 :goal1, :goal2, :goal3, :goal4, :goal5, :goal6, :goal7, :goal8, :goal9, :goal10,
                 :comm1, :comm2, :comm3, :comm4, :comm5, :comm6, :comm7, :comm8, :comm9, :comm10
