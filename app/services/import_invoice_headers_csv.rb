@@ -14,6 +14,8 @@ class ImportInvoiceHeadersCSV < ImportCSV
 
   upsert true
 
+  csv_options encoding: 'iso-8859-1:utf-8'
+
   def transform_field_order_date(val)
     Date.strptime(val, "%Y%m%d")
   rescue ArgumentError
