@@ -99,7 +99,7 @@ class Commission
 
   def age_category
     wait_days = (paid_date - order_date).to_i
-    raise "Error: invoice #{id} paid_on before invoiced_on" if wait_days.negative?
+    raise "Error: invoice #{number} paid_on before invoiced_on" if wait_days.negative?
 
     case wait_days
     when 0..45
