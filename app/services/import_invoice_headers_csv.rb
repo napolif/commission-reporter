@@ -1,5 +1,7 @@
 # A service for uploading a CSV file with invoice headers (from retalix).
 class ImportInvoiceHeadersCSV < ImportCSV
+  extend Memoist
+
   target_class InvoiceHeader
 
   field_map number:        "HHHINVN",
@@ -19,4 +21,6 @@ class ImportInvoiceHeadersCSV < ImportCSV
   def transform_field_order_date(val)
     Date.strptime(val, "%Y%m%d") rescue nil
   end
+
+  memoize :transform_field_order_date
 end

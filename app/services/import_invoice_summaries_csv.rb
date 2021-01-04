@@ -1,5 +1,7 @@
 # A service for uploading the COMMFILE CSV. Similar to active_interaction classes.
 class ImportInvoiceSummariesCSV < ImportCSV
+  extend Memoist
+
   target_class InvoiceSummary
 
   field_map number:         "HHUINVN",
@@ -30,7 +32,11 @@ class ImportInvoiceSummariesCSV < ImportCSV
     Date.strptime(val, "%m/%d/%Y") rescue nil
   end
 
+  memoize :transform_field_invoiced_on
+
   def transform_field_paid_on(val)
     Date.strptime(val, "%m/%d/%Y") rescue nil
   end
+
+  memoize :transform_field_paid_on
 end
