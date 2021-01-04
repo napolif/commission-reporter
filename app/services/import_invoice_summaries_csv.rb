@@ -27,14 +27,10 @@ class ImportInvoiceSummariesCSV < ImportCSV
   end
 
   def transform_field_invoiced_on(val)
-    Date.strptime(val, "%m/%d/%Y")
-  rescue ArgumentError
-    nil
+    Date.strptime(val, "%m/%d/%Y") rescue nil
   end
 
   def transform_field_paid_on(val)
-    Date.strptime(val, "%m/%d/%Y")
-  rescue ArgumentError
-    nil
+    Date.strptime(val, "%m/%d/%Y") rescue nil
   end
 end

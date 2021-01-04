@@ -17,15 +17,11 @@ class ImportPurgedRecordsCSV < ImportCSV
   upsert false
 
   def transform_field_due_date(val)
-    Date.strptime(val, "%Y%m%d")
-  rescue ArgumentError
-    nil
+    Date.strptime(val, "%Y%m%d") rescue nil
   end
 
   def transform_field_created_date(val)
-    Date.strptime(val, "%Y%m%d")
-  rescue ArgumentError
-    nil
+    Date.strptime(val, "%Y%m%d") rescue nil
   end
 
   def transform_field_ref_number(val)

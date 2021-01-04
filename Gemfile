@@ -36,6 +36,7 @@ gem "inline_svg"
 gem "memoist"
 gem "slim"
 gem "wicked_pdf"
+gem "timeliness"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -44,6 +45,7 @@ group :development, :test do
   gem "rspec", "~> 3.9"
   gem "rspec-rails", "~> 3.9"
   gem "spring-commands-rspec", "~> 1.0"
+  gem "stackprof"
 end
 
 group :development do
