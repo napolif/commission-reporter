@@ -10,12 +10,12 @@ end
 
 def tail(file_name)
   temp = Tempfile.new(['purged', '.csv'])
-  lines = File.readlines(file_name, "rb")
+  lines = File.readlines(file_name)
   size = lines.size
-  half = lines[(size / 8)..-1]
-  half.each { |line| temp << line }
+  temp << lines[0]
+  lines[-100000..-1].each { |ln| temp << ln } # TODO: should be date based
   temp.rewind
-  puts "temp file @ " + temp.path
+  puts "moved last 100000 lines of #{file_name} to temp file @ #{temp.path}"
   yield temp
   temp.close
   temp.unlink
