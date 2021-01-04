@@ -15,7 +15,7 @@ def tail(file_name)
   temp << lines[0]
   lines[-100000..-1].each { |ln| temp << ln } # TODO: should be date based
   temp.rewind
-  puts "moved last 100000 lines of #{file_name} to temp file @ #{temp.path}"
+  puts "copied last 100000 lines of #{file_name} to temp file @ #{temp.path}"
   yield temp
   temp.close
   temp.unlink
