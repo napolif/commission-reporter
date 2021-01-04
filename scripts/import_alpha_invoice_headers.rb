@@ -10,7 +10,6 @@ def import(file_name)
   file = File.open(file_name, "rb")
   svc = ImportAlphaInvoiceHeadersCSV.new(file)
   svc.run! rescue binding.pry
-  puts svc.result
 end
 
 print_counts(InvoiceHeader) do

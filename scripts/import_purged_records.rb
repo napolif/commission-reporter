@@ -25,7 +25,6 @@ def import(file_name)
   tail(file_name) do |file|
     svc = ImportPurgedRecordsCSV.new(file)
     svc.run! rescue binding.pry
-    puts svc.result
   end
 end
 
