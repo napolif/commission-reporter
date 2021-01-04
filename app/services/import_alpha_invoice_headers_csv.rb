@@ -20,9 +20,7 @@ class ImportAlphaInvoiceHeadersCSV < ImportCSV
               liberal_parsing: true
 
   def transform_field_order_date(val)
-    Date.strptime(val, "%m/%d/%y")
-  rescue ArgumentError
-    nil
+    Date.strptime(val, "%m/%d/%y") rescue nil
   end
 
   def transform_field_rep_code(val)
