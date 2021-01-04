@@ -29,9 +29,11 @@ def import(file_name)
   end
 end
 
+# StackProf.run(mode: :cpu, out: 'tmp/stackprof.dump') do
 puts "deleting purged a/r records..."
 PurgedRecord.delete_all
 
 print_counts(PurgedRecord) do
   import("../data/rrwrecwp.csv")
 end
+# end
