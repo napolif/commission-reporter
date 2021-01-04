@@ -44,6 +44,7 @@ group :development, :test do
   gem "rspec", "~> 3.9"
   gem "rspec-rails", "~> 3.9"
   gem "spring-commands-rspec", "~> 1.0"
+  gem "stackprof"
 end
 
 group :development do

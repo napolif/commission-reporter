@@ -283,6 +283,7 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    stackprof (0.2.16)
     temple (0.8.2)
     thor (1.0.1)
     thread_safe (0.3.6)
@@ -340,6 +341,7 @@ DEPENDENCIES
   spring
   spring-commands-rspec (~> 1.0)
   spring-watcher-listen (~> 2.0.0)
+  stackprof
   web-console (>= 3.3.0)
   webpacker (~> 4.0)
   wicked_pdf
