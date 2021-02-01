@@ -10,6 +10,9 @@ class ImportCustomersCSV < ImportCSV
   upsert true
 
   def skip_row?(row)
-    row.get("FFDCMPN") != "1" || row.get("FFDDIVN") != "6" || row.get("FFDDPTN") != "6"
+    row["FFDCUSN"].end_with?(" ") \
+      || row.get("FFDCMPN") != "1" \
+      || row.get("FFDDIVN") != "6" \
+      || row.get("FFDDPTN") != "6" \
   end
 end

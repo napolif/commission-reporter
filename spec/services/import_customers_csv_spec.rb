@@ -59,4 +59,12 @@ RSpec.describe ImportCustomersCSV do
       expect { service.run }.to change { Customer.count }.from(0).to(1)
     end
   end
+
+  context "with CSV rows where customer code ends in a space" do
+    let(:csv_path) { path_to_csv("customers4.csv") }
+
+    it "ignores the row" do
+      expect { service.run }.not_to change { Customer.count }
+    end
+  end
 end
