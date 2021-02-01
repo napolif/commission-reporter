@@ -37,6 +37,7 @@ gem "memoist"
 gem "slim"
 gem "wicked_pdf"
 gem "timeliness"
+gem "pry"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -53,7 +54,6 @@ group :development do
   gem "better_errors"
   gem "binding_of_caller"
   gem "listen", ">= 3.2.1"
-  gem "pry"
   gem "pry-rails"
   gem "spring"
   gem "spring-watcher-listen", "~> 2.0.0"
