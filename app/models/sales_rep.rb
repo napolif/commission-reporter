@@ -67,7 +67,8 @@ class SalesRep < ApplicationRecord
   has_many :invoice_headers, primary_key: "code", foreign_key: "rep_code"
   has_many :purged_records, primary_key: "code", foreign_key: "rep_code"
 
-  before_validation { code.upcase! }
+  before_validation { code&.upcase! }
+  before_validation { code&.strip! }
 
   scope :real, -> { where.not(code: DEFAULT_CODE) }
 
