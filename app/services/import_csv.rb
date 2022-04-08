@@ -38,7 +38,7 @@ class ImportCSV
     @result = nil
     @file = file
 
-    options = {headers: true}.merge(csv_options || {})
+    options = {headers: true, encoding: 'ISO-8859-1'}.merge(csv_options || {})
     @csv = CSV.read(@file, **options)
 
     validate_headers
@@ -98,12 +98,12 @@ class ImportCSV
 
       if rec.invalid?
         messages = rec.errors.full_messages.join(",")
-        errors << "invalid data in row #{i + 2}: #{messages}"
+        errors << "invalid data in row #{i}: #{messages}"
       else
         arr << rec
       end
     rescue StandardError => e
-      errors << "error on row #{i + 2}: #{e}"
+      errors << "error on row #{i}: #{e}"
     end
   end
 
