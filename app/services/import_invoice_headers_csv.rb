@@ -22,8 +22,7 @@ class ImportInvoiceHeadersCSV < ImportCSV
     Date.strptime(val, "%Y%m%d") rescue nil
   end
 
-  def skip_row(row)
-    puts row.get("HHHDTET")
+  def skip_row?(row)
     transform_field_order_date(row.get("HHHDTET")).nil?
   end
 
