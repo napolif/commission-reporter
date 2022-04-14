@@ -52,11 +52,11 @@ RSpec.describe ImportCustomersCSV do
     end
   end
 
-  context "with customer CSV containing alternate company divisions" do
+  context "with customer CSV containing alternate company locations" do
     let(:csv_path) { path_to_csv("customers3.csv") }
 
-    it "ignores records that do not have company division 1/6/6" do
-      expect { service.run }.to change { Customer.count }.from(0).to(1)
+    it "ignores records that are not in desired location" do
+      expect { service.run }.to change { Customer.count }.from(0).to(2)
     end
   end
 

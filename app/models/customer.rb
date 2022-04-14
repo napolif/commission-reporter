@@ -4,13 +4,14 @@
 #
 #  id         :bigint           not null, primary key
 #  code       :string
+#  location   :integer          not null
 #  name       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
 # Indexes
 #
-#  index_customers_on_code  (code) UNIQUE
+#  index_customers_on_code_and_location  (code,location) UNIQUE
 #
 
 # Information about a particular customer. Used to look up full name.
