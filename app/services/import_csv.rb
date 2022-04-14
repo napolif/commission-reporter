@@ -38,7 +38,7 @@ class ImportCSV
     @result = nil
     @file = file
 
-    options = {headers: true, encoding: 'ISO-8859-1'}.merge(csv_options || {})
+    options = {headers: true, encoding: "ISO-8859-1"}.merge(csv_options || {})
     @csv = CSV.read(@file, **options)
 
     validate_headers
