@@ -13,8 +13,8 @@ class ImportCSV
       @upsert = val
     end
 
-    def natural_key(val)
-      @natural_key = val
+    def natural_keys(val)
+      @natural_keys = val
     end
 
     def field_map(**val)
@@ -27,7 +27,7 @@ class ImportCSV
   end
   # rubocop:enable Style/TrivialAccessors
 
-  %i[target_class field_map natural_key csv_options upsert].each do |name|
+  %i[target_class field_map natural_keys csv_options upsert].each do |name|
     define_method(name) do
       self.class.instance_variable_get("@#{name}")
     end
@@ -133,7 +133,7 @@ class ImportCSV
       validate: false,
       all_or_none: true,
       on_duplicate_key_update: {
-        conflict_target: [natural_key],
+        conflict_target: natural_keys,
         columns: target_class.column_names.without("id", "updated_at")
       }
     )

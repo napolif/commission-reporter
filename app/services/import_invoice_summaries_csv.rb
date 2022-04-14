@@ -15,7 +15,7 @@ class ImportInvoiceSummariesCSV < ImportCSV
             paid_on:        "RDATE",
             delivered:      "HHUINVR"
 
-  natural_key :number
+  natural_keys [:number]
 
   upsert true
 

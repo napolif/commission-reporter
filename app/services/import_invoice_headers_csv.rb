@@ -12,7 +12,7 @@ class ImportInvoiceHeadersCSV < ImportCSV
             order_date:    "HHHDTET",
             qty_ord:       "HHHQYOA"
 
-  natural_key :number
+  natural_keys [:number]
 
   upsert true
 

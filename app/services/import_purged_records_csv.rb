@@ -14,7 +14,7 @@ class ImportPurgedRecordsCSV < ImportCSV
             ref_number:     "RRWINVR",
             invoice_type:   "RRWRTPE"
 
-  natural_key :number
+  natural_keys [:number]
 
   upsert false
 
