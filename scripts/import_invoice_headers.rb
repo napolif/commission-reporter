@@ -14,4 +14,7 @@ end
 
 print_counts(InvoiceHeader) do
   import("../data/hhhordhp.csv")
+  # StackProf.run(mode: :cpu, out: "../data/stackprof-cpu.dump") do
+  #   import("../data/hhhordhp.csv")
+  # end
 end
