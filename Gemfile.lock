@@ -78,10 +78,6 @@ GEM
     autoprefixer-rails (9.7.4)
       execjs
     bcrypt (3.1.13)
-    better_errors (2.6.0)
-      coderay (>= 1.0.0)
-      erubi (>= 1.0.0)
-      rack (>= 0.9.0)
     bindex (0.8.1)
     binding_of_caller (0.8.0)
       debug_inspector (>= 0.0.1)
@@ -289,7 +285,7 @@ GEM
     thread_safe (0.3.6)
     tilt (2.0.10)
     timeliness (0.4.4)
-    tzinfo (1.2.6)
+    tzinfo (1.2.10)
       thread_safe (~> 0.1)
     unicode-display_width (1.6.1)
     warden (1.2.8)
@@ -317,7 +313,6 @@ DEPENDENCIES
   activeadmin
   activerecord-import
   annotate
-  better_errors
   binding_of_caller
   bootsnap (>= 1.4.2)
   bootstrap (~> 4.4)
