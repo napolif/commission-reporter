@@ -6,7 +6,7 @@ class ImportCustomersCSV < ImportCSV
             name: "FFDCNMB",
             location: "FFDDIVN"
 
-  natural_keys [:code]
+  natural_keys [:location, :code] # from adding NJ experiment
 
   upsert true
 
