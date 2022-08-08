@@ -11,7 +11,7 @@ class ImportCustomersCSV < ImportCSV
   upsert true
 
   LOCATIONS = [
-    "2", # NJ
+    # "2", # NJ
     "6"  # CT
   ].freeze
 
