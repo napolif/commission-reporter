@@ -6,16 +6,13 @@ class ImportCustomersCSV < ImportCSV
             name: "FFDCNMB",
             location: "FFDDIVN"
 
-  natural_keys [:location, :code] # from adding NJ experiment
+  natural_keys [:location, :code]
 
   upsert true
 
   def skip_row?(row)
     # skip unless company 1 (not sure what company 2 is for but it has duplicates)
     return true unless row.get("FFDCMPN") == "1"
-
-    # skip unless CT customer
-    return true unless row.get("FFDDIVN") == "6"
 
     # skip if name is blank
     return true if row.get("FFDCNMB").empty?
