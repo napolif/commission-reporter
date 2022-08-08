@@ -10,17 +10,12 @@ class ImportCustomersCSV < ImportCSV
 
   upsert true
 
-  LOCATIONS = [
-    # "2", # NJ
-    "6"  # CT
-  ].freeze
-
   def skip_row?(row)
     return true if row["FFDCNMB"].blank?
 
     # skip bad records, e.g. "ILLIAN " which are likely to be duplicates
     return true if row["FFDCUSN"].end_with? " "
 
-    LOCATIONS.exclude? row.get("FFDDIVN")
+    row.get("FFDDIVN") != "6"
   end
 end
