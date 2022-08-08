@@ -18,7 +18,7 @@ class ImportCustomersCSV < ImportCSV
     return true unless row.get("FFDDIVN") == "6"
 
     # skip if name is blank
-    return true if row["FFDCNMB"].blank?
+    return true if row.get("FFDCNMB").empty?
 
     # skip records ending in space, which tend to be duplicates & junk records
     return true if row["FFDCUSN"].end_with? " "
