@@ -14,4 +14,4 @@ end
 
 @logger.info "deleting PurgedRecords..."
 PurgedRecord.delete_all
-import("import/rrwrecwp.csv")
+import("../data/rrwrecwp.csv")

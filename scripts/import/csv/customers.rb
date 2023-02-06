@@ -12,4 +12,4 @@ def import(file_name)
   end
 end
 
-import("import/ffdcstbp.csv")
+import("../data/ffdcstbp.csv")
