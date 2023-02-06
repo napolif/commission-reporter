@@ -1,0 +1,4 @@
+code,alpha_code,name,rep_type,disabled,quota_type,P1 %,P2 %,P3 %,P4 %,P5 %,LVL 1 GOAL %,LVL 1 COMM %,LVL 2 GOAL %,LVL 2 COMM %,LVL 3 GOAL %,LVL 3 COMM %,LVL 4 GOAL %,LVL 4 COMM %,LVL 5 GOAL %,LVL 5 COMM %,LVL 6 GOAL %,LVL 6 COMM %,LVL 7 GOAL %,LVL 7 COMM %,LVL 8 GOAL %,LVL 8 COMM %,LVL 9 GOAL %,LVL 9 COMM %,LVL 10 GOAL %,LVL 10 COMM %
+100,IN,Isaac Newton,outside,false,revenue,100,99,99,99,50,5,2,8,3,9,3,10,3,11,3,12,3,13,3,14,3,15,3,99,3
+101,AE,Albert Einstein,broker,false,revenue,100,100,80,75,50,5,1,8,1,9,1.25,10,1.5,11,1.75,12,2,13,2.25,14,2.5,15,2.5,99,2.5
+102,MC,Marie Curie,inside,false,profit,100,80,60,40,40,5,0.75,6,0.8,7,0.85,8,0.9,9,1,10,1.25,11,2,12.5,2.25,14,2.5,99,2.5
