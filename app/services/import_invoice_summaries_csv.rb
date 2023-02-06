@@ -1,5 +1,5 @@
-# # A service for uploading the COMMFILE CSV. Similar to active_interaction classes.
-# class ImportInvoiceSummariesCSV < ImportCSV
+# A service for uploading the COMMFILE CSV. Similar to active_interaction classes.
+class ImportInvoiceSummariesCSV < ImportCSV
 #   extend Memoist
 #
 #   target_class InvoiceSummary
@@ -39,4 +39,4 @@
 #   end
 #
 #   memoize :transform_field_paid_on
-# end
+end

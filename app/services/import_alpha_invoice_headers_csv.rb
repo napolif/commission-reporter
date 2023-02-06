@@ -1,5 +1,5 @@
-# # A service for uploading a CSV file with invoice headers (from alpha).
-# class ImportAlphaInvoiceHeadersCSV < ImportCSV
+# A service for uploading a CSV file with invoice headers (from alpha).
+class ImportAlphaInvoiceHeadersCSV < ImportCSV
 #   extend Memoist
 #
 #   target_class InvoiceHeader
@@ -48,4 +48,4 @@
 #     end
 #   end
 #   memoize :sales_rep_code_map
-# end
+end
