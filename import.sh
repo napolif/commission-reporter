@@ -1,8 +1,7 @@
 set -e
 
-for name in import_customers import_purged_records import_retalix_invoice_headers
-do
-  echo $(time bundle exec rails runner scripts/$name.rb)
-done
+time bin/rails r scripts/import/csv/customers.rb
+time bin/rails r scripts/import/csv/purged_records.rb
+time bin/rails r scripts/import/csv/invoice_headers.rb
 
 sudo reboot now
