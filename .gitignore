@@ -40,3 +40,4 @@ yarn-debug.log*
 tags
 .DS_Store
 .rbenv-vars
+import/*.csv
