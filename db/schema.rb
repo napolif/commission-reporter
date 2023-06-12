@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_14_063033) do
+ActiveRecord::Schema.define(version: 2023_06_12_182812) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,12 +57,14 @@ ActiveRecord::Schema.define(version: 2022_04_14_063033) do
     t.decimal "amount", precision: 10, scale: 2
     t.decimal "cost", precision: 10, scale: 2
     t.date "order_date"
+    t.date "created_date"
     t.integer "qty_ord"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["customer_code"], name: "index_invoice_headers_on_customer_code"
     t.index ["number"], name: "index_invoice_headers_on_number", unique: true
     t.index ["rep_code"], name: "index_invoice_headers_on_rep_code"
+    t.index ["created_date"], name: "index_invoice_headers_on_created_date"
   end
 
   create_table "invoice_summaries", force: :cascade do |t|
