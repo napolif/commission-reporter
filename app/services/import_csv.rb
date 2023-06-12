@@ -41,7 +41,7 @@ class ImportCSV
   # mean more memory use but fewer database trips.
   #
   # All inserts happen in a single transaction.
-  def initialize(file, logger: nil, chunk_size: 10000)
+  def initialize(file, logger: Rails.logger, chunk_size: 10000)
     @file = file
     @logger = logger
     @errors = []
