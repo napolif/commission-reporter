@@ -15,6 +15,7 @@ class RetalixCSVExporter
         FFDCUSN, FFDCNMB, FFDSLNB
       from FFDCSTBP
       where FFDCMPN = '  1'
+      and FFDDIVN = '  6'
     SQL
   end
 
@@ -36,6 +37,8 @@ class RetalixCSVExporter
       from HHHORDHP
       where HHHCDTE >= #{start_date.retalix}
       and HHHCDTE <= #{end_date.retalix}
+      and HHHCMPN = '  1'
+      and HHHDIVN = '  6'
     SQL
   end
 
@@ -47,6 +50,8 @@ class RetalixCSVExporter
       from RRWRECWP
       where RRWDTRA >= #{start_date.retalix}
       and RRWDTRA <= #{end_date.retalix}
+      and RRWCMPN = '  1'
+      and RRWDIVN = '  6'
     SQL
   end
 
