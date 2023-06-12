@@ -29,9 +29,9 @@
 # unless they are fully paid.
 class PurgedRecord < ApplicationRecord
   include Importable
+  include Dateable
 
   validates :amount, presence: true
-  validates :created_date, presence: true
   validates :invoice_number, presence: true
   validates :invoice_type, inclusion: {in: 1..4}
 

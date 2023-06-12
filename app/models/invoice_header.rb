@@ -23,6 +23,7 @@
 # Information about a single invoice (either Alpha or Retalix), not counting line items.
 class InvoiceHeader < ApplicationRecord
   include Importable
+  include Dateable
 
   before_validation { customer_code&.upcase! }
   before_validation { rep_code&.upcase! }
