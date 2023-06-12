@@ -2,18 +2,18 @@
   "name": "commission_app",
   "private": true,
   "dependencies": {
-    "@rails/actioncable": "^6.0.0",
-    "@rails/activestorage": "^6.0.0",
-    "@rails/ujs": "^6.0.0",
-    "@rails/webpacker": "4.2.2",
-    "bootstrap": "^4.4.1",
-    "datatables.net": "^1.11.3",
-    "datatables.net-bs4": "^1.10.20",
-    "jquery": "^3.5.0",
+    "@rails/actioncable": "6.1.7",
+    "@rails/activestorage": "6.1.7",
+    "@rails/ujs": "6.1.7",
+    "@rails/webpacker": "5.4.4",
+    "bootstrap": "4.6.2",
+    "datatables.net": "1.13.4",
+    "datatables.net-bs4": "1.13.4",
+    "jquery": "3.7.0",
     "popper.js": "^1.16.1"
   },
   "version": "0.1.0",
   "devDependencies": {
-    "webpack-dev-server": "^3.10.3"
+    "webpack-dev-server": "3.11.3"
   }
 }
