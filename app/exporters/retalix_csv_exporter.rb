@@ -39,7 +39,7 @@ class RetalixCSVExporter
     SQL
   end
 
-  def export_account_entries(filename:, start_date:, end_date:)
+  def export_purged_records(filename:, start_date:, end_date:)
     export(<<~SQL, filename)
       select
         RRWCMPN, RRWDIVN, RRWDPTN, RRWJCDE, RRWCUSN, RRWINVN,
