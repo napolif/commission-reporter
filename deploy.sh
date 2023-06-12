@@ -4,7 +4,7 @@ set -e
 
 cd /home/deploy/commission-app
 git reset --hard
-git checkout master
+git checkout main
 git pull
 
 sudo systemctl stop puma.service
