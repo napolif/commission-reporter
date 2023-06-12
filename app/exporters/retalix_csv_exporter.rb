@@ -32,11 +32,9 @@ class RetalixCSVExporter
     SQL
 
     export(<<~SQL, filename)
-      select #{header_columns}, sum(HHIEXIA) as SUM_HHIEXIA
+      select #{header_columns}
       from HHHORDHP
-      left join HHIORDDP on HHHINVN = HHIINVN
-      group by #{header_columns}
-      having HHHCDTE >= #{start_date.retalix}
+      where HHHCDTE >= #{start_date.retalix}
       and HHHCDTE <= #{end_date.retalix}
     SQL
   end
