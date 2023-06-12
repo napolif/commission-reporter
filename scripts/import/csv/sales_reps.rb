@@ -1,4 +1,4 @@
-# import account entries (retalix purged a/r)
+# import sales reps
 
 require 'logger'
 

@@ -1,7 +1,7 @@
 # Imports InvoiceHeaders from Retalix, storing the query result as a temporary CSV
 # file as an intermediate step.
 #
-# Inovices can be upserted, however, the same logic that works for account entries
+# Invoices can be upserted, however, the same logic that works for purged records
 # should work here as well.
 class InvoiceHeaderImporter
   def initialize(start_date: InvoiceHeader.max_created_date + 1,
@@ -12,7 +12,7 @@ class InvoiceHeaderImporter
   end
 
   def run
-    Rails.logger.info "--- importing invoices ---"
+    Rails.logger.info "--- importing invoice headers ---"
     return unless validate_dates
     export_csv_from_retalix
     import_csv

@@ -13,7 +13,7 @@ class PurgedRecordImporter
   end
 
   def run
-    Rails.logger.info "--- importing account entries ---"
+    Rails.logger.info "--- importing purged records ---"
     return unless validate_dates
     return unless ensure_no_duplicates
     export_csv_from_retalix
@@ -33,7 +33,7 @@ class PurgedRecordImporter
 
   def ensure_no_duplicates
     if PurgedRecord.where(created_date: @start_date..@end_date).any?
-      Rails.logger.error "import failed: account entries already exist in this date range"
+      Rails.logger.error "import failed: purged records already exist in this date range"
       return false
     end
 
