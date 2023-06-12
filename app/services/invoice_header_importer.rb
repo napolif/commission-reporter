@@ -1,10 +1,10 @@
-# Imports Invoices from Retalix, storing the query result as a temporary CSV
+# Imports InvoiceHeaders from Retalix, storing the query result as a temporary CSV
 # file as an intermediate step.
 #
 # Inovices can be upserted, however, the same logic that works for account entries
 # should work here as well.
-class InvoiceImporter
-  def initialize(start_date: Invoice.max_created_date + 1,
+class InvoiceHeaderImporter
+  def initialize(start_date: InvoiceHeader.max_created_date + 1,
                  end_date: Time.zone.yesterday)
     @start_date = start_date
     @end_date = end_date
