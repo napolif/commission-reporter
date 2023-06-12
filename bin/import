@@ -1,5 +1,4 @@
-set -e
+#!/bin/bash
 
-time bin/rails r scripts/import/csv/customers.rb
-time bin/rails r scripts/import/csv/purged_records.rb
-time bin/rails r scripts/import/csv/invoice_headers.rb
+RAILS_LOG_TO_STDOUT=1 bin/rails r scripts/import_cli.rb "$@"
+
