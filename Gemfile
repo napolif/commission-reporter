@@ -38,6 +38,7 @@ gem "slim"
 gem "wicked_pdf"
 gem "timeliness"
 gem "pry"
+gem "ruby-odbc", "~> 0.999991"
 
 # gem "better_errors"
 
