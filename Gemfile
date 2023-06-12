@@ -39,6 +39,7 @@ gem "wicked_pdf"
 gem "timeliness"
 gem "pry"
 gem "ruby-odbc", "~> 0.999991"
+gem "net-http"
 
 # gem "better_errors"
 
