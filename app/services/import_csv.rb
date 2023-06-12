@@ -94,7 +94,7 @@ class ImportCSV
         @chunk_size.times do
           row = @csv.shift
           unless row
-            @results << store_records(@chunk) # store the last few
+            @results << store_records_silent(@chunk) # store the last few
             log "done.\n"
             throw :done
           end
@@ -110,7 +110,7 @@ class ImportCSV
           @chunk << record
           idx += 1
         end
-        @results << store_records(@chunk)
+        @results << store_records_silent(@chunk)
       end
     end
   end
@@ -139,6 +139,12 @@ class ImportCSV
     log "#{target_class} start count: #{target_class.count}"
     yield
     log "#{target_class} end count: #{target_class.count}"
+  end
+
+  def store_records_silent(records)
+    ActiveRecord::Base.logger.silence do
+      return store_records(records)
+    end
   end
 
   def skip_row?(_row)
