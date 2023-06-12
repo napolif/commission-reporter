@@ -5,6 +5,7 @@
 #  id            :bigint           not null, primary key
 #  amount        :decimal(10, 2)
 #  cost          :decimal(10, 2)
+#  created_date  :date
 #  customer_code :string
 #  number        :string
 #  order_date    :date
@@ -15,6 +16,7 @@
 #
 # Indexes
 #
+#  index_invoice_headers_on_created_date   (created_date)
 #  index_invoice_headers_on_customer_code  (customer_code)
 #  index_invoice_headers_on_number         (number) UNIQUE
 #  index_invoice_headers_on_rep_code       (rep_code)
@@ -23,6 +25,7 @@
 # Information about a single invoice (either Alpha or Retalix), not counting line items.
 class InvoiceHeader < ApplicationRecord
   include Importable
+  include Dateable
 
   before_validation { customer_code&.upcase! }
   before_validation { rep_code&.upcase! }

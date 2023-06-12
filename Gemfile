@@ -39,7 +39,7 @@ gem "wicked_pdf"
 gem "timeliness"
 gem "pry"
 gem "ruby-odbc", "~> 0.999991"
-gem "net-http" # silences warning
+gem "whenever", "~> 1.0", require: false
 
 # gem "better_errors"
 

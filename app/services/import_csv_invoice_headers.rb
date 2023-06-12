@@ -10,6 +10,7 @@ class ImportCSVInvoiceHeaders < ImportCSV
             amount:        "HHHEXSN",
             cost:          "HHHEXRC",
             order_date:    "HHHDTET",
+            created_date:  "HHHCDTE",
             qty_ord:       "HHHQYOA"
 
   def skip_row?(row)
