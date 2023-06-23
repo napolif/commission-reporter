@@ -2,7 +2,7 @@
 # Use this file to easily define all of your cron jobs.
 # It's helpful, but not entirely necessary to understand cron before proceeding.
 
-set :output, "/commission_reporter/log/cron.log"
+set :output, "/home/deploy/commission-app/log/cron.log"
 set :environment, "production"
 
 # NOTE: local server time (which cron uses) is eastern
