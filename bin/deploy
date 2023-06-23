@@ -1,22 +1,27 @@
 #!/bin/bash
 
 set -e
+export RAILS_ENV=production
 
-cd /home/deploy/commission-app
+pushd /home/deploy/commission-app
+
 git reset --hard
 git checkout main
 git pull
 
 sudo systemctl stop puma.service
+sudo systemctl stop nginx
 
-export RAILS_ENV=production
 bundle config set without "development test"
 
 bundle install
 yarn install
 
-bundle exec rake db:migrate
-bundle exec rake assets:precompile
+bin/rake db:migrate
+bin/rake assets:precompile
+bin/whenever --update-crontab
 
 sudo systemctl start puma.service
-sudo service nginx reload
+sudo service start nginx
+
+popd
