@@ -22,6 +22,6 @@ bin/rake assets:precompile
 bin/whenever --update-crontab
 
 sudo systemctl start puma.service
-sudo service start nginx
+sudo systemctl start nginx
 
 popd
